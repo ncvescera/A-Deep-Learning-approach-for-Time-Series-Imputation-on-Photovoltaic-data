@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{csquotes}
@@ -12,7 +12,10 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage{geometry}
+\usepackage{amsthm}
 
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
 % \usepackage{biblatex}
 %\addbibresource{reference.bib}
 
@@ -22,19 +25,18 @@
 
 \tableofcontents
 
-\ \\
-
 % \listoffigures
 % \listoftables
 % \lstlistoflistings
 
-\include{chapters/abstract/main}
+\input{chapters/0_abstract/main}
 
 %% Empty Page
-\pagebreak
-\ \\
-\pagebreak
+% \pagebreak
+% \ \\
+% \pagebreak
 
+\include{chapters/1_introduction/main}
 
 %% CHAPTERS
 
