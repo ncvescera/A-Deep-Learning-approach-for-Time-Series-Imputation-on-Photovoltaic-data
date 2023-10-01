@@ -1,0 +1,129 @@
+\section{Dataset}
+
+Il dataset a nostra disposizione descrive un periodo di quasi due anni (dal
+02/02/2022 al 16/06/2023) ed è proveniente da un impianto fotovoltaico da 978 kW
+situato nella provincia di Bari. È composto da
+3 inverter, 27 quadri di campo, 1 contatore, 1 solarimetro, 2 protezioni
+interfaccia e 1 dispositivo \textquote{impianto} nel quale vengono immagazzinati
+i dati provenienti da Solargis. Il dataset è organizzato in file, uno per
+tipologia di dispositivo, che
+rappresentano la singola giornata e i dati sono aggregati a 5 minuti ed ogni
+riga riporta il riferimento al
+dispositivo di appartenenza (\verb|deviceName| e \verb|deviceId|).
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}[c]{l}
+            \hline
+            \textbf{File Name}                                  \\
+            \hline
+            \verb|2022_02_02_Rofilo_NP00003174_inverter.csv|    \\
+            \verb|2022_02_02_Rofilo_NP00003174_meteorology.csv| \\
+            \verb|2022_02_02_Rofilo_NP00003174_meter.csv|       \\
+            \verb|2022_02_02_Rofilo_NP00003174_other.csv|       \\
+            \verb|2022_02_02_Rofilo_NP00003174_plantDevice.csv| \\
+            \verb|2022_02_02_Rofilo_NP00003174_stringbox.csv|   \\
+            \verb|2022_02_03_Rofilo_NP00003174_inverter.csv|    \\
+            \verb|2022_02_03_Rofilo_NP00003174_meteorology.csv| \\
+            \verb|2022_02_03_Rofilo_NP00003174_meter.csv|       \\
+            \verb|2022_02_03_Rofilo_NP00003174_other.csv|       \\
+            \verb|2022_02_03_Rofilo_NP00003174_plantDevice.csv| \\
+            \verb|2022_02_03_Rofilo_NP00003174_stringbox.csv|   \\
+            $\ldots$                                            \\
+            \hline
+        \end{tabular}
+    \end{center}
+    \caption{Estratto di alcuni file del dataset.}\label{tab:datasunto}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}[c]{l|l|l|l|l|l}
+            \hline
+            \multicolumn{1}{c|}{\textbf{timestamp}}          &
+            \multicolumn{1}{c|}{\textbf{serial}}              &
+            \multicolumn{1}{c|}{\textbf{$\ldots$}}            &
+            \multicolumn{1}{c|}{\textbf{TotalEnergy(kWh)}}    &
+            \multicolumn{1}{c|}{\textbf{Frequency(Hz)}}       &
+            \multicolumn{1}{c}{\textbf{deviceid}}              \\
+            \hline
+            01/02/2023 00:05                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88                                            &
+            83204                                              \\
+
+            01/02/2023 00:10                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88 &
+            83204                                              \\
+
+            01/02/2023 00:15                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88 &
+            83204                                              \\
+
+            $\ldots$                                 &
+            $\ldots$                                            &
+            $\ldots$                                         &
+            $\ldots$                                        &
+            $\ldots$&
+            $\ldots$                                              \\
+            01/02/2023 12:00                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88 &
+            83204                                              \\
+            01/02/2023 12:05                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88 &
+            83204                                              \\
+            01/02/2023 12:10                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88 &
+            83204                                              \\
+
+            $\ldots$                                 &
+            $\ldots$                                            &
+            $\ldots$                                         &
+            $\ldots$                                        &
+            $\ldots$&
+            $\ldots$                                              \\
+            01/02/2023 23:45                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88 &
+            83204                                              \\
+            01/02/2023 23:50                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88 &
+            83204                                              \\
+            01/02/2023 23:55                                 &
+            INV01                                            &
+            $\ldots$                                         &
+            431324.36                                        &
+            49.88 &
+            83204                                              \\
+            \hline
+        \end{tabular}
+        \caption{Contenuto di un file che rappresenta un inverter}\label{tab:invsunto}
+    \end{center}
+\end{table}
+
+
+\subsection{Inverter}
+\subsection{Quadri di campo}
+\subsection{Solargis}
