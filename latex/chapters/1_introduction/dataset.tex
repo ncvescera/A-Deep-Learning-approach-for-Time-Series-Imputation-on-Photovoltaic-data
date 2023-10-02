@@ -12,118 +12,320 @@ riga riporta il riferimento al
 dispositivo di appartenenza (\verb|deviceName| e \verb|deviceId|).
 
 \begin{table}[H]
-    \begin{center}
-        \begin{tabular}[c]{l}
-            \hline
-            \textbf{File Name}                                  \\
-            \hline
-            \verb|2022_02_02_Rofilo_NP00003174_inverter.csv|    \\
-            \verb|2022_02_02_Rofilo_NP00003174_meteorology.csv| \\
-            \verb|2022_02_02_Rofilo_NP00003174_meter.csv|       \\
-            \verb|2022_02_02_Rofilo_NP00003174_other.csv|       \\
-            \verb|2022_02_02_Rofilo_NP00003174_plantDevice.csv| \\
-            \verb|2022_02_02_Rofilo_NP00003174_stringbox.csv|   \\
-            \verb|2022_02_03_Rofilo_NP00003174_inverter.csv|    \\
-            \verb|2022_02_03_Rofilo_NP00003174_meteorology.csv| \\
-            \verb|2022_02_03_Rofilo_NP00003174_meter.csv|       \\
-            \verb|2022_02_03_Rofilo_NP00003174_other.csv|       \\
-            \verb|2022_02_03_Rofilo_NP00003174_plantDevice.csv| \\
-            \verb|2022_02_03_Rofilo_NP00003174_stringbox.csv|   \\
-            $\ldots$                                            \\
-            \hline
-        \end{tabular}
-    \end{center}
-    \caption{Estratto di alcuni file del dataset.}\label{tab:datasunto}
+	\begin{center}
+		\begin{tabular}[c]{l}
+			\hline
+			\textbf{File Name}                                  \\
+			\hline
+			\verb|2022_02_02_Rofilo_NP00003174_inverter.csv|    \\
+			\verb|2022_02_02_Rofilo_NP00003174_meteorology.csv| \\
+			\verb|2022_02_02_Rofilo_NP00003174_meter.csv|       \\
+			\verb|2022_02_02_Rofilo_NP00003174_other.csv|       \\
+			\verb|2022_02_02_Rofilo_NP00003174_plantDevice.csv| \\
+			\verb|2022_02_02_Rofilo_NP00003174_stringbox.csv|   \\
+			\verb|2022_02_03_Rofilo_NP00003174_inverter.csv|    \\
+			\verb|2022_02_03_Rofilo_NP00003174_meteorology.csv| \\
+			\verb|2022_02_03_Rofilo_NP00003174_meter.csv|       \\
+			\verb|2022_02_03_Rofilo_NP00003174_other.csv|       \\
+			\verb|2022_02_03_Rofilo_NP00003174_plantDevice.csv| \\
+			\verb|2022_02_03_Rofilo_NP00003174_stringbox.csv|   \\
+			$\ldots$                                            \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Estratto di alcuni file del dataset.}\label{tab:datasunto}
 \end{table}
 
+%% TODO: migliorare dati
 \begin{table}[H]
-    \begin{center}
-        \begin{tabular}[c]{l|l|l|l|l|l}
-            \hline
-            \multicolumn{1}{c|}{\textbf{timestamp}}          &
-            \multicolumn{1}{c|}{\textbf{serial}}              &
-            \multicolumn{1}{c|}{\textbf{$\ldots$}}            &
-            \multicolumn{1}{c|}{\textbf{TotalEnergy(kWh)}}    &
-            \multicolumn{1}{c|}{\textbf{Frequency(Hz)}}       &
-            \multicolumn{1}{c}{\textbf{deviceid}}              \\
-            \hline
-            01/02/2023 00:05                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88                                            &
-            83204                                              \\
+	\begin{center}
+		\begin{tabular}[c]{l|l|l|l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{timestamp}}        &
+			\multicolumn{1}{c|}{\textbf{serial}}           &
+			\multicolumn{1}{c|}{\textbf{$\ldots$}}         &
+			\multicolumn{1}{c|}{\textbf{TotalEnergy(kWh)}} &
+			\multicolumn{1}{c|}{\textbf{Frequency(Hz)}}    &
+			\multicolumn{1}{c}{\textbf{deviceid}}            \\
+			\hline
+			01/02/2023 00:05                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
 
-            01/02/2023 00:10                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88 &
-            83204                                              \\
+			01/02/2023 00:10                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
 
-            01/02/2023 00:15                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88 &
-            83204                                              \\
+			01/02/2023 00:15                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
 
-            $\ldots$                                 &
-            $\ldots$                                            &
-            $\ldots$                                         &
-            $\ldots$                                        &
-            $\ldots$&
-            $\ldots$                                              \\
-            01/02/2023 12:00                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88 &
-            83204                                              \\
-            01/02/2023 12:05                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88 &
-            83204                                              \\
-            01/02/2023 12:10                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88 &
-            83204                                              \\
+			$\ldots$                                       &
+			$\ldots$                                       &
+			$\ldots$                                       &
+			$\ldots$                                       &
+			$\ldots$                                       &
+			$\ldots$                                         \\
+			01/02/2023 12:00                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
+			01/02/2023 12:05                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
+			01/02/2023 12:10                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
 
-            $\ldots$                                 &
-            $\ldots$                                            &
-            $\ldots$                                         &
-            $\ldots$                                        &
-            $\ldots$&
-            $\ldots$                                              \\
-            01/02/2023 23:45                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88 &
-            83204                                              \\
-            01/02/2023 23:50                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88 &
-            83204                                              \\
-            01/02/2023 23:55                                 &
-            INV01                                            &
-            $\ldots$                                         &
-            431324.36                                        &
-            49.88 &
-            83204                                              \\
-            \hline
-        \end{tabular}
-        \caption{Contenuto di un file che rappresenta un inverter}\label{tab:invsunto}
-    \end{center}
+			$\ldots$                                       &
+			$\ldots$                                       &
+			$\ldots$                                       &
+			$\ldots$                                       &
+			$\ldots$                                       &
+			$\ldots$                                         \\
+			01/02/2023 23:45                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
+			01/02/2023 23:50                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
+			01/02/2023 23:55                               &
+			INV01                                          &
+			$\ldots$                                       &
+			431324.36                                      &
+			49.88                                          &
+			83204                                            \\
+			\hline
+		\end{tabular}
+		\caption{Contenuto di un file che rappresenta un inverter}\label{tab:invsunto}
+	\end{center}
 \end{table}
-
 
 \subsection{Inverter}
-\subsection{Quadri di campo}
+Un inverter in un impianto fotovoltaico è un componente fondamentale che svolge
+una funzione vitale: converte l'energia elettrica prodotta dai pannelli solari,
+che è in corrente continua (DC), in energia elettrica utilizzabile in corrente
+alternata (AC). Questa conversione è cruciale perché la maggior parte delle
+apparecchiature elettriche domestiche e delle reti di distribuzione elettrica
+utilizzano corrente alternata per funzionare.
+Regolano la
+tensione e la frequenza della corrente alternata prodotta per garantire che
+siano conformi agli standard di rete elettrica locale. Questo è importante
+per evitare danni agli apparecchi elettrici e per garantire
+l'interoperabilità con la rete elettrica.
+Sono spesso dotati di
+tecnologie avanzate come il "Maximum Power Point Tracking" (MPPT) che
+ottimizzano costantemente la produzione di energia solare. Questo significa
+che l'inverter regola la tensione in ingresso dai pannelli solari per
+ottenere la massima potenza possibile in base alle condizioni di luce solare
+in tempo reale.
+Le feature che caratterizzano il nostro impianto sono riassunte dalla seguente
+tabella:
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{Name}}        &
+			\multicolumn{1}{c|}{\textbf{Unit Symbol}} &
+			\multicolumn{1}{c}{\textbf{Description}}                                         \\
+			\hline
+			CommunicationCode                         & -   & COMMUNICATION CODE             \\
+			Failure 3                                 & -   & Allarme Attivo                 \\
+			Failure 4                                 & -   & Allarme di isolamento          \\
+			CurrentDC                                 & A   & Corrente di campo fotovoltaico \\
+			CurrentAC                                 & A   & Corrente di Rete               \\
+			CurrentAC Phase1                          & A   & Corrente RMS di Linea Fase R   \\
+			CurrentAC Phase2                          & A   & Corrente RMS di Linea Fase S   \\
+			CurrentAC Phase3                          & A   & Corrente RMS di Linea Fase T   \\
+			TotalEnergy                               & kWh & Energia Attiva Erogata         \\
+			Frequency                                 & Hz  & Frequenza di Rete              \\
+			PowerAC Phase1                            & kW  & PA di Linea Fase R             \\
+			PowerAC Phase2                            & kW  & PA di Linea Fase S             \\
+			PowerAC Phase3                            & kW  & PA di Linea Fase T             \\
+			PowerAC                                   & kW  & PA Erogata                     \\
+			PowerDC                                   & kW  & Potenza di campo fotovoltaico  \\
+			Status                                    & -   & Stato Inverter                 \\
+			Failure                                   & -   & Stato PLL per Aggancio Rete    \\
+			Failure 2                                 & -   & Stato Rete 1                   \\
+			Failure 1                                 & -   & Stato Rete 2                   \\
+			InternalTemperature                       & C   & Temp. CPU                      \\
+			HeatSinkTemperature                       & C   & Temp. IGBT                     \\
+			VoltageDC                                 & V   & Tensione di campo fotovoltaico \\
+			VoltageAC                                 & V   & Tensione di Rete               \\
+			VoltageAC Phase1                          & V   & Tensione RMS di Linea Fase R   \\
+			VoltageAC Phase2                          & V   & Tensione RMS di Linea Fase S   \\
+			VoltageAC Phase3                          & V   & Tensione RMS di Linea Fase T   \\
+			\hline
+		\end{tabular}
+		\caption{Lista di tutte le features degli inverter, con descrizione.}\label{tab:invfeatures}
+	\end{center}
+\end{table}
+
+%%TODO: aggiungere grafico inverter TotalEnergy, Temperature, e altri ?
+
+\subsection{StringBox}
+Le stringbox in un impianto fotovoltaico sono contenitori elettrici progettati
+per ospitare e proteggere una serie (o stringa) di pannelli solari collegati in
+serie. Questi dispositivi svolgono diverse funzioni importanti:
+
+\begin{itemize}
+	\item Protezione: Le stringbox includono dispositivi di protezione come interruttori
+	      automatici o fusibili che prevengono cortocircuiti e sovraccarichi nel circuito
+	      fotovoltaico.
+	\item Connettori: Forniscono connettori sicuri per collegare i cavi provenienti dai
+	      pannelli solari alla stringa di cavi principale dell'impianto.
+	\item Monitoraggio: Alcune stringbox sono dotate di sistemi di monitoraggio che
+	      consentono di rilevare prestazioni o guasti dei pannelli solari all'interno
+	      della stringa.
+	\item Isolamento: Possono anche includere dispositivi di isolamento che consentono di
+	      interrompere l'alimentazione elettrica verso la stringa di pannelli solari per
+	      scopi di manutenzione o sicurezza.
+\end{itemize}
+
+\subsection{JunctionBox}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{Name}}        &
+			\multicolumn{1}{c|}{\textbf{Unit Symbol}} &
+			\multicolumn{1}{c}{\textbf{Description}}                                           \\
+			\hline
+			CommunicationCode                         & -              & COMMUNICATION CODE    \\
+			Failure                                   & -              & Allarme Stringhe      \\
+			CurrentString1                            & A              & Corrente I1           \\
+			CurrentString2                            & A              & Corrente I2           \\
+			CurrentString3                            & A              & Corrente I3           \\
+			CurrentString4                            & A              & Corrente I4           \\
+			CurrentString5                            & A              & Corrente I5           \\
+			CurrentString6                            & A              & Corrente I6           \\
+			CurrentString7                            & A              & Corrente I7           \\
+			AverageStringCurrent                      & A              & Corrente Media        \\
+			Irradiance                                & $\text{W/m}^2$ & Irraggiamento moduli  \\
+			Failure 1                                 & -              & Stringhe Aperte       \\
+			Failure 2                                 & -              & Stringhe Non Perform. \\
+			EnvironmentTemperature                    & C              & Temperatura ambiente  \\
+			ModuleTemperature                         & C              & Temperatura moduli    \\
+			InternalTemperature                       & C              & Temperatura Scheda    \\
+			\hline
+		\end{tabular}
+		\caption{Lista di tutte le features deglle JunctionBox, con descrizione.}\label{tab:junctionfeatures}
+	\end{center}
+\end{table}
+
+
 \subsection{Solargis}
+Solargis è una società specializzata nella fornitura di dati e servizi di
+previsione solare per impianti fotovoltaici e progetti legati all'energia
+solare. Il loro principale obiettivo è fornire informazioni precise e affidabili
+sull'irradiazione solare e sulle condizioni meteorologiche solari in qualsiasi
+parte del mondo. Questi dati sono fondamentali per la progettazione,
+l'ottimizzazione e la gestione degli impianti fotovoltaici.
+Solargis raccoglie e fornisce dati dettagliati
+sull'irradiazione solare globale, diretta e diffusa in ogni posizione
+geografica. Questi dati consentono agli sviluppatori di impianti fotovoltaici di
+valutare la quantità di energia solare disponibile in una determinata area, il
+che è fondamentale per dimensionare correttamente l'impianto e calcolare le
+previsioni di produzione.
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{timestamp}}         &
+			\multicolumn{1}{c|}{\textbf{$\ldots$}}          &
+			\multicolumn{1}{c|}{\textbf{SolargisGHI(W/m2)}} &
+			\multicolumn{1}{c}{\textbf{SolargisGTI(W/m2)}}                          \\
+			\hline
+			2022-08-01 11:40:00                             & $\ldots$ & 896 & 978  \\
+			2022-08-01 11:45:00                             & $\ldots$ & 896 & 978  \\
+			2022-08-01 11:50:00                             & $\ldots$ & 896 & 978  \\
+			2022-08-01 11:55:00                             & $\ldots$ & 914 & 1001 \\
+			2022-08-01 12:00:00                             & $\ldots$ & 914 & 1001 \\
+			2022-08-01 12:05:00                             & $\ldots$ & 914 & 1001 \\
+			2022-08-01 12:10:00                             & $\ldots$ & 928 & 1019 \\
+			2022-08-01 12:15:00                             & $\ldots$ & 928 & 1019 \\
+			2022-08-01 12:20:00                             & $\ldots$ & 928 & 1019 \\
+
+			\hline
+		\end{tabular}
+		\caption{Dati di Solargis a nostra disposizione, provenienti dal file
+			\texttt{2022\_08\_01\_Rofilo\_NP00003174\_plantDevice.csv}}\label{tab:solargis}
+	\end{center}
+\end{table}
+
+%%TODO: aggiungere grafico Solargis
+
+Solar radiation takes a long journey until it reaches Earth’s surface. So when
+modelling solar radiation, various interactions of extra-terrestrial solar
+radiation with the Earth’s atmosphere, surface and objects are to be taken into
+account. The component that is neither reflected nor scattered, and which
+directly
+reaches the surface, is called direct radiation; this is the component that
+produces shadows. The component that is scattered by the atmosphere, and which
+reaches the ground is called diffuse radiation. The small part of the radiation
+reflected by the surface and reaching an inclined plane is called the reflected
+radiation. These three components together create global radiation.
+
+In solar energy applications, the following parameters are commonly used in
+practice:
+
+\begin{itemize}
+	\item Direct Normal Irradiation/Irradiance (DNI) is the component that is
+	      involved in thermal (concentrating solar power, CSP) and photovoltaic
+	      concentration
+	      technology (concentrated photovoltaic, CPV).
+	\item  Global Horizontal
+	      Irradiation/Irradiance (GHI) is the sum of direct and diffuse radiation
+	      received on a horizontal plane. GHI is a reference radiation for the
+	      comparison of climatic zones; it is also essential parameter for
+	      calculation of radiation on a tilted plane.
+	\item Global Tilted Irradiation/Irradiance (GTI), or total
+	      radiation received on a surface with defined tilt and azimuth, fixed or
+	      sun-tracking. This is the sum of the scattered radiation, direct and
+	      reflected. It is a reference for photovoltaic (PV) applications, and
+	      can be occasionally affected by shadow.
+\end{itemize}
+
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{Name}}        &
+			\multicolumn{1}{c|}{\textbf{Unit Symbol}} &
+			\multicolumn{1}{c}{\textbf{Description}}                                                            \\
+			\hline
+			SolargisGHI                               & $\text{W/m}^2$ & Solargis Global Horizontal Irradiation \\
+			SolargisGTI                               & $\text{W/m}^2$ & Solargis Global Tilted Irradiation     \\
+			\hline
+		\end{tabular}
+		\caption{Lista di tutte le features di Solargis, con descrizione.}\label{tab:solargisfeatures}
+	\end{center}
+\end{table}
+
