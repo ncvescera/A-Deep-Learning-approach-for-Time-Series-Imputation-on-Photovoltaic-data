@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'latex/**'
+      - '.github/workflows/build.yml'
     #    branches:
       #  - main
   
