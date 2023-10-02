@@ -24,8 +24,9 @@ jobs:
           name: PDF
           path: latex/main.pdf
 
-  upload_pdf:
+  commit_pdf:
     runs-on: ubuntu-latest
+    needs: build_latex
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v3
