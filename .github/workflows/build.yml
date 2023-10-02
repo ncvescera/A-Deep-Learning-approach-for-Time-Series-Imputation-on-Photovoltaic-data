@@ -34,8 +34,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: PDF
-      - name: Rename and Relocate PDF
-        run: mv latex/main.pdf ./A-Deep-Learning-approach-for-Time-Series-Imputation-on-Photovoltaic-data.pdf
+      - name: Rename PDF
+        run: mv main.pdf A-Deep-Learning-approach-for-Time-Series-Imputation-on-Photovoltaic-data.pdf
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
         with:
