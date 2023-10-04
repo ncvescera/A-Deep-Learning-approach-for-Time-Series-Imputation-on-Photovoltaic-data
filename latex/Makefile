@@ -16,3 +16,11 @@ extract: $(ZIPARCHIVE)
 	unzip -o $(ZIPARCHIVE)
 	rm $(ZIPARCHIVE)
 
+clean:
+	find . -name "*.aux" | xargs rm
+	find . -name "*.log" | xargs rm
+	find . -name "*.toc" | xargs rm
+	find . -name "*.out" | xargs rm
+	find . -name "*.gnuplot" | xargs rm
+	find . -name "*.xml" | xargs rm
+
