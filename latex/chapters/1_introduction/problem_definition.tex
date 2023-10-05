@@ -1,31 +1,54 @@
 \section{Problem Definition}
-La seguente tesi si pone l'obbiettivo di risolvere il problema dell'imputazione
-di serie temporali di dati provenienti da impianti fotovoltaici. Nello
-specifico, accade molto spesso che gli strumenti di acquisizione dati di un
-impianto falliscano momentaneamente causando un periodo di tempo, più o meno
-lungo, dove la curva dell'energia totale prodotta è assente. Per cercare di
-colmare questo \textquote{buco} non basta un semplice calcolo dato che vanno tenuti in
-considerazione vari fattori come l'irraggiamento solare, temperatura ambientale,
-presenza di nuvole, pioggia, ecc.
-Formalmente possiamo definire il problema come segue:
+The following thesis aims to address the problem of imputing time series data from
+photovoltaic systems. Specifically, it often happens that data acquisition
+instruments in a system temporarily fail, causing a period of time, more or
+less extended, where the curve of the total energy produced is missing.
+To try to fill this \textquote{gap} a simple formula is not sufficient,
+as various factors such as solar irradiance, ambient temperature,
+presence of clouds, rainfall, etc., need to be taken into account.
+
+Formally, we can define the problem as follows:
 
 \begin{definition}
-    Siano dati:
-    \begin{enumerate}
-        \item  Un insieme di serie temporali di dati rappresentanti un impianto
-              fotovoltaico, $S = \{S_1, S_2, ..., S_N\}$, dove $N$ rappresenta
-              il numero di serie temporali disponibili;
-        \item Una serie temporale target $t \in S$ che rappresenta l'Energia
-              Totale Prodotta;
-        \item Ogni serie temporale $S_i$ è composta da coppie ordinate $(t_i, v_i)$,
-              dove $t_i$ è un timestamp che rappresenta il momento in cui è stato
-              registrato il valore $v_i$.
-    \end{enumerate}
-
-    L'obiettivo del problema dell'imputazione è stimare i valori mancanti o
-    danneggiati nella serie temporale $t$.
+    Given:
+    \begin{itemize}
+        \item A set of time series data representing a photovoltaic
+              system, $S = {S_1, S_2, ..., S_N}$, where $N$ represents
+              the number of available time series;
+        \item A target time series $t \in S$ that represent the Total Generated Energy;
+    \end{itemize}
+    Where each time series $S_i$ is composed of ordered pairs $(t_i, v_i)$, where $t_i$ is
+    a timestamp representing the moment when the value $v_i$ was recorded.\\
+    The objective of the imputation problem is to estimate the missing or damaged values
+    in the time series $t$.
 \end{definition}
+%La seguente tesi si pone l'obbiettivo di risolvere il problema dell'imputazione
+%di serie temporali di dati provenienti da impianti fotovoltaici. Nello
+%specifico, accade molto spesso che gli strumenti di acquisizione dati di un
+%impianto falliscano momentaneamente causando un periodo di tempo, più o meno
+%lungo, dove la curva dell'energia totale prodotta è assente. Per cercare di
+%colmare questo \textquote{buco} non basta un semplice calcolo dato che vanno tenuti in
+%considerazione vari fattori come l'irraggiamento solare, temperatura ambientale,
+%presenza di nuvole, pioggia, ecc.
+%Formalmente possiamo definire il problema come segue:
 
+%\begin{definition}
+%    Siano dati:
+%    \begin{enumerate}
+%        \item  Un insieme di serie temporali di dati rappresentanti un impianto
+%              fotovoltaico, $S = \{S_1, S_2, ..., S_N\}$, dove $N$ rappresenta
+%              il numero di serie temporali disponibili;
+%        \item Una serie temporale target $t \in S$ che rappresenta l'Energia
+%              Totale Prodotta;
+%        \item Ogni serie temporale $S_i$ è composta da coppie ordinate $(t_i, v_i)$,
+%              dove $t_i$ è un timestamp che rappresenta il momento in cui è stato
+%              registrato il valore $v_i$.
+%    \end{enumerate}
+%
+%    L'obiettivo del problema dell'imputazione è stimare i valori mancanti o
+%    danneggiati nella serie temporale $t$.
+%\end{definition}
+%
 % Data una serie temporale proveniente da un impianto fotovoltaico, definiamo come
 % \textit{buco} l'assenza di dati per un periodo limitato di tempo e la
 % \textit{target feature} come la feature che vogliamo predirre (nel caso
