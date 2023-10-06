@@ -73,12 +73,12 @@ it belongs to (\verb|deviceName| and \verb|deviceId|).
 			49.88                                          &
 			83204                                            \\
 
-%			01/02/2023 00:15                               &
-%			INV01                                          &
-%			$\ldots$                                       &
-%			431324.36                                      &
-%			49.88                                          &
-%			83204                                            \\
+			%			01/02/2023 00:15                               &
+			%			INV01                                          &
+			%			$\ldots$                                       &
+			%			431324.36                                      &
+			%			49.88                                          &
+			%			83204                                            \\
 
 			$\ldots$                                       &
 			$\ldots$                                       &
@@ -98,12 +98,12 @@ it belongs to (\verb|deviceName| and \verb|deviceId|).
 			431324.36                                      &
 			49.88                                          &
 			83204                                            \\
-%			01/02/2023 12:10                               &
-%			INV01                                          &
-%			$\ldots$                                       &
-%			431324.36                                      &
-%			49.88                                          &
-%			83204                                            \\
+			%			01/02/2023 12:10                               &
+			%			INV01                                          &
+			%			$\ldots$                                       &
+			%			431324.36                                      &
+			%			49.88                                          &
+			%			83204                                            \\
 
 			$\ldots$                                       &
 			$\ldots$                                       &
@@ -123,12 +123,12 @@ it belongs to (\verb|deviceName| and \verb|deviceId|).
 			431324.36                                      &
 			49.88                                          &
 			83204                                            \\
-%			01/02/2023 23:55                               &
-%			INV01                                          &
-%			$\ldots$                                       &
-%			431324.36                                      &
-%			49.88                                          &
-%			83204                                            \\
+			%			01/02/2023 23:55                               &
+			%			INV01                                          &
+			%			$\ldots$                                       &
+			%			431324.36                                      &
+			%			49.88                                          &
+			%			83204                                            \\
 			\hline
 		\end{tabular}
 		\caption{Some lines from an Inverter file.}\label{tab:invsunto}
@@ -137,9 +137,9 @@ it belongs to (\verb|deviceName| and \verb|deviceId|).
 
 \subsection{Inverter}
 Inside the files related to the inverters, we can find data such as
-the processor's operating temperature 
+the processor's operating temperature
 (\verb|InternalTemperature|), various Alternating and Direct currents
-produced (\verb|CurrentAC| and \verb|CurrentDC|), Delivered Power, 
+produced (\verb|CurrentAC| and \verb|CurrentDC|), Delivered Power,
 total energy produced by the individual inverter and other status
 and control bits that indicate various stages of the inverter's
 life (boot, reset, ready, etc.).
@@ -178,31 +178,31 @@ Down below a table with all the available features:
 			\hline
 			\multicolumn{1}{c|}{\textbf{Name}}        &
 			\multicolumn{1}{c|}{\textbf{Unit Symbol}} &
-			\multicolumn{1}{c}{\textbf{Description}}                                         \\
+			\multicolumn{1}{c}{\textbf{Description}}                                     \\
 			\hline
-			CommunicationCode                         & -   & Communication Code             \\
-			Failure 3                                 & -   & Active Alarm                 \\
-			Failure 4                                 & -   & Isolation Alarm          \\
+			CommunicationCode                         & -   & Communication Code         \\
+			Failure 3                                 & -   & Active Alarm               \\
+			Failure 4                                 & -   & Isolation Alarm            \\
 			CurrentDC                                 & A   & Photovoltaic field Current \\
-			CurrentAC                                 & A   & Network Current               \\
+			CurrentAC                                 & A   & Network Current            \\
 			CurrentAC Phase1                          & A   & Line RMS Current Phase R   \\
 			CurrentAC Phase2                          & A   & Line RMS Current Phase S   \\
 			CurrentAC Phase3                          & A   & Line RMS Current Phase T   \\
-			TotalEnergy                               & kWh & Active Energy Delivered         \\
-			Frequency                                 & Hz  & Network Frequency              \\
-			PowerAC Phase1                            & kW  & Line PA Phase R             \\
-			PowerAC Phase2                            & kW  & Line PA Phase S             \\
-			PowerAC Phase3                            & kW  & Line PA Phase T             \\
-			PowerAC                                   & kW  & Delivered PA                   \\
-			PowerDC                                   & kW  & Photovoltaic field Power  \\
-			Status                                    & -   & Inverter State                 \\
-			Failure                                   & -   & Network docking PLL State     \\
-			Failure 2                                 & -   & Network State 1                   \\
-			Failure 1                                 & -   & Network State  2                   \\
-			InternalTemperature                       & C   & CPU Temp.                      \\
-			HeatSinkTemperature                       & C   & IGBT Temp.                     \\
-			VoltageDC                                 & V   & Photovoltaic field Voltage\\
-			VoltageAC                                 & V   & Network Voltage               \\
+			TotalEnergy                               & kWh & Active Energy Delivered    \\
+			Frequency                                 & Hz  & Network Frequency          \\
+			PowerAC Phase1                            & kW  & Line PA Phase R            \\
+			PowerAC Phase2                            & kW  & Line PA Phase S            \\
+			PowerAC Phase3                            & kW  & Line PA Phase T            \\
+			PowerAC                                   & kW  & Delivered PA               \\
+			PowerDC                                   & kW  & Photovoltaic field Power   \\
+			Status                                    & -   & Inverter State             \\
+			Failure                                   & -   & Network docking PLL State  \\
+			Failure 2                                 & -   & Network State 1            \\
+			Failure 1                                 & -   & Network State  2           \\
+			InternalTemperature                       & C   & CPU Temp.                  \\
+			HeatSinkTemperature                       & C   & IGBT Temp.                 \\
+			VoltageDC                                 & V   & Photovoltaic field Voltage \\
+			VoltageAC                                 & V   & Network Voltage            \\
 			VoltageAC Phase1                          & V   & Line RMS Voltage Phase R   \\
 			VoltageAC Phase2                          & V   & Line RMS Voltage Phase S   \\
 			VoltageAC Phase3                          & V   & Line RMS Voltage Phase T   \\
@@ -249,24 +249,24 @@ in general, each Junction Box manages 7 strings), some temperatures (such as
 			\hline
 			\multicolumn{1}{c|}{\textbf{Name}}        &
 			\multicolumn{1}{c|}{\textbf{Unit Symbol}} &
-			\multicolumn{1}{c}{\textbf{Description}}                                           \\
+			\multicolumn{1}{c}{\textbf{Description}}                                             \\
 			\hline
-			CommunicationCode                         & -              & Communication Code \\
-			Failure                                   & -              & Strings Alarm      \\
-			CurrentString1                            & A              & Current I1           \\
-			CurrentString2                            & A              & Current I2           \\
-			CurrentString3                            & A              & Current I3           \\
-			CurrentString4                            & A              & Current  I4           \\
-			CurrentString5                            & A              & Current I5           \\
-			CurrentString6                            & A              & Current I6           \\
-			CurrentString7                            & A              & Current I7           \\
-			AverageStringCurrent                      & A              & Average Current        \\
-			Irradiance                                & $\text{W/m}^2$ & Modules Irradiation  \\
-			Failure 1                                 & -              & Open Strings       \\
-			Failure 2                                 & -              & Not Perform. Strings \\
-			EnvironmentTemperature                    & C              & Environment Temperature  \\
-			ModuleTemperature                         & C              & Modules Temperature    \\
-			InternalTemperature                       & C              & Board Temperature    \\
+			CommunicationCode                         & -              & Communication Code      \\
+			Failure                                   & -              & Strings Alarm           \\
+			CurrentString1                            & A              & Current I1              \\
+			CurrentString2                            & A              & Current I2              \\
+			CurrentString3                            & A              & Current I3              \\
+			CurrentString4                            & A              & Current  I4             \\
+			CurrentString5                            & A              & Current I5              \\
+			CurrentString6                            & A              & Current I6              \\
+			CurrentString7                            & A              & Current I7              \\
+			AverageStringCurrent                      & A              & Average Current         \\
+			Irradiance                                & $\text{W/m}^2$ & Modules Irradiation     \\
+			Failure 1                                 & -              & Open Strings            \\
+			Failure 2                                 & -              & Not Perform. Strings    \\
+			EnvironmentTemperature                    & C              & Environment Temperature \\
+			ModuleTemperature                         & C              & Modules Temperature     \\
+			InternalTemperature                       & C              & Board Temperature       \\
 			\hline
 		\end{tabular}
 		\caption{All available features form a \texttt{stringbox} file.}\label{tab:junctionfeatures}
@@ -373,7 +373,106 @@ practice:
 \end{table}
 
 \subsection{Meteorology}
+In the Meteo files, we can find some environment
+temperature and solar irradiance data. Is important to mention that these
+features are not as powerful as
+weather forecast or Solargis data for the Imputation task.
+
+%Nei file meteo possiamo trovare alcuni dati sulla temperatura
+%ambientale e il valore dell'irraggiamento solare. Non risultano
+%dati completi come potrebbero essere quelli provenienti da
+%previsioni meteo.
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{Name}}        &
+			\multicolumn{1}{c|}{\textbf{Unit Symbol}} &
+			\multicolumn{1}{c}{\textbf{Description}}                                        \\
+			\hline
+			COMMUNICATION\_CODE SOL                   & -              & Communication Code \\
+			Irradiance SOL                            & $\text{W/m}^2$ & Irradiance         \\
+			Module Temperature HEX SOL                & -              & All Registers      \\
+			Module Temperature SOL                    & C              & Module Temperature \\
+			\hline
+		\end{tabular}
+		\caption{All available features from a \texttt{meteo} file.}\label{tab:solargisfeatures}
+	\end{center}
+\end{table}
 
 \subsection{Meter}
+The Meter files contain information about the current injected
+into and drawn from the network. It is from here that we get
+the values of our target feature \verb|Cont_TotalEnergy(kWh)|.
+
+%I file meter contengono informazioni sulla corrente immessa e prelevata dalla rete.
+%\`{E} da qui che andremo a leggere i valori della nostra target feature \verb|Cont_TotalEnergy(kWh)|.
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{Name}}        &
+			\multicolumn{1}{c|}{\textbf{Unit Symbol}} &
+			\multicolumn{1}{c}{\textbf{Description}}                                \\
+			\hline
+			COMMUNICATION\_CODE Cont                  & -   & Communication Code    \\
+			Status Cont                               & -   & Status                \\
+			Totale Energia Immessa Cont               & kWh & Total Energy          \\
+			Totale Energia Prelevata Cont             & kWh & Total Energy Imported \\
+			\hline
+		\end{tabular}
+		\caption{All available features from a \texttt{meter} file.}\label{tab:meterfeatures}
+	\end{center}
+\end{table}
 
 \subsection{Other}
+In the Other type files, we can find the remaining,
+less relevant, features
+that describe the behavior and functioning of the leftover elements
+that make up the photovoltaic plant system.
+
+%Nei file di tipo other possiamo trovare altre feature meno rilevanti che vanno
+%a descrivere il comportamento e il funzionmento degli altri elementi che compongono
+%l'impiato solare.
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{Name}}        &
+			\multicolumn{1}{c|}{\textbf{Unit Symbol}} &
+			\multicolumn{1}{c}{\textbf{Description}}                            \\
+			\hline
+			COMMUNICATION\_CODE NV10P                 & -  & Communication Code \\
+			CB-State NV10P                            & -  & CB State           \\
+			Frequency NV10P                           & Hz & Frequency          \\
+			IN1 NV10P                                 & -  & Digital IN 1       \\
+			IN2 NV10P                                 & -  & Digital IN 2       \\
+			Last Trip Cause NV10P                     & -  & Last Trip Cause    \\
+			NV10P - Trip BF                           & -  & Digital IN 25      \\
+			NV10P - Trip f<                           & -  & Digital IN 24      \\
+			NV10P - Trip f>                           & -  & Digital IN 23      \\
+			NV10P - Trip U<                           & -  & Digital IN 21      \\
+			NV10P - Trip U>                           & -  & Digital IN 22      \\
+			UE NV10P                                  & V  & UE                 \\
+			UL1 NV10P                                 & V  & Voltage AC Phase 1 \\
+			UL2 NV10P                                 & V  & Voltage AC Phase 2 \\
+			UL3 NV10P                                 & V  & Voltage AC Phase 3 \\
+			Un NV10P                                  & V  & Un                 \\
+			Unp NV10P                                 & V  & Unp                \\
+			COMMUNICATION\_CODE NA16                  & -  & Communication Code \\
+			CB-State NA16                             & -  & CB State           \\
+			IE NA16                                   & A  & IE                 \\
+			IL1 NA16                                  & A  & Current AC Phase 1 \\
+			IL2 NA16                                  & A  & Current AC Phase 2 \\
+			IL3 NA16                                  & A  & Current AC Phase 3 \\
+			IN1 NA16                                  & -  & Digital IN 1       \\
+			IN2 NA16                                  & -  & Digital IN 2       \\
+			NA16 - Protection Trip                    & -  & Digital IN 25      \\
+			\hline
+		\end{tabular}
+		\caption{All available features from an \texttt{other} file.}\label{tab:otherfeatures}
+	\end{center}
+\end{table}

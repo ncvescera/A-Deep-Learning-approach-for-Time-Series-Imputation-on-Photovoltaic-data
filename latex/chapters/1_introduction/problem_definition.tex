@@ -10,17 +10,17 @@ presence of clouds, rainfall, etc., need to be taken into account.
 Formally, we can define the problem as follows:
 
 \begin{definition}
-    Given:
-    \begin{itemize}
-        \item A set of time series data representing a photovoltaic
-              system, $S = {S_1, S_2, ..., S_N}$, where $N$ represents
-              the number of available time series;
-        \item A target time series $t \in S$ that represent the Total Generated Energy;
-    \end{itemize}
-    Where each time series $S_i$ is composed of ordered pairs $(t_i, v_i)$, where $t_i$ is
-    a timestamp representing the moment when the value $v_i$ was recorded.\\
-    The objective of the imputation problem is to estimate the missing or damaged values
-    in the time series $t$.
+	Given:
+	\begin{itemize}
+		\item A set of time series data representing a photovoltaic
+		      system, $S = {S_1, S_2, ..., S_N}$, where $N$ represents
+		      the number of available time series;
+		\item A target time series $t \in S$ that represent the Total Generated Energy;
+	\end{itemize}
+	Where each time series $S_i$ is composed of ordered pairs $(t_i, v_i)$, where $t_i$ is
+	a timestamp representing the moment when the value $v_i$ was recorded.\\
+	The objective of the imputation problem is to estimate the missing or damaged values
+	in the time series $t$.
 \end{definition}
 %La seguente tesi si pone l'obbiettivo di risolvere il problema dell'imputazione
 %di serie temporali di dati provenienti da impianti fotovoltaici. Nello
