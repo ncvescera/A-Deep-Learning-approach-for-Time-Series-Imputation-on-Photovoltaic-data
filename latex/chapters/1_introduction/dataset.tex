@@ -212,7 +212,37 @@ Down below a table with all the available features:
 	\end{center}
 \end{table}
 
-%%TODO: aggiungere grafico inverter TotalEnergy, Temperature, e altri ?
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth, keepaspectratio]{chapters/1_introduction/imgs/inv2totenergy.png}
+		\caption{Inverter 2 Total Energy plot.}
+		\label{fig:inv02totenergy}
+	\end{subfigure}
+	\hspace{0.5cm}
+	\begin{subfigure}[t]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth, keepaspectratio]{chapters/1_introduction/imgs/inv2temperature.png}
+		\caption{Inverter 2 CPU Temperature plot.}
+		\label{fig:inv02temp}
+	\end{subfigure}\\
+
+	\begin{subfigure}[t]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth, keepaspectratio]{chapters/1_introduction/imgs/inv2voltage.png}
+		\caption{Inverter 2 Voltage AC plot.}
+		\label{fig:inv02volt}
+	\end{subfigure}
+	\hspace{0.5cm}
+	\begin{subfigure}[t]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth, keepaspectratio]{chapters/1_introduction/imgs/inv2freq.png}
+		\caption{Inverter 2 Frequency plot.}
+		\label{fig:inv02freq}
+	\end{subfigure}
+\end{figure}
+
 
 %\subsection{StringBox}
 %Le stringbox in un impianto fotovoltaico sono contenitori elettrici progettati
@@ -322,7 +352,13 @@ system and calculating production forecasts.
 	\end{center}
 \end{table}
 
-%%TODO: aggiungere grafico Solargis
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.7\linewidth]{chapters/1_introduction/imgs/solargis.png}
+	\caption{Solargis GHI \& GTI plot.}
+	\label{fig:solargisplot}
+\end{figure}
+
 
 Solar radiation takes a long journey until it reaches Earth’s surface. So when
 modelling solar radiation, various interactions of extra-terrestrial solar
@@ -408,6 +444,13 @@ the values of our target feature \verb|Cont_TotalEnergy(kWh)|.
 
 %I file meter contengono informazioni sulla corrente immessa e prelevata dalla rete.
 %\`{E} da qui che andremo a leggere i valori della nostra target feature \verb|Cont_TotalEnergy(kWh)|.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{chapters/1_introduction/imgs/totalenergy.png}
+	\caption{Total Energy plot, our target feature.}
+	\label{fig:totenergyplot}
+\end{figure}
 
 \begin{table}[H]
 	\begin{center}
