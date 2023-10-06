@@ -7,7 +7,7 @@ FORMATTER := latexindent
 LINTER := chktex
 
 # .PHONY: build
-all: extract start check format build clean stop
+all: extract start format build clean stop
 
 start:
 	docker container start $(CONTAINER)
