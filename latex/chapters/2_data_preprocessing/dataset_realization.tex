@@ -1,0 +1,87 @@
+\section{Dataset Realization}
+Per la realizzazione del nostro dataset abbiamo ideato
+una procedura che ci ha permesso di ottenere un unico file,
+in formato csv, dove, per ogni time stamp abbiamo tutti i dati
+di tutto l'impianto in quell'esatto istante. Di seguito
+la struttira finale del dataset e l'algoritmo per generarlo.
+
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{timestamp}}              &
+			\multicolumn{1}{c|}{\textbf{DEV.NAME$_1$\_FEAT$_1$}} &
+			\multicolumn{1}{c|}{$\ldots$}                        &
+			\multicolumn{1}{c}{\textbf{DEV.NAME$_n$\_FEAT$_n$}}                                   \\
+			\hline
+
+			01/10/2022 10:00                                     & $\ldots$ & $\ldots$ & $\ldots$ \\
+			01/10/2022 10:05                                     & $\ldots$ & $\ldots$ & $\ldots$ \\
+			01/10/2022 10:10                                     & $\ldots$ & $\ldots$ & $\ldots$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Final dataset feature structure.}\label{tab:datasetform}
+\end{table}
+
+\begin{algorithm}[H]
+	\caption{Dataset aggragation algorithm}\label{alg:dataset}
+	\begin{algorithmic}
+		\Require data\_folder
+		\Ensure \texttt{data\_folder} exists
+		\State dev\_types $\gets$ find all file types inside \texttt{data\_folder} (e.g. meter, inverter, $\ldots$)
+		\State dev\_content $\gets$ a dictionary with \texttt{dev\_types} types as $keys$ and empty $values$
+
+		\For {\textbf{each} key \textbf{in} dev\_conent.keys}
+		\State files $\gets$ find all file matching type \texttt{key} inside \texttt{data\_folder}
+		\State sort \texttt{files} by date (asc.)
+		\State temp\_type\_aggregate $\gets$ and empty csv table
+		\For {\textbf{each} file \textbf{in} files}
+		\State append all \texttt{file} lines to \texttt{temp\_type\_aggregate} table
+		\EndFor
+		\State dev\_content[key] $\gets$ temp\_type\_aggregate
+		\EndFor
+		\State\Comment{At this time we have a dictionary mapping a file type with all its available data}
+		\State
+		\State dataset $\gets$ an empty csv table
+		\For {\textbf{each} type, data \textbf{in} dev\_content} \Comment{\texttt{type} is $key$, \texttt{data} is $value$}
+		\State rename all \texttt{data} $columns$ to \texttt{data.deviceID}\_\texttt{$column$.name}
+		\State except for 'timestamp' $column$
+		\State dataset $\gets$ merge \texttt{dataset} and \texttt{data} tables using 'timestamp' column
+		\EndFor
+		\State save \texttt{dataset} table to file
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l|l}
+			\hline
+			\multicolumn{1}{c|}{\textbf{timestamp}}      &
+			\multicolumn{1}{c|}{\textbf{INV01\_PowerAC}} &
+			\multicolumn{1}{c|}{\textbf{$\ldots$}}       &
+			\multicolumn{1}{c}{\textbf{Cont\_TotalEnergy}}                                 \\
+			\hline
+			2022-02-02 00:05:00                          & NaN      & $\ldots$ & NaN       \\
+			2022-02-02 00:10:00                          & NaN      & $\ldots$ & NaN       \\
+			$\ldots$                                     & $\ldots$ & $\ldots$ & $\ldots$  \\
+			2022-06-22 10:20:00                          & 175.66   & $\ldots$ & 8900941.5 \\
+			2022-06-22 10:25:00                          & 178.29   & $\ldots$ & 8900995.5 \\
+			2022-06-22 10:30:00                          & 180.82   & $\ldots$ & 8901036.0 \\
+			$\ldots$                                     & $\ldots$ & $\ldots$ & $\ldots$  \\
+			2023-06-16 18:00:00                          & NaN      & $\ldots$ & NaN       \\
+			2023-06-16 18:05:00                          & NaN      & $\ldots$ & NaN       \\
+		\end{tabular}
+	\end{center}
+	\caption{Some data from dataset after running Algorithm \ref{alg:dataset}}\label{tab:datasetfinalvalues}
+\end{table}
+
+\subsection{Timestamp cyclic encoding}
+
+%% codice per encoding ciclico
+%df["minute_sin"] = np.sin(2 * np.pi * tmp_datetime_serie.dt.minute / 60.0)
+%    df["minute_cos"] = np.cos(2 * np.pi * tmp_datetime_serie.dt.minute / 60.0)
+
+\subsection{Dealing with Holes}
+\subsection{Historical weather}
