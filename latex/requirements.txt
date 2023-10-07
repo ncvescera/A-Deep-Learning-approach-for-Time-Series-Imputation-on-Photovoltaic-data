@@ -4,3 +4,5 @@ nextpage
 graphbox
 biblatex
 csquotes
+algorithms
+algorithmicx
