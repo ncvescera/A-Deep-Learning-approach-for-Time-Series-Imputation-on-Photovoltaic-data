@@ -15,6 +15,9 @@ start:
 stop:
 	docker container stop $(CONTAINER)
 
+install:
+	docker exec -it $(CONTAINER) tlmgr install `cat requirements.txt` && texhash
+
 build: start
 	docker exec -it $(CONTAINER) $(LATEXCOMPILER) -pdf -shell-escape -synctex=1 --enable-write18 -interaction=nonstopmode $(DOCUMENT)
 	# $(MAKE) stop
@@ -62,4 +65,11 @@ help:
 	@echo "		- clean: Removes all temporary files."
 	@echo "		         Can set the following variables:"
 	@echo "		            - CONTAINER: docker container name to be used."
-	@echo "		- check:"
+	@echo "		- check: Starts the developer container first, then runs the LaTex Linter."
+	@echo "		         Can set the following variables:"
+	@echo "		            - CONTAINER: docker container name to be used."
+	@echo "		            - LINTER: LaTex linter. 'chktex' is the default one."
+	@echo "		            - DOCUMENT: main document file."
+	@echo "		- install: Install LaTex packages found inside 'requirements.txt' file"
+	@echo "		- all: Runs extract, start, format, build and clean targets (in this order)."
+	@echo "		       Can be invoked just with 'make'."
