@@ -1,9 +1,19 @@
-Avere il dataset suddiviso in diversi file, uno per giorno e per
-dispositivo (vedi Sezione \ref{sec:dataset}), con la presneza di
-alcuni periodi, che vanno da pochi minuti a diversi gionri, di assenza dati
-(dovuti probabilmente ad un fallimento dello strumento di raccolta dati)
-fa sì che si verifichino molti problemi durante la fase di training
-e la rende quasi impossibile. In questo capitolo vedremo come abbiamo
-risolto questi problemi, optando per una struttura tabellare monolitica
-del dataset e quali approccia abbiamo utilizzato per la gestione
-dei dati mancanti.
+Having the dataset divided into different files, one for each day
+and device (see Section \ref{sec:dataset}), with the presence of
+some periods, ranging from a few minutes to several days,
+of missing data (likely due to a data collection tool failure),
+results in many issues during the training phase and makes it
+almost impossible. In this chapter, we will see how we have
+addressed these problems by opting for a monolithic tabular
+structure for the dataset and discussing the approaches we have
+used for handling missing data.
+
+%Avere il dataset suddiviso in diversi file, uno per giorno e per
+%dispositivo (vedi Sezione \ref{sec:dataset}), con la presneza di
+%alcuni periodi, che vanno da pochi minuti a diversi gionri, di assenza dati
+%(dovuti probabilmente ad un fallimento dello strumento di raccolta dati)
+%fa sì che si verifichino molti problemi durante la fase di training
+%e la rende quasi impossibile. In questo capitolo vedremo come abbiamo
+%risolto questi problemi, optando per una struttura tabellare monolitica 
+%del dataset e quali approccia abbiamo utilizzato per la gestione
+%dei dati mancanti.
