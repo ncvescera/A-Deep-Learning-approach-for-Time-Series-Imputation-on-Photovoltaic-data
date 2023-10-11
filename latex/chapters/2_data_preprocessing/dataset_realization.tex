@@ -32,7 +32,7 @@ and the algorithm for generating it.
 \end{table}
 
 \begin{algorithm}[H]
-	\caption{Dataset aggragation algorithm}\label{alg:dataset}
+	\caption{Dataset aggregation algorithm}\label{alg:dataset}
 	\begin{algorithmic}
 		\Require data\_folder
 		\Ensure \texttt{data\_folder} exists
@@ -54,7 +54,7 @@ and the algorithm for generating it.
 		\For {\textbf{each} type, data \textbf{in} dev\_content} \Comment{\texttt{type} is $key$, \texttt{data} is $value$}
 		\State rename all \texttt{data} $columns$ to \texttt{data.deviceID}\_\texttt{$column$.name}
 		\State except for 'timestamp' $column$
-		\State dataset $\gets$ merge \texttt{dataset} and \texttt{data} tables using 'timestamp' column
+		\State dataset $\gets$ \texttt{dataset} and \texttt{data} tables using 'timestamp' column
 		\EndFor
 		\State save \texttt{dataset} table to file
 	\end{algorithmic}
@@ -387,4 +387,88 @@ just been described.
 	\end{table}
 \end{minipage}
 
+\subsection{Target Feature}
+For the deep learning models that we will introduce later,
+it could be very difficult to learn to predict the Total Missing Energy,
+as it is a curve that grows constantly, potentially to infinity.
+These models need to have features that vary within a limited range of
+values. To achieve this, we transformed the variable
+\verb|Cont_TotalEnergy(kWh)| from cumulative to instantaneous values of
+produced energy, thereby limiting its values within a finite range.
+This new feature was added to the dataset with the name \verb|target|.
+
+%Per i modelli di deep learning che presenteremo successivamente, potrebbe
+%risultare molto difficile imparare a prevedere l'Energia Totale mancante
+%in quanto è una curva che cresce costantemente, potenzialmente all'infinito.
+%Questi modelli hanno bisogno di avere features che variano in un range 
+%limitato di valori. Per ottenere ciò abbiamo trasformato la variabile
+%\verb|Cont_TotalEnergy(kWh)| da cumulata a valori istantanei di energia prodotta, andando così a limitare i suoi valori in un range finito. 
+%Questa nuova feature è stata aggiunta al dataset con il nome di \verb|target|.
+
+\begin{algorithm}[H]
+	\caption{Cumulative Energy to Instant Energy Algorithm.}\label{alg:cumtoinstant}
+	\begin{algorithmic}
+		\Require dataset table
+		\Ensure \texttt{dataset} \textbf{is not} empty
+
+		\State target $\gets$ empty column
+		\For{\textbf{each} (prev\_val, val) \textbf{in} dataset["Cont\_TotalEnergy(kWh)"]}
+		\State diff $\gets$ val - prev\_val
+		\State \textbf{append} \texttt{diff} value to \texttt{target} column
+		\EndFor
+		\State /* Now we have target column with first value missing */
+		\State /* We can add a 0 as fist value because its night time */
+		\State \textbf{append} (in head) 0 to \texttt{target} column
+		\State \textbf{merge} \texttt{target} and \texttt{dataset}
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/targetfeature.png}
+	\caption{Instant Energy (\texttt{target} feature) 2 days plot.}
+	\label{fig:targetfeature}
+\end{figure}
+
+\subsection{Re-Sampling}
+Finally, after all the operations described above, we have a dataset
+with samples taken at 5-minute intervals. As we can see from
+Figure \ref{fig:targetfeature}, this data appears to be quite noisy,
+which could pose
+challenges during the training phase. Moreover, most of the reports
+provided by photovoltaic plant operators are at a 15-minute frequency.
+To prevent potential issues and align with this standard, we have
+written and applied a re-sampling procedure.
+
+%Infine, dopo tutte le operazioni descritte in precedenza, ci troviamo con
+%un dataset che ha campioni presi in intervalli di 5 minuti. Come possiamo
+%vedere anche dalla Figura \ref{fig:targetfeature} questi dati risultano
+%essere abbastanza rumorosi, ciò potrebbe portare a delle difficoltà 
+%nella fase di addestramento. In più la maggiorpare dei report che vengono
+%forniti dai gestori di impianti fotovoltaici sono ad una frequenza di 15 minuti. Per prevenire eventuali problemi ed adeguarci a questo standard
+%abbiamo scritto ed applicato una procedura di Re-Sampling.
+%
+
+\begin{algorithm}[H]
+	\caption{15 minute Re-Sampling Algorithm.}\label{alg:resampling}
+	\begin{algorithmic}
+		\Require dataset table
+		\Ensure \texttt{dataset} \textbf{is not} empty
+
+		\For{\textbf{each} feature \textbf{in} dataset.features}
+		\If{feature \textbf{is} Cumulative}
+		\State feature $\gets$ sample \texttt{feature} column using 15 min. sampling rate
+		\Else
+		\State feature $\gets$ aggregate values every 15 minutes and sum them to form a single value
+		\EndIf
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/targetfeature15min.png}
+	\caption{Instant Energy feature on 15 minute re-sampled dataset.}
+	\label{fig:15min}
+\end{figure}
 
