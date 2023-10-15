@@ -20,14 +20,13 @@ the \textit{Correlation Matrix} and the \textit{Power Predictive Score}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/correlationmatrix.png}
-	\caption{Correlation Matrix} %% TODO: sistematre
-	\label{fig:corrmatrix}
+	\caption{Correlation Matrix}\label{fig:corrmatrix}
 \end{figure}
 As we can infer, even with a naive approach, all the information from the various
 String Boxes and Junction Boxes is perfectly summarized by the data provided by the
-various Inverters (see Section \ref{sec:pv}); a similar reasoning can be applied to the features
+various Inverters (see Section~\ref{sec:pv}); a similar reasoning can be applied to the features
 coming from \textit{Other} (those starting with \verb|other_|), as they do not contribute any
-useful information for energy estimation. Consulting the Correlation Matrix (Figure \ref{fig:corrmatrix}), we can
+useful information for energy estimation. Consulting the Correlation Matrix (Figure~\ref{fig:corrmatrix}), we can
 see that this naive reasoning is confirmed because the features of the junction boxes
 have a high level of correlation with those of the Inverters.
 In general, we want to retain features that are minimally correlated with each other
@@ -72,19 +71,17 @@ to 1 (perfect predictive power).
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.9\textwidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/ppcontottenergy.png}
-	\caption{All features PPS using \texttt{Cont\_TotalEnergy(kWh)} as target.}
-	\label{fig:ppsTotEnergy}
+	\caption{All features PPS using \texttt{Cont\_TotalEnergy(kWh)} as target.}\label{fig:ppsTotEnergy}
 \end{figure}
 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.9\textwidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/pptarget.png}
-	\caption{All feature PPS using Instant Energy (\texttt{target}) as Target.}
-	\label{fig:ppstarget}
+	\caption{All feature PPS using Instant Energy (\texttt{target}) as Target.}\label{fig:ppstarget}
 \end{figure}
 
-As we can see in Figures \ref{fig:ppsTotEnergy} and \ref{fig:ppstarget}, the features
+As we can see in Figures~\ref{fig:ppsTotEnergy} and \ref{fig:ppstarget}, the features
 that perform better in predicting the instantaneous energy production trend are
 indeed those of the Inverters, confirming the reasoning described earlier.
 Finally, by combining the results obtained from the Correlation Matrix and the

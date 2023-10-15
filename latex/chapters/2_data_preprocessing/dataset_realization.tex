@@ -80,7 +80,7 @@ and the algorithm for generating it.
 			2023-06-16 18:05:00                          & NaN      & $\ldots$ & NaN       \\
 		\end{tabular}
 	\end{center}
-	\caption{Some data from dataset after running Algorithm \ref{alg:dataset}}\label{tab:datasetfinalvalues}
+	\caption{Some data from dataset after running Algorithm~\ref{alg:dataset}}\label{tab:datasetfinalvalues}
 \end{table}
 
 \subsection{Timestamp cyclical encoding}
@@ -121,14 +121,13 @@ encoding of various seasonalities.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/hoursincosplot.png}
-	\caption{Hour cyclical encoding plot.}
-	\label{fig:encodingplot}
+	\caption{Hour cyclical encoding plot.}\label{fig:encodingplot}
 \end{figure}
 
 \subsection{Historical weather}
-In addition to the information from Solargis (see Section \ref{sec:solargis}),
+In addition to the information from Solargis (see Section~\ref{sec:solargis}),
 the models may require other weather data, such as cloud cover, rainfall, etc.
-Therefore, we made an API call to Open-Meteo servers (see Section \ref{sec:openmeteo}), using the \textquote{Historical Weather} functionality, to obtain the accurate past
+Therefore, we made an API call to Open-Meteo servers (see Section~\ref{sec:openmeteo}), using the \textquote{Historical Weather} functionality, to obtain the accurate past
 forecasts for the time period covered by our dataset (from 02-02-2022 to 18-06-2023).
 
 %Oltre alle infomazioni provenienti da Solargis
@@ -158,7 +157,7 @@ forecasts for the time period covered by our dataset (from 02-02-2022 to 18-06-2
 
 We have obtained most of the information made available by Open-Meteo since the API
 request is free and computationally and storage-wise inexpensive.
-These will be filtered at a later time (see Section \ref{sec:featureselection}).
+These will be filtered at a later time (see Section~\ref{sec:featureselection}).
 Among these, we find \texttt{sunrise} and \texttt{sunset}, which indicate the exact time
 (down to the minute) of when dawn and sunset occurred, respectively.
 These two features will be used to create a new column in our dataset called
@@ -301,11 +300,10 @@ for each timestamp, will indicate whether it is day or night.
 		\centering
 		\includegraphics[width=\textwidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/inv02powerbuco1.png}
 	\end{subfigure}
-	\caption{Some dataset \textquote{holes}. The charts at the top refer to the Implant's Total Energy, while those at the bottom refer to the Inverter 2's Power. The charts on the left range from 01-06-2022 to 15-06-2022, while those on the right range from 12-02-2023 to 19-02-2023.}
-	\label{fig:graficibuchi}
+	\caption{Some dataset \textquote{holes}. The charts at the top refer to the Implant's Total Energy, while those at the bottom refer to the Inverter 2's Power. The charts on the left range from 01-06-2022 to 15-06-2022, while those on the right range from 12-02-2023 to 19-02-2023.}\label{fig:graficibuchi}
 \end{figure}
 
-As we can see from Figure \ref{fig:graficibuchi}, there are certain
+As we can see from Figure~\ref{fig:graficibuchi}, there are certain
 periods within the dataset (highlighted in red) where data is missing,
 which we refer to as \textquote{holes}. Leaving these gaps in the
 dataset causes problems during model training
@@ -383,7 +381,7 @@ just been described.
 			2023-02-16                             \\
 			2023-03-26                             \\
 		\end{tabular}
-		\caption{Timestamps deleted after running the Algorithm \ref{alg:holes}}
+		\caption{Timestamps deleted after running the Algorithm~\ref{alg:holes}}
 	\end{table}
 \end{minipage}
 
@@ -413,7 +411,7 @@ This new feature was added to the dataset with the name \verb|target|.
 
 		\State target $\gets$ empty column
 		\For{\textbf{each} (prev\_val, val) \textbf{in} dataset["Cont\_TotalEnergy(kWh)"]}
-		\State diff $\gets$ val - prev\_val
+		\State diff $\gets \text{val} - \text{prev\_val}$
 		\State \textbf{append} \texttt{diff} value to \texttt{target} column
 		\EndFor
 		\State /* Now we have target column with first value missing */
@@ -426,14 +424,13 @@ This new feature was added to the dataset with the name \verb|target|.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/targetfeature.png}
-	\caption{Instant Energy (\texttt{target} feature) 2 days plot.}
-	\label{fig:targetfeature}
+	\caption{Instant Energy (\texttt{target} feature) 2 days plot.}\label{fig:targetfeature}
 \end{figure}
 
 \subsection{Re-Sampling}
 Finally, after all the operations described above, we have a dataset
 with samples taken at 5-minute intervals. As we can see from
-Figure \ref{fig:targetfeature}, this data appears to be quite noisy,
+Figure~\ref{fig:targetfeature}, this data appears to be quite noisy,
 which could pose
 challenges during the training phase. Moreover, most of the reports
 provided by photovoltaic plant operators are at a 15-minute frequency.
@@ -468,7 +465,6 @@ written and applied a re-sampling procedure.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth, keepaspectratio]{chapters/2_data_preprocessing/imgs/targetfeature15min.png}
-	\caption{Instant Energy feature on 15 minute re-sampled dataset.}
-	\label{fig:15min}
+	\caption{Instant Energy feature on 15 minute re-sampled dataset.}\label{fig:15min}
 \end{figure}
 
