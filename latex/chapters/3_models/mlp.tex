@@ -90,8 +90,130 @@ The model consists of 6 main layers:
 		\caption{SoftPlus function. $SoftPlus(x) = \frac{1}{\beta} \log(1+e^{\beta x})$}
 		\label{fig:softplus}
 	\end{figure}
-
 \end{minipage}
 
 \subsection{Training}
+The model was trained by artificially creating gaps of two days in length within the
+training dataset.
+These gaps were passed to the network in the format described earlier,
+and the output result was compared to the actual instantaneous energy produced during the gap.
+An \textit{Early Stopping} procedure was implemented to prevent training from continuing if
+the model was not improving its performance.
+The validation dataset was applied in this phase to assess the learning progress at the end
+of each epoch.
+A normalization procedure of the area was applied to the model's output in relation to
+that of the gap to ensure that the output starts exactly from the last value of the
+instantaneous energy produced \textit{before} and ends exactly with the first value
+of the energy produced \textit{after}. Adam was used as the optimizer,
+and L1Loss (Equation \ref{eq:l1loss}) served as the loss function.
+We chose to set the batch size parameter to 10, the learning rate $\lambda$ to 0.01,
+a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
+
+%Il modello è stato allenato creando, in modo artificiale, buchi di lunghezza
+%pari a due giorni all'interno del dataset di training, passati alla rete nel formato
+%descritto precedentemente e confrontato il risultato in output con l'effettiva energia istantanea
+%prodotta del buco. \'{E} stata implementata una procedura di \textit{Early Stopping} per evitare
+%di continuare l'allenamento anche se il modello non sta migliorando le sue performance.
+%Il dataset di validation è stato applicato in questa fase per verificare lo stato di
+%apprendimento alla fine di ogni epoca. All'output del modello è stata applicata una 
+%procedura di normalizzazione dell'area rispetto a quella del buco per far si che la predizione
+%parta esattamente dall'ultimo valore dell' energia istantanea prodotta di \textit{before} e
+%termini esattamente con il primo valore di \textit{after}.
+%\'{E} stato impiegato Adam come ottimizzatore e la L1Loss (Equation \ref{eq:l1loss}) come loss function.
+%Abbiamo scelto di impostare il parametro batch size a 10, learning rate $\lambda$ a 0.01, 100
+%come numero massimo di epoche e 20 come patience per l'Early Stopping.
+
+\begin{gather}\label{eq:l1loss}
+	L = \{l_1,\dots,l_N\}^\top, \quad
+	l_n = \left| x_n - y_n \right|,\\
+	\ell(x,y) = \operatorname{mean}(L)
+\end{gather}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l}
+
+			\textbf{Total Parameters (\#)}     & 26543400 \\
+			\textbf{Trainable Parameters (\#)} & 26543400 \\
+			\textbf{Training Duration (s)}     & 24.0     \\
+			\textbf{Model Size (MB)}           & 101.3
+		\end{tabular}
+	\end{center}
+	\caption{Baseline Model specification.}\label{tab:ufcnspecs}
+\end{table}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufnctraining.png}
+	\caption{The chart displays the loss progression during the training phase. The blue line represents the Training Loss, while the orange line represents the Validation Loss.}
+	\label{fig:ufcntraining}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufcncpusage.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufcnmem.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufcnusagevera.png}
+	\end{subfigure}\\
+	\begin{subfigure}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufncusageperc.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufncusagew.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufcnmemram.png}
+	\end{subfigure}\\
+	\caption{System resources utilized during the Training phase.}
+	\label{fig:ufcnsysusage}
+\end{figure}
+
+\begin{algorithm}[H]
+	\caption{MLP model Training Algorithm}\label{alg:ufcntraining}
+	\begin{algorithmic}
+		\Require train/validation datasets; Baseline Neural Network Model
+
+		\State Batch Size $\gets$ 10
+		\State Learning Rate $\lambda \gets$ 0.01
+		\State Epochs $\gets$ 100
+		\State Patience $\gets$ 20
+		\State loss $\gets$ L1Loss()
+		\State Optimizer $\gets$ Adam Optimizer
+		\State
+		\For{\textbf{each} epoch \textbf{in} epochs}
+		\For{\textbf{each} (batch\_id, before, after, target) \textbf{in} train.next\_batch()}
+
+		\State train\_prediction $\gets$ model(before, after) \Comment{Model inference}
+		\State train\_prediction $\gets \frac{\text{train\_prediction} \cdot \sum\text{train\_prediction}}{\sum target}$ \Comment{Area normalization}
+		\State train\_loss $\gets$ loss(train\_prediction, target)
+		\State Optimizer step
+		\State Back Propagation
+		\EndFor
+		\State stop computing gradient
+		\For{\textbf{each} (batch\_id, vbefore, vafter, vtarget) \textbf{in} validation.next\_batch()}
+		\State val\_prediction $\gets$ model(vbefore, vafter) \Comment{Model inference}
+		\State val\_prediction $\gets \frac{\text{val\_prediction} \cdot \sum\text{val\_prediction}}{\sum vtarget}$ \Comment{Area normalization}
+		\State val\_loss $\gets$ loss(val\_prediction, vtarget)
+		\EndFor
+
+		\State check for Early Stopping
+		\State check for Save Best Result
+		\State start computing gradient
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+
 \subsection{Evaluation}
