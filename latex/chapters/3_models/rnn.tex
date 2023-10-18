@@ -199,10 +199,10 @@ a maximum of 100 epochs was set, and the patience was set to 20.
 		\State Back Propagation
 		\EndFor
 		\State stop computing gradient
-		\For{\textbf{each} (batch\_id, vbefore, vafter, vfuture, vtarget) \textbf{in} validation.next\_batch()}
-		\State val\_prediction $\gets$ model(vbefore, vafter, vfuture) \Comment{Model inference}
-		\State val\_prediction $\gets \frac{\text{val\_prediction} \cdot \sum\text{val\_prediction}}{\sum vtarget}$ \Comment{Area normalization}
-		\State val\_loss $\gets$ loss(val\_prediction, vtarget)
+		\For{\textbf{each} (batch\_id, vb, va, vf, vt) \textbf{in} validation.next\_batch()}
+		\State val\_prediction $\gets$ model(vb, va, vf) \Comment{Model inference}
+		\State val\_prediction $\gets \frac{\text{val\_prediction} \cdot \sum\text{val\_prediction}}{\sum vt}$ \Comment{Area normalization}
+		\State val\_loss $\gets$ loss(val\_prediction, vt)
 		\EndFor
 
 		\State check for Early Stopping
