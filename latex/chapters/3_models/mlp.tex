@@ -1,4 +1,4 @@
-\section{MLP}
+\section{MLP}\label{sec:mlpbaseline}
 In this section, we will introduce the first model, which we will refer to as the
 baseline model, based on a Multi-Layer Perceptron.
 We will analyze its architecture, the training phase, and its final performance.
@@ -99,13 +99,15 @@ These gaps were passed to the network in the format described earlier,
 and the output result was compared to the actual instantaneous energy produced during the gap.
 An \textit{Early Stopping} procedure was implemented to prevent training from continuing if
 the model was not improving its performance.
+A procedure, called \textit{Save Best}, has also been integrated,
+which saves the model to a file whenever the Validation Loss improves.
 The validation dataset was applied in this phase to assess the learning progress at the end
 of each epoch.
 A normalization procedure of the area was applied to the model's output in relation to
 that of the gap to ensure that the output starts exactly from the last value of the
 instantaneous energy produced \textit{before} and ends exactly with the first value
 of the energy produced \textit{after}. Adam was used as the optimizer,
-and L1Loss (Equation \ref{eq:l1loss}) served as the loss function.
+and L1Loss (Equation~\ref{eq:l1loss}) served as the loss function.
 We chose to set the batch size parameter to 10, the learning rate $\lambda$ to 0.01,
 a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
 
@@ -113,7 +115,9 @@ a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
 %pari a due giorni all'interno del dataset di training, passati alla rete nel formato
 %descritto precedentemente e confrontato il risultato in output con l'effettiva energia istantanea
 %prodotta del buco. \'{E} stata implementata una procedura di \textit{Early Stopping} per evitare
-%di continuare l'allenamento anche se il modello non sta migliorando le sue performance.
+%di continuare l'allenamento anche se il modello non sta migliorando le sue performance. 
+%\'{E} stata anche integrata una procedura, chiamata \textit{Save Best},
+%che salva il modello su file ogni qualvolta la validation loss migliori.
 %Il dataset di validation è stato applicato in questa fase per verificare lo stato di
 %apprendimento alla fine di ogni epoca. All'output del modello è stata applicata una 
 %procedura di normalizzazione dell'area rispetto a quella del buco per far si che la predizione
@@ -215,5 +219,59 @@ a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
 	\end{algorithmic}
 \end{algorithm}
 
-
 \subsection{Evaluation}
+Dal grafico della fase di training mostrato in Figura~\ref{fig:ufcntraining}
+possiamo evicnere come questa sia terminata con successo dal
+fatto che le due curve (training loss e validation loss) non divergono
+ma rimangono ad una distanza abbastanza costante e possiamo
+anche capire che non ci sia presenza di overfitting.
+
+Dai grafici in Figura~\ref{fig:ufcnsysusage} possiamo notare come
+la macchina su cui è stato addestrato questo modello sia stata
+sfruttata relativamente poco, in particolare facciamo notare come
+l'utilizzo della GPU non ha superato il 30\% e la sua memoria è stata
+malapena occupata per il 20\%. Questo può portarci ad affermare che
+il modello può essere anche addestrato su macchino molto meno performanti
+della nostra. Il modello risulta essere anche relativamente leggero sia
+in termini di memoria, soli 100 MB (vedi Tabella~\ref{tab:ufcnspecs}) sia
+per il tempo di allenamento che non ha superato i 30 secondi. Il tempo di
+inferenza risulta estremamente veloce non superando il secondo.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred2-4.png}
+		\caption{}
+	\end{subfigure}\\
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred6-4.png}
+		\caption{}
+	\end{subfigure}
+	\caption{The figure displays two predictions made by the model, where you can observe the network's output (in red) and the ground truth (in blue). The model was tested on two gaps, each covering a period of 2 days. The first gap (a) spans from 02-04-2023 to 04-04-2023, and the second gap (b) spans from 06-04-2023 to 06-08-2023.}
+
+	%La figura riporta due predizioni del modello dove possiamo apprezzare l'output della rete (in rosso) e la ground trought (in blu). Al modello sono stati fatti chiudere due buchi di 2 giorni ciuascuno che coprono rispettivamente il periodo dal 02-04-2023 al 04-04-2023 e dal 06-04-2023 al 06-08-2023.}
+	\label{fig:ufcnevalbelli}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred3-4.png}
+		\caption{}
+	\end{subfigure}\\
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred5-4.png}
+		\caption{}
+	\end{subfigure}
+	\caption{Caption}
+	\label{fig:ufcnevalbrutti}
+\end{figure}
+
+TODO: completare con un brefe spieghino dove mostro i risultati
+(i dati) MAE, MAPE e R2. Spieghino sul fatto che termina la giornata
+prima e alcune riflessioni sul modello
