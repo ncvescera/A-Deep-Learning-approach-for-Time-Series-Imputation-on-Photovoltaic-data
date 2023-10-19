@@ -58,7 +58,7 @@ Inference time is extremely fast, taking less than a second.
 			06-04 to 07-04                           & 20.07 & 0.62 & 1293.53                 & 50.70                    & 1293.53                 & 25.22                    \\
 		\end{tabular}
 	\end{center}
-	\caption{The table displays the values of MAE (Mean Absolute Error) and the R$^2$ (R-squared) index applied to the model predictions shown in Figures~\ref{fig:ufcnevalbelli} and \ref{fig:ufcnevalbrutti}.}
+	\caption{The table displays the values of MAE (Mean Absolute Error)\cite{metrics} and the R$^2$ (R-squared)\cite{metrics} index applied to the model predictions shown in Figures~\ref{fig:ufcnevalbelli} and \ref{fig:ufcnevalbrutti}.}\label{tab:grrundatitab1}
 	%La tabella mostra i valori del MAE e dell'indice R$^2$ applicate alle predizioni del modello mostrate nelle Figure~\ref{fig:ufcnevalbelli} e \ref{fig:ufcnevalbrutti}.}\label{tab:dfsplit}
 \end{table}
 
@@ -66,12 +66,12 @@ Inference time is extremely fast, taking less than a second.
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred2-4.png}
+		\includegraphics[width=.8\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred2-4.png}
 		\caption{}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred6-4.png}
+		\includegraphics[width=.8\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred6-4.png}
 		\caption{}
 	\end{subfigure}
 	\caption{The figure displays two predictions made by the model, where you can observe the network's output (in red) and the ground truth (in blue). The model was tested on two gaps, each covering a period of 2 days. The first gap (a) spans from 02-04-2023 to 04-04-2023, and the second gap (b) spans from 06-04-2023 to 06-08-2023.}
@@ -110,12 +110,12 @@ during the night, which is a positive aspect.
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred3-4.png}
+		\includegraphics[width=.8\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred3-4.png}
 		\caption{}
 	\end{subfigure}\\
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred5-4.png}
+		\includegraphics[width=.8\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred5-4.png}
 		\caption{}
 	\end{subfigure}
 	\caption{The figure displays two model predictions (in red) for two-day gaps and their respective ground truth (in blue). (a) corresponds to a gap from 03-04-2023 to 04-04-2023, while (b) covers the period from 05-04-2023 to 06-04-2023.}
@@ -150,3 +150,26 @@ it would be necessary to retrain the model.
 	\caption{MLP based model Global metrics.}
 	\label{tab:globalmetrics}
 \end{table}
+
+Analyzing the data presented in Tables~\ref{tab:grrundatitab1}
+and \ref{tab:globalmetrics}, it can be confirmed that the performance
+of this model is quite limited.
+The $R^2$ index is consistently below 0.6, indicating that the target
+curve is not well approximated by the model's output.
+While the \textit{Gap MAE} appears to be relatively low (it's
+important to consider that the nighttime period significantly lowers
+the average, as the difference between target and prediction is zero during that time) the values of \textit{Daily MAE} and \textit{MAPE} are quite high, at times even reaching 200\% error.
+
+In conclusion, despite the presented model being relatively
+straightforward to implement and train, it is not suitable for
+effectively addressing the problem of imputation.
+
+%Analizzando anche i dati riportati nelle Tabelle~\ref{tab:grrundatitab1} e \ref{tab:globalmetrics} possiamo confermare che le prestazioni di questo
+%modello sono abbastanza scarse. L'indice $R^2$ è quasi sempre inferiore a 
+%0.6 il che vuol dire che la curva target non è stata bene approssimata
+%dall'output del modello. Seppure il \textit{Gap MAE} risulti abbastanza basso, è da
+%considerarsi che il periodo notturo tende ad abbassare nettamente la media
+%in quanto la differenza tra target e prediction è nulla, i valori dei Daily MAE e MAPE risultano molto elevati, raggiungendo alcune volte anche il 200\% di errore. Possiamo concludere che, nonstante il modello presentato sia
+%di semplice implementazione e addestramento
+%risulti
+%non essere adeguato per assolver al compito di risolvere il problema dell'Imputation.

@@ -5,9 +5,9 @@ training phases, highlighting any issues and strengths of the model.
 We will test their performance using the Testing dataset,
 as described in Section~\ref{sec:datasetsplitting}, and
 evaluate them using various metrics.
-Among these metrics, we will employ the MAE (Mean Absolute Error)
+Among these metrics, we will employ the MAE (Mean Absolute Error)\cite{metrics}
 to highlight the difference between the model's predictions and
-the ground truth and the $R^2$ (R-squared) index to understand how well
+the ground truth and the $R^2$ (R-squared)\cite{metrics} index to understand how well
 the model-predicted curve approximates the real one.
 Here's a brief introduction to the indices we will use:
 
@@ -30,7 +30,7 @@ Here's a brief introduction to the indices we will use:
 	      %MAE giornaliero, viene calcolato solo sui singoli giorni del buco. Mette in evidenza l'errore giornaliero medio che commette il modello misurato in kW.
 	\item \textbf{Global MAE}: This is the average of all daily errors, expressed in kW.
 	      %Global MAE , è la media di tutti i gli errori giornalieri espresso in kW.
-	\item \textbf{MAPE (Mean Absolute Percentage Error)}: It indicates the error of the model relative to the ground truth, measured in percentage.
+	\item \textbf{MAPE (Mean Absolute Percentage Error)}\cite{metrics}: It indicates the error of the model relative to the ground truth, measured in percentage.
 	      %MAPE, indica in percentuale quanto è l'errore del modello rispetto la groundh truth, misurato in percentuale
 \end{itemize}
 

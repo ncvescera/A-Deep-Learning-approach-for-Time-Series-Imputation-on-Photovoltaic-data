@@ -33,15 +33,15 @@ The model consists of 6 main layers:
 			      of timestamps in our dataset that make up one day, and 33 represents the
 			      features obtained from the Data Preprocessing phase.
 			      These tensors are then flattened and concatenated to be passed to the subsequent layer.
-			      The output of this layer goes through a Batch Normalization layer, and the
-			      Rectified Linear Unit (ReLU) activation function is used.
+			      The output of this layer goes through a Batch Normalization\cite{batchnorm} layer, and the
+			      Rectified Linear Unit (ReLU)\cite{functions} activation function is used.
 
 			      % è il primo livello della rete, prende in input 2 tensori: \textit{before} e \textit{after}. Questi stanno ad indicare rispettivamente il giorno prima e quello dopo del buco che vogliamo chiudere. Avranno la forma \verb|[BATCH_SIZE, 96, 33]|, dove \verb|96| è il numero di timestamp del nostro dataset che formano un giorno e \verb|33| sono le feature ottenute dalla fase di preprocessing dei dati. A questi verrà poi applicata un'operazione di Flatten ed infine concatenati per poter essere poi passati al layer successio.
 			      %L'output di questo layer passa per un livello di Batch Normalization e viene utilizzata la ReLu come funzione di attivazione. 
 
 			\item \textbf{Hidden layers}: In total, there are 4 layers, each of which takes the
 			      output of the previous layer as input and reduces the number of neurons by half.
-			      Batch Normalization is applied to the result, and the Rectified Linear Unit (ReLU)
+			      Batch Normalization\cite{batchnorm} is applied to the result, and the Rectified Linear Unit (ReLU)\cite{functions}
 			      is used as the activation function.
 
 			      %in totale 4, ognuno prende in input il risultato del layer precedente e va a dimezzare il numero dei neuroni. Al risultato viene applicata un'operazione di Batch Normalization e utilizzata la ReLu come funzione di attivazione.
@@ -50,7 +50,7 @@ The model consists of 6 main layers:
 			      previous layer and outputs the value of the Instantaneous Energy Produced
 			      during the specific period.
 			      It produces a tensor with a shape of \verb|[BATCH_SIZE, 192, 1]|.
-			      The SoftPlus function is used as the final activation function.
+			      The SoftPlus\cite{functions} function is used as the final activation function.
 
 			      %ultimo layer della nostra rete, dal risultato del layer precedente riporta come output il valore dell'Energia Istantanea Prodotta durante il buco, un tensore di forma \verb|[BATCH_SIZE, 192, 1]|. Viene utilizzata la SoftPlus come funzione di attivazione finale.
 		\end{itemize}
@@ -63,41 +63,12 @@ The model consists of 6 main layers:
 	\end{minipage}
 \end{figure}
 
-\begin{minipage}[t]{0.5\textwidth}
-	\begin{figure}[H]
-		\centering
-		\begin{tikzpicture}
-			\draw[->] (-3,0) -- (3,0) node[right] {$x$};
-			\draw[->] (0,-1) -- (0,4) node[above] {$y$};
-			\draw[dotted] (-3,-1) grid (3,4);
-			\draw[color=blue, domain=-3:0] plot[id=logistic] function{0};
-			\draw[color=blue, domain=0:3] plot[id=logistic] function{x};
-		\end{tikzpicture}
-		\caption{Rectified Linear Unit function. $ReLu(x) = \max(0, x)$}
-		\label{fig:relu}
-	\end{figure}
-\end{minipage}%
-\hspace{.5cm}
-\begin{minipage}[t]{0.5\textwidth}
-	\begin{figure}[H]
-		\centering
-		\begin{tikzpicture}
-			\draw[->] (-3,0) -- (3,0) node[right] {$x$};
-			\draw[->] (0,-1) -- (0,4) node[above] {$y$};
-			\draw[dotted] (-3,-1) grid (3,4);
-			\draw[color=blue, domain=-3:3] plot[id=logistic] function{log(1+exp(x))};
-		\end{tikzpicture}
-		\caption{SoftPlus function. $SoftPlus(x) = \frac{1}{\beta} \log(1+e^{\beta x})$}
-		\label{fig:softplus}
-	\end{figure}
-\end{minipage}
-
 \subsection{Training}
 The model was trained by artificially creating gaps of two days in length within the
 training dataset.
 These gaps were passed to the network in the format described earlier,
 and the output result was compared to the actual instantaneous energy produced during the gap.
-An \textit{Early Stopping} procedure was implemented to prevent training from continuing if
+An \textit{Early Stopping}\cite{es} procedure was implemented to prevent training from continuing if
 the model was not improving its performance.
 A procedure, called \textit{Save Best}, has also been integrated,
 which saves the model to a file whenever the Validation Loss improves.
@@ -106,8 +77,8 @@ of each epoch.
 A normalization procedure of the area was applied to the model's output in relation to
 that of the gap to ensure that the output starts exactly from the last value of the
 instantaneous energy produced \textit{before} and ends exactly with the first value
-of the energy produced \textit{after}. Adam was used as the optimizer,
-and L1Loss (Equation~\ref{eq:l1loss}) served as the loss function.
+of the energy produced \textit{after}. Adam\cite{adam} was used as the optimizer,
+and L1Loss\cite{loss} (Equation~\ref{eq:l1loss}) served as the loss function.
 We chose to set the batch size parameter to 10, the learning rate $\lambda$ to 0.01,
 a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
 
@@ -146,36 +117,68 @@ a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
 	\caption{Baseline Model specification.}\label{tab:ufcnspecs}
 \end{table}
 
+\begin{minipage}[t]{0.5\textwidth}
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\draw[->] (-3,0) -- (3,0) node[right] {$x$};
+			\draw[->] (0,-1) -- (0,4) node[above] {$y$};
+			\draw[dotted] (-3,-1) grid (3,4);
+			\draw[color=blue, domain=-3:0] plot[id=logistic] function{0};
+			\draw[color=blue, domain=0:3] plot[id=logistic] function{x};
+		\end{tikzpicture}
+		\caption{Rectified Linear Unit function. $ReLu(x) = \max(0, x)$}
+		\label{fig:relu}
+	\end{figure}
+\end{minipage}%
+\hspace{.5cm}
+\begin{minipage}[t]{0.5\textwidth}
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\draw[->] (-3,0) -- (3,0) node[right] {$x$};
+			\draw[->] (0,-1) -- (0,4) node[above] {$y$};
+			\draw[dotted] (-3,-1) grid (3,4);
+			\draw[color=blue, domain=-3:3] plot[id=logistic] function{log(1+exp(x))};
+		\end{tikzpicture}
+		\caption{SoftPlus function. $SoftPlus(x) = \frac{1}{\beta} \log(1+e^{\beta x})$}
+		\label{fig:softplus}
+	\end{figure}
+\end{minipage}
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufnctraining.png}
+	\includegraphics[width=.8\textwidth]{chapters/3_models/imgs/ufnc/ufnctraining.png}
 	\caption{The chart displays the loss progression during the training phase. The blue line represents the Training Loss, while the orange line represents the Validation Loss.}
 	\label{fig:ufcntraining}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}{0.32\textwidth}
+	\begin{subfigure}{0.43\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufcncpusage.png}
 	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}
+	\hspace{.5cm}
+	\begin{subfigure}{0.43\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufcnmem.png}
-	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}
+	\end{subfigure}\\
+	\begin{subfigure}{0.43\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufcnusagevera.png}
-	\end{subfigure}\\
-	\begin{subfigure}{0.32\textwidth}
+	\end{subfigure}
+	\hspace{.5cm}
+	\begin{subfigure}{0.43\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufncusageperc.png}
-	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}
+	\end{subfigure}\\
+	\begin{subfigure}{0.43\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufncusagew.png}
 	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}
+	\hspace{.5cm}
+	\begin{subfigure}{0.43\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chapters/3_models/imgs/ufnc/ufcnmemram.png}
 	\end{subfigure}\\

@@ -28,7 +28,7 @@ which doesn't exceed 400~KB.
 			% 06-04 to 07-04 & 20.07 & 0.62 &1293.53&50.70&1293.53&25.22 \\
 		\end{tabular}
 	\end{center}
-	\caption{The table displays the values of MAE (Mean Absolute Error) and the R$^2$ (R-squared) index applied to the model predictions shown in Figures~\ref{fig:grrunevalplots}.}
+	\caption{The table displays the values of MAE (Mean Absolute Error) and the R$^2$ (R-squared) index applied to the model predictions shown in Figures~\ref{fig:grrunevalplots}.}\label{tab:grrunpmaer}
 	%La tabella mostra i valori del MAE e dell'indice R$^2$ applicate alle predizioni del modello mostrate nelle Figure~\ref{fig:ufcnevalbelli} e \ref{fig:ufcnevalbrutti}.}\label{tab:dfsplit}
 \end{table}
 
@@ -79,7 +79,7 @@ which doesn't exceed 400~KB.
 			%\caption{}
 		\end{center}
 	\end{minipage}
-	\caption{The tables display the Daily MAE and MAPE values related to the graphs shown in Figure~\ref{fig:grrunevalplots}.}
+	\caption{The tables display the Daily MAE\cite{metrics} and MAPE\cite{metrics} values related to the graphs shown in Figure~\ref{fig:grrunevalplots}.}\label{tab:grrundailymetrics}
 	%Nelle tabelle sono mostrati i valori giornalieri di MAE e MAPE relativi ai grafici mostrati in Figura~\ref{fig:grrunevalplots}.}
 \end{table}
 
@@ -219,7 +219,26 @@ trends with considerable reliability.
 			%\caption{}
 		\end{center}
 	\end{minipage}
-	\caption{The tables presented refer to the graphs in Figure~\ref{fig:grrunevalbucogrande} and display the corresponding Daily MAE and MAPE metrics.}
+	\caption{The tables presented refer to the graphs in Figure~\ref{fig:grrunevalbucogrande} and display the corresponding Daily MAE and MAPE metrics.}\label{tab:grrunbuchigrandi}
 	%Le tabelle mostrate fanno riferimento ai grafici in Figura~\ref{fig:grrunevalbucogrande} e mostrano le relative metriche Daily MAE e MAPE.}
 	%Nelle tabelle sono mostrati i valori giornalieri di MAE e MAPE relativi ai grafici mostrati in Figura~\ref{fig:grrunevalplots}.}
 \end{table}
+
+Prendendo in esame le Tabelle~\ref{tab:grrunpmaer} e \ref{tab:grrundailymetrics} possiamo confermare che questo modello basato
+su Recurrent Neaural Network sia molto performante. Vediamo come
+il \textit{Gap MAE} riamnga sempre basso, non superando i 10 kW, mentre
+l'indice $R^2$ si avvicini quasi sempre al valore ideale di 1.0\cite{metrics} e comunque non scendendo mai sotto a 0.70 (valore raggiunto sono in rarissimi casi).
+Inoltre i valori del Daily MAPE superano a malapena il 6\% indicando un
+bassissimo errore giornaliero che globalmente risulta essere di 3.17\% per
+il \textit{Global MAPE} e di 95.75 kW per il \textit{Global~MAE}.
+
+Altrettanto positivi sono i dati dei buchi che eccedono la dimensione massima di 4 giorni. Dalla Tabella~\ref{tab:grrunbuchigrandi}
+possiamo vedere che per il buco di 12 giorni il Daily MAPE non supera mai
+il 9\% raggungendo alle volte anche il 0.45\% di errore. L'errore più grande
+è relativo al giorno 7 con uno sbaglio di 312.26 kW.
+Mentre per il buco da 6 giorni ... CONTINUARE ...
+
+In conclusione possiamo affermare che questo modello riesce a sfruttare a pieno
+le potenzialità offerte dalle Reti Ricorrenti e riesce notevolmente bene
+a predirre l'andamento dell'energia istantanea prodotta durante bunchi di
+dati anche di molteplici giorni.

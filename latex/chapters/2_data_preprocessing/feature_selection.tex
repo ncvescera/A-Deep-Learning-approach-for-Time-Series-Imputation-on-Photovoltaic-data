@@ -7,7 +7,7 @@ This high number of features would make it nearly impossible to train various mo
 both from a purely hardware perspective and due to the excessive information redundancy.
 In an attempt to minimize the number of features as much as possible,
 we applied and combined the results of two essential tools for feature selection:
-the \textit{Correlation Matrix} and the \textit{Power Predictive Score}.
+the \textit{Correlation Matrix}\cite{corr} and the \textit{Power Predictive Score}\cite{pps}.
 
 %Dopo aver applicato tutte le procedure descritte nella precedente sezione,
 %ci ritroviamo con un dataset formato da 764 colonne. Questo elevato
@@ -53,8 +53,8 @@ this will impact the total energy production, making all three of these
 features indispensable. Therefore, in conjunction with the correlation matrix,
 we have utilized the \textit{Power Predictive Score} (PPS): an asymmetric,
 data-type-agnostic score that can detect linear or non-linear relationships
-between two or more columns. The score ranges from 0 (no predictive power)
-to 1 (perfect predictive power).
+between two or more columns\cite{pps}. The score ranges from 0 (no predictive power)
+to 1 (perfect predictive power)\cite{pps}.
 
 %Applicare questo approccio in modo straight forward non è però la scelta migliore,
 %in quanto potrebbe farci perdere informazioni importanti.
@@ -85,7 +85,7 @@ As we can see in Figures~\ref{fig:ppsTotEnergy} and \ref{fig:ppstarget}, the fea
 that perform better in predicting the instantaneous energy production trend are
 indeed those of the Inverters, confirming the reasoning described earlier.
 Finally, by combining the results obtained from the Correlation Matrix and the
-Power Predictive Score, we obtain a final set of 28 features.
+Power Predictive Score, we obtain a final set of 32 features.
 
 %Come possiamo vedere nelle Figure \ref{fig:ppsTotEnergy} e \ref{fig:ppstarget}
 %le feature che riescono meglio a predirre l'andamento dell'energia istananea
@@ -96,7 +96,7 @@ Power Predictive Score, we obtain a final set of 28 features.
 %
 \begin{table}[H]
 	\begin{center}
-		\begin{tabular}[c]{l|}
+		\begin{tabular}[t]{l|}
 			\verb|INV01_PowerAC(kW)|      \\
 			\verb|INV01_PowerDC(kW)|      \\
 			\verb|INV02_PowerAC(kW)|      \\
@@ -112,7 +112,7 @@ Power Predictive Score, we obtain a final set of 28 features.
 			\verb|INV01_TotalEnergy(kWh)| \\
 			\verb|INV02_TotalEnergy(kWh)|
 		\end{tabular}
-		\begin{tabular}[c]{l}
+		\begin{tabular}[t]{l|}
 			\verb|INV03_TotalEnergy(kWh)|       \\
 			\verb|INV01_HeatSinkTemperature(C)| \\
 			\verb|INV02_HeatSinkTemperature(C)| \\
@@ -127,6 +127,11 @@ Power Predictive Score, we obtain a final set of 28 features.
 			\verb|day_cos|                      \\
 			\verb|month_sin|                    \\
 			\verb|month_cos|
+		\end{tabular}
+		\begin{tabular}[t]{l}
+			\verb|min_sin| \\
+			\verb|min_cos| \\
+			\verb|target|
 		\end{tabular}
 	\end{center}
 	\caption{All feature selected after this phase.}\label{tab:featselected}

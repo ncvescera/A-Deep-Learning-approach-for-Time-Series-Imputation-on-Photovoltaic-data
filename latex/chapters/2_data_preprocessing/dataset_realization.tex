@@ -156,7 +156,7 @@ forecasts for the time period covered by our dataset (from 02-02-2022 to 18-06-2
 \end{algorithm}
 
 We have obtained most of the information made available by Open-Meteo since the API
-request is free and computationally and storage-wise inexpensive.
+request is free\cite{openmeteo} and computationally and storage-wise inexpensive.
 These will be filtered at a later time (see Section~\ref{sec:featureselection}).
 Among these, we find \texttt{sunrise} and \texttt{sunset}, which indicate the exact time
 (down to the minute) of when dawn and sunset occurred, respectively.
@@ -203,7 +203,7 @@ during the night.
 	\verb|soil_temperature_0_| \verb|   to_7cm| \verb|soil_temperature_7_| \verb|   to_28cm| \verb|soil_temperature_28_| \verb|   to_100cm| \verb|soil_temperature_100_| \verb|   to_255cm| & °C                      & Average temperature of different soil levels below ground.                                                                                                                                                                                                                                             \\
 	                                                                                                                                                                                        &                         &                                                                                                                                                                                                                                                                                                        \\
 	\verb|soil_moisture_0_| \verb|   to_7cm| \verb|soil_moisture_7_| \verb|   to_28cm| \verb|soil_moisture_28_| \verb|   to_100cm| \verb|soil_moisture_100_| \verb|   to_255cm|             & $\text{m}^3/\text{m}^3$ & Average soil water content as volumetric mixing ratio at 0-7, 7-28, 28-100 and 100-255 cm depths.                                                                                                                                                                                                      \\
-	\caption{All feature selected from Open-Meteo with description}\label{tab:openmeteofeatures}
+	\caption{All feature selected from Open-Meteo with description\cite{openmeteo}.}\label{tab:openmeteofeatures}
 \end{longtable}
 
 The new feature \texttt{is\_day} will contain two values: 0 and 1,
