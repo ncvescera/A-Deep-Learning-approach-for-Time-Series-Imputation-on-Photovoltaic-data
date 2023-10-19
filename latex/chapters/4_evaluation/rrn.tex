@@ -1,0 +1,225 @@
+
+\section{RNN based model Evaluation}
+From the graphs shown in Figure~\ref{fig:grruntraining},
+we can see that the training phase was successful,
+and after an initial descent, the loss values remained relatively
+constant without displaying any abnormal trends.
+The statistics presented in Figure~\ref{fig:grrunsysusage} reveal
+that the machine at our disposal was not fully utilized,
+suggesting that this architecture can be trained and used on
+less powerful computers than the one we have.
+Additionally, the model appears to be very lightweight, both in terms
+of the relatively small number of parameters and its weight,
+which doesn't exceed 400~KB.
+
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l|l}
+			%\cline{2-4}
+			\multicolumn{1}{c|}{\textbf{Gap Period}} &
+			\multicolumn{1}{c|}{\textbf{MAE (kW)}}   &
+			\multicolumn{1}{c}{\textbf{R}$^2$}                     \\
+			\hline
+
+			02-04 to 05-04                           & 4.72 & 0.96 \\
+			04-04 to 04-04                           & 3.60 & 0.93 \\
+			12-04 to 14-04                           & 6.61 & 0.96
+			% 06-04 to 07-04 & 20.07 & 0.62 &1293.53&50.70&1293.53&25.22 \\
+		\end{tabular}
+	\end{center}
+	\caption{The table displays the values of MAE (Mean Absolute Error) and the R$^2$ (R-squared) index applied to the model predictions shown in Figures~\ref{fig:grrunevalplots}.}
+	%La tabella mostra i valori del MAE e dell'indice R$^2$ applicate alle predizioni del modello mostrate nelle Figure~\ref{fig:ufcnevalbelli} e \ref{fig:ufcnevalbrutti}.}\label{tab:dfsplit}
+\end{table}
+
+\begin{table}[H]
+	\begin{minipage}[t]{.45\textwidth}
+		\begin{center}
+			\begin{tabular}[c]{l|l|l}
+				\multicolumn{3}{c}{\textbf{\textit{02-04 to 05-04 Gap}}}       \\
+				%\hline
+				               & \multicolumn{1}{c|}{\textbf{MAE (kW)}} &
+				\multicolumn{1}{c}{\textbf{MAPE (\%)}}                         \\
+				\hline
+				\textbf{Day 1} & 97.03                                  & 1.99 \\
+				\textbf{Day 2} & 28.68                                  & 3.22 \\
+				\textbf{Day 3} & 69.79                                  & 4.79 \\
+				\textbf{Day 4} & 41.65                                  & 1.98
+			\end{tabular}
+			%\caption{}
+		\end{center}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[t]{.45\textwidth}
+		\begin{center}
+			\begin{tabular}[c]{l|l|l}
+				\multicolumn{3}{c}{\textbf{\textit{12-04 to 14-04 Gap}}}       \\
+				%\hline
+				               & \multicolumn{1}{c|}{\textbf{MAE (kW)}} &
+				\multicolumn{1}{c}{\textbf{MAPE (\%)}}                         \\
+				\hline
+				\textbf{Day 1} & 151.93                                 & 2.86 \\
+				\textbf{Day 2} & 49.44                                  & 1.01 \\
+				\textbf{Day 3} & 111.25                                 & 2.76
+			\end{tabular}
+			%\caption{}
+		\end{center}
+	\end{minipage}%
+	\vspace{1cm}
+	\begin{minipage}{\textwidth}
+		\begin{center}
+			\begin{tabular}[c]{l|l|l}
+				\multicolumn{3}{c}{\textbf{\textit{04-04 to 04-04 Gap}}}       \\
+				%\hline
+				               & \multicolumn{1}{c|}{\textbf{MAE (kW)}} &
+				\multicolumn{1}{c}{\textbf{MAPE (\%)}}                         \\
+				\hline
+				\textbf{Day 1} & 0.93                                   & 0.06
+			\end{tabular}
+			%\caption{}
+		\end{center}
+	\end{minipage}
+	\caption{The tables display the Daily MAE and MAPE values related to the graphs shown in Figure~\ref{fig:grrunevalplots}.}
+	%Nelle tabelle sono mostrati i valori giornalieri di MAE e MAPE relativi ai grafici mostrati in Figura~\ref{fig:grrunevalplots}.}
+\end{table}
+
+%Dai grafici mostrati in Figura~\ref{fig:grruntraining} possiamo vedere come la fase di addestramento
+%è andata a buon fine e, dopo una parte iniziale di discesa, i valori delle loss sono rimasti pressochè costanti e non mostrano andamenti anomali. Dalle statistiche riportate in Figura~\ref{fig:grrunsysusage} possiamo vedere come la macchina a nostra disposizione non è
+%stata sfruttata a pieno e questo può portarci a pensare che questa architettura sia allenabile ed
+%utilizzabile su computer meno perfromanti di quello a nostra disposizione. Inoltre il modello 
+%risulta essere molto leggero, sia per il numero relativamente ridotto di parametri sia per il 
+%peso che non supera i 400 KB.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/grrun/eval/grruneval24.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/grrun/eval/grruneval44.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/grrun/eval/grruneval124.png}
+		\caption{}
+	\end{subfigure}
+	\caption{In the figure, three model predictions (in red) are shown alongside the ground truth (in blue) for gaps of varying sizes. These predictions were made using data from the testing dataset.}
+	%In figura vengono mostrate 3 predizioni del modello (in rosso) comparate con la ground thorught (in blu) di buchi a dimensione variabile. Queste predizioni sono state effettuate con i dati provenienti dal dataset di Testing.}
+	\label{fig:grrunevalplots}
+\end{figure}
+\newpage
+Analyzing some model predictions as shown in
+Figure~\ref{fig:grrunevalplots}, we can observe how the real
+instant energy production curves (displayed in blue) are
+closely approximated by the model (red curves).
+The model effectively understands the plant's behavior,
+even managing to predict production spikes.
+We can also see that energy production is consistently zero during
+the night in the predictions, and it adeptly captures the
+day/night cycle by gradually reducing production as sunset approaches.
+
+In graph (a), we can see a 4-day gap from 02-04-2023 to 06-04-2023.
+The first two days are predicted very well, while in the last part,
+we can see that a production spike was not detected.
+In graph (b), we can observe a 1-day gap on 04-04-2023. We notice that the overall trend is almost entirely approximated correctly, except for some time intervals around 12:00.
+The last graph (c) is related to a 3-day gap, and we can see that the first two days are approximated well, while in the last day, the production spikes are identified but with values not entirely similar to those of the ground truth.
+%Analizzando alcune predizioni del modello riportate in Figura~\ref{fig:grrunevalplots} possiamo notare come le curve dell'energia 
+%istantanea prodotta realmente (mostrate in blu) vengono approssimate decisamente
+%bene dal modello (curve in rosso). Il modello riesce a capire bene il comportamento
+%dell'impianto riuscendo anche a prevedere eventuali picchi di produzione.
+%Possiamo notare come di notte la produzione di energia nelle predizioni è sempre nulla e come riesce molto bene a comprendere il ciclo giorno/notte
+%andando ad azzerare gradualmente la produzione quando si avvicina il tramonto.
+
+%Nel grafico (a) possiamo vedere un buco di 4 giorni che va dal 02-04-2023 al 06-04-2023. I primi due giorni vengono predetti molto bene, mentre nell'ultimo possiamo vedere che un picco di produzione non è stato individuato.
+%Nel prolt (b) possiamo apprezzare un buco di 1 giorno, il 04-04-2023.
+%Notiamo come l'andamento è quasi del tutto approsiamoto correttamente tranne
+%che per alcuni intervalli temporali che si aggirano intorno le 12:00.
+%L'ultimo grafico (c) è relativo ad un buco di 3 giorni e possiamo vedere
+%come i primi due vengono approssimati bene, mentre nell'ultimo i picchi
+%di produzione vengono si individuati ma con valori non del tutto simili
+%a quelli della ground truth.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=.9\textwidth]{chapters/3_models/imgs/grrun/eval/grruneval6buco.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=.9\textwidth]{chapters/3_models/imgs/grrun/eval/grruneval12buco.png}
+		\caption{}
+	\end{subfigure}
+	\caption{The graphs depict two model predictions for gaps that exceed the maximum limit of days set during the training phase. The first one (a) shows a 6-day gap, while the second one (b) presents a 12-day gap.}
+	%I grafici mostrano due predizioni del modello di buchi con dimensioni che superano il limite massimo di giorni impostati nella fase di training. Il primo (a) mostra un buco di 6 giorni, mentre il secondo (b) uno di 12.}
+	\label{fig:grrunevalbucogrande}
+\end{figure}
+
+It is interesting to note how the model still performs well even
+when presented with gaps that exceed the maximum length set
+during training.
+In Figure~\ref{fig:grrunevalbucogrande}, two graphs are shown:
+(a) represents a 6-day gap (two days longer than the maximum length),
+and (b) a 12-day gap.
+Given these results, we can conclude that the model can
+generalize effectively and predict instant energy production
+trends with considerable reliability.
+
+
+%\'{E} interessante notare come il modello riesce a perforare comunque bene anche se gli vengono passati dei buchi che superano la dimensione massima impostata durante l'addestramento. In Figura~\ref{fig:grrunevalbucogrande} vengono mostrati due grafici, (a) è un buco di 6 giorni (due in più della dimensione massima), mentre (b) è di 12. Dati questi risultati possiamo
+%affermare che il modello è in grado di generalizzare molto bene e riuscire
+%a predirre l'andamento dell'energia istantanea prodotta con notevole affidabilità.
+
+\begin{table}[H]
+	\begin{minipage}[t]{.45\textwidth}
+		\begin{center}
+			\begin{tabular}[c]{l|l|l}
+				\multicolumn{3}{c}{\textbf{\textit{03-04 to 08-04 Gap}}}       \\
+				%\hline
+				               & \multicolumn{1}{c|}{\textbf{MAE (kW)}} &
+				\multicolumn{1}{c}{\textbf{MAPE (\%)}}                         \\
+				\hline
+				\textbf{Day 1} & 151.93                                 & 2.86 \\
+				\textbf{Day 2} & 49.44                                  & 1.01 \\
+				\textbf{Day 3} & 111.25                                 & 2.76 \\
+				\textbf{Day 4} & 0.93                                   & 0.06 \\
+				\textbf{Day 5} & 0.93                                   & 0.06 \\
+				\textbf{Day 6} & 0.93                                   & 0.06
+			\end{tabular}
+			%\caption{}
+		\end{center}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[t]{.45\textwidth}
+		\begin{center}
+			\begin{tabular}[c]{l|l|l}
+				\multicolumn{3}{c}{\textbf{\textit{02-04 to 13-04 Gap}}}        \\
+				%\hline
+				                & \multicolumn{1}{c|}{\textbf{MAE (kW)}} &
+				\multicolumn{1}{c}{\textbf{MAPE (\%)}}                          \\
+				\hline
+				\textbf{Day 1}  & 148.45                                 & 3.04 \\
+				\textbf{Day 2}  & 38.14                                  & 4.28 \\
+				\textbf{Day 3}  & 55.41                                  & 3.80 \\
+				\textbf{Day 4}  & 20.26                                  & 0.96 \\
+				\textbf{Day 5}  & 104.28                                 & 4.09 \\
+				\textbf{Day 6}  & 112.09                                 & 2.18 \\
+				\textbf{Day 7}  & 312.26                                 & 8.79 \\
+				\textbf{Day 8}  & 47.65                                  & 3.46 \\
+				\textbf{Day 9}  & 16.32                                  & 0.99 \\
+				\textbf{Day 10} & 23.08                                  & 0.43 \\
+				\textbf{Day 11} & 240.66                                 & 4.52 \\
+				\textbf{Day 12} & 22.21                                  & 0.45
+			\end{tabular}
+			%\caption{}
+		\end{center}
+	\end{minipage}
+	\caption{The tables presented refer to the graphs in Figure~\ref{fig:grrunevalbucogrande} and display the corresponding Daily MAE and MAPE metrics.}
+	%Le tabelle mostrate fanno riferimento ai grafici in Figura~\ref{fig:grrunevalbucogrande} e mostrano le relative metriche Daily MAE e MAPE.}
+	%Nelle tabelle sono mostrati i valori giornalieri di MAE e MAPE relativi ai grafici mostrati in Figura~\ref{fig:grrunevalplots}.}
+\end{table}
