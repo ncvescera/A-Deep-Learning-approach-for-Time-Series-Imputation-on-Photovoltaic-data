@@ -1,5 +1,5 @@
 
-\section{RNN based model Evaluation}
+\section{RNN based model Evaluation}\label{sec:rnneval}
 From the graphs shown in Figure~\ref{fig:grruntraining},
 we can see that the training phase was successful,
 and after an initial descent, the loss values remained relatively
@@ -10,8 +10,8 @@ suggesting that this architecture can be trained and used on
 less powerful computers than the one we have.
 Additionally, the model appears to be very lightweight, both in terms
 of the relatively small number of parameters and its weight,
-which doesn't exceed 400~KB.
-
+which doesn't exceed 400~KB. The inference time does not even
+approach one second, making it extremely fast in execution.
 
 \begin{table}[H]
 	\begin{center}
@@ -65,7 +65,7 @@ which doesn't exceed 400~KB.
 			%\caption{}
 		\end{center}
 	\end{minipage}%
-	\vspace{1cm}
+	\vspace{.5cm}
 	\begin{minipage}{\textwidth}
 		\begin{center}
 			\begin{tabular}[c]{l|l|l}
@@ -184,12 +184,12 @@ trends with considerable reliability.
 				               & \multicolumn{1}{c|}{\textbf{MAE (kW)}} &
 				\multicolumn{1}{c}{\textbf{MAPE (\%)}}                         \\
 				\hline
-				\textbf{Day 1} & 151.93                                 & 2.86 \\
-				\textbf{Day 2} & 49.44                                  & 1.01 \\
-				\textbf{Day 3} & 111.25                                 & 2.76 \\
-				\textbf{Day 4} & 0.93                                   & 0.06 \\
-				\textbf{Day 5} & 0.93                                   & 0.06 \\
-				\textbf{Day 6} & 0.93                                   & 0.06
+				\textbf{Day 1} & 56.76                                  & 6.37 \\
+				\textbf{Day 2} & 82.02                                  & 5.63 \\
+				\textbf{Day 3} & 59.90                                  & 2.84 \\
+				\textbf{Day 4} & 150.79                                 & 5.91 \\
+				\textbf{Day 5} & 12.52                                  & 0.24 \\
+				\textbf{Day 6} & 238.88                                 & 6.73
 			\end{tabular}
 			%\caption{}
 		\end{center}
@@ -224,21 +224,42 @@ trends with considerable reliability.
 	%Nelle tabelle sono mostrati i valori giornalieri di MAE e MAPE relativi ai grafici mostrati in Figura~\ref{fig:grrunevalplots}.}
 \end{table}
 
-Prendendo in esame le Tabelle~\ref{tab:grrunpmaer} e \ref{tab:grrundailymetrics} possiamo confermare che questo modello basato
-su Recurrent Neaural Network sia molto performante. Vediamo come
-il \textit{Gap MAE} riamnga sempre basso, non superando i 10 kW, mentre
-l'indice $R^2$ si avvicini quasi sempre al valore ideale di 1.0\cite{metrics} e comunque non scendendo mai sotto a 0.70 (valore raggiunto sono in rarissimi casi).
-Inoltre i valori del Daily MAPE superano a malapena il 6\% indicando un
-bassissimo errore giornaliero che globalmente risulta essere di 3.17\% per
-il \textit{Global MAPE} e di 95.75 kW per il \textit{Global~MAE}.
+Taking into account the data in Tables~\ref{tab:grrunpmaer}
+and \ref{tab:grrundailymetrics}, it can be confirmed that this
+Recurrent Neural Network-based model is highly performant.
+The Gap MAE consistently remains low, not exceeding 10 kW,
+while the $R^2$ index almost always approaches the ideal value of 1.0\cite{metrics}, never dropping below 0.70 (a value reached only in rare cases). Furthermore, the Daily MAPE values barely exceed 6\%, indicating very low daily error. The Global MAPE is 3.17\%, and the Global MAE is 95.75 kW, demonstrating excellent overall performance.
 
-Altrettanto positivi sono i dati dei buchi che eccedono la dimensione massima di 4 giorni. Dalla Tabella~\ref{tab:grrunbuchigrandi}
-possiamo vedere che per il buco di 12 giorni il Daily MAPE non supera mai
-il 9\% raggungendo alle volte anche il 0.45\% di errore. L'errore più grande
-è relativo al giorno 7 con uno sbaglio di 312.26 kW.
-Mentre per il buco da 6 giorni ... CONTINUARE ...
+%Prendendo in esame le Tabelle~\ref{tab:grrunpmaer} e \ref{tab:grrundailymetrics} possiamo confermare che questo modello basato
+%su Recurrent Neaural Network sia molto performante. Vediamo come
+%il \textit{Gap MAE} riamnga sempre basso, non superando i 10 kW, mentre 
+%l'indice $R^2$ si avvicini quasi sempre al valore ideale di 1.0\cite{metrics} e comunque non scendendo mai sotto a 0.70 (valore raggiunto solo in rarissimi casi).
+%Inoltre i valori del Daily MAPE superano a malapena il 6\% indicando un
+%bassissimo errore giornaliero che globalmente risulta essere di 3.17\% per 
+%il \textit{Global MAPE} e di 95.75 kW per il \textit{Global~MAE}.
 
-In conclusione possiamo affermare che questo modello riesce a sfruttare a pieno
-le potenzialità offerte dalle Reti Ricorrenti e riesce notevolmente bene
-a predirre l'andamento dell'energia istantanea prodotta durante bunchi di
-dati anche di molteplici giorni.
+Equally positive results are obtained for gaps that exceed the
+maximum length of 4 days.
+From Table~\ref{tab:grrunbuchigrandi}, we can see that for the
+12-day gap, the Daily MAPE never exceeds 9\%, occasionally even reaching as low as 0.45\% error. The largest error is found on day 7, with a value of 312.26 kW.
+Similarly, for the 6-day gap, the MAPE values do not exceed 10\%,
+and the maximum error is found on the last day, with around
+239 kW (6.73\%).
+For both graphs, we have an $R^2$ value greater than 0.90, specifically 0.92 and 0.97, with a Gap MAE of 6.56 and 6.37 kW.
+
+In conclusion, it can be affirmed that this model effectively
+harnesses the potential offered by Recurrent Neural Networks and
+excels in predicting the trend of instant energy production
+during data gaps, even for gaps spanning multiple days.
+%Altrettanto positivi sono i dati dei buchi che eccedono la dimensione massima di 4 giorni. Dalla Tabella~\ref{tab:grrunbuchigrandi}
+%possiamo vedere che per il buco di 12 giorni il Daily MAPE non supera mai
+%il 9\% raggungendo alle volte anche il 0.45\% di errore. L'errore più grande
+%è relativo al giorno 7 per un valore di 312.26 kW.
+%Similmente per il buco da 6 giorni abbiamo valori del MAPE che non superano
+%il 10\% e l'errore massimo lo troviamo nell'ultimo giorno con circa 239 kW (6.73\%). Per tutti e due i grafici abbiamo un valore dell'indice $R^2$ superiore
+%al .90, relativamente 0.92 e 0.97 con un Gap MAE di 6.56 e 6.37 kW.
+
+%In conclusione possiamo affermare che questo modello riesce a sfruttare a pieno
+%le potenzialità offerte dalle Reti Ricorrenti e riesce notevolmente bene
+%a predirre l'andamento dell'energia istantanea prodotta durante bunchi di
+%dati anche di molteplici giorni.
