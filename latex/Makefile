@@ -5,6 +5,7 @@ DOCUMENT := main.tex
 ZIPARCHIVE := A-Deep-Learning-approach-for-Time-Series-Imputation-on-Photovoltaic-data.zip
 FORMATTER := latexindent
 LINTER := chktex
+LINTER_IGNORE := -n 8 -n 1
 
 # .PHONY: build
 all: extract start format build clean stop
@@ -40,7 +41,7 @@ clean:
 	find . -name "*.bak*" | xargs rm
 
 check: start
-	docker exec -it $(CONTAINER) $(LINTER) $(DOCUMENT)
+	docker exec -it $(CONTAINER) $(LINTER) $(LINTER_IGNORE) $(DOCUMENT)
 
 
 help:
