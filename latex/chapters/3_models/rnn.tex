@@ -38,31 +38,19 @@ Now, let's display the main elements that compose it.
 %
 %Mostriamo ora le parti principali che lo compongono:
 
-\begin{figure}[H]
-	\begin{minipage}{0.6\textwidth}
-		\begin{itemize}
-			\item \textbf{Input}: As described earlier, the model requires 3 input tensors: \textit{before}, \textit{after}, and \textit{future}. The first two should contain information from just one day before and after the gap, respectively, while the last one will have weather features to support predictions, which can vary in length. An example of input could be \verb|[BATCH_SIZE, 96, 33]| for \textit{before}, \verb|[BATCH_SIZE, 96, 33]| for \textit{after}, and \verb|[BATCH_SIZE, 288, 18]| for \textit{future}.
-			      % come descritto in precedenza, il modello richiede 3 tensori in input: \textit{before}, \textit{after} e \textit{future}. I primi due dovranno contenere le informazioni di 
-			      % uno ed un solo giorno prima e dopo il buco, mentre l'ultimo avrà le 
-			      % feature meteo a supporto della predizione che potranno essere di lunghezza variabile. Un esempio di input può essere \verb|[BATCH_SIZE, 96, 33]| (before), \verb|[BATCH_SIZE, 96, 33]| (after) e \verb|[BATCH_SIZE, 288, 18]| (future).
-
-			\item \textbf{Encoder}: This component's role is to identify the most important features described by the \textit{before} and \textit{after} tensors to understand how the plant is operating. These two tensors are passed to two different GRU\cite{gru2} layers, which will analyze these time series and extract key information. The final output of each GRU will then be extracted and concatenated together to form the Hidden State for the \textit{Decoder}.
-			      % questo elemento ha il compito di andare
-			      %  ad individuare le caratteristiche più importanti descritte dai
-			      %  tensori \textit{before} e \textit{after} per poter capire quindi come
-			      %  sta funzionando l'impianto. Questi due tensori vengono passati a due
-			      %  layer GRU differenti che andranno ad analizzare queste serie temporali ed estrarranno le informazioni principali. Verrà quindi estrapolato l'ultimo output di ogni GRU per poi essere concatenate l'una dopo l'altra per formare l'Hidden State per il \textit{Decoder}.
-		\end{itemize}
-	\end{minipage}%
-	\hspace{0.5cm}
-	\begin{minipage}{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{chapters/3_models/imgs/grrun/grrunarchitecture.png}
-		\caption{Recurren Neural Netowrk Based Model architecture visualization.}\label{fig:grrunarchitecture}
-	\end{minipage}
-\end{figure}
-
 \begin{itemize}
+	\item \textbf{Input}: As described earlier, the model requires 3 input tensors: \textit{before}, \textit{after}, and \textit{future}. The first two should contain information from just one day before and after the gap, respectively, while the last one will have weather features to support predictions, which can vary in length. An example of input could be \verb|[BATCH_SIZE, 96, 33]| for \textit{before}, \verb|[BATCH_SIZE, 96, 33]| for \textit{after}, and \verb|[BATCH_SIZE, 288, 18]| for \textit{future}.
+	      % come descritto in precedenza, il modello richiede 3 tensori in input: \textit{before}, \textit{after} e \textit{future}. I primi due dovranno contenere le informazioni di 
+	      % uno ed un solo giorno prima e dopo il buco, mentre l'ultimo avrà le 
+	      % feature meteo a supporto della predizione che potranno essere di lunghezza variabile. Un esempio di input può essere \verb|[BATCH_SIZE, 96, 33]| (before), \verb|[BATCH_SIZE, 96, 33]| (after) e \verb|[BATCH_SIZE, 288, 18]| (future).
+
+	\item \textbf{Encoder}: This component's role is to identify the most important features described by the \textit{before} and \textit{after} tensors to understand how the plant is operating. These two tensors are passed to two different GRU\cite{gru2} layers, which will analyze these time series and extract key information. The final output of each GRU will then be extracted and concatenated together to form the Hidden State for the \textit{Decoder}.
+	      % questo elemento ha il compito di andare
+	      %  ad individuare le caratteristiche più importanti descritte dai
+	      %  tensori \textit{before} e \textit{after} per poter capire quindi come
+	      %  sta funzionando l'impianto. Questi due tensori vengono passati a due
+	      %  layer GRU differenti che andranno ad analizzare queste serie temporali ed estrarranno le informazioni principali. Verrà quindi estrapolato l'ultimo output di ogni GRU per poi essere concatenate l'una dopo l'altra per formare l'Hidden State per il \textit{Decoder}.
+
 	\item \textbf{Middle layer}: This layer consists of 2 Fully Connected Layers. It takes as input the result of the Encoding phase and reshapes it to the necessary format for input to the \textit{Decoder}. For both layers, the ReLU\cite{functions} function is used as the activation function.
 	      %è formato da 2 Fully Connected Layers. Questo prende in input il risultato della fase di Encoding e lo riporta alla forma necessaria per essere passato
 	      %in input al \textit{Decoder}. Per tutti e due i layer viene utilizzata
@@ -84,6 +72,13 @@ Now, let's display the main elements that compose it.
 	      % così da assicurarci che la predizione del modello durante
 	      % la notte sia sempre nulla.
 \end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=.9\textheight]{chapters/3_models/imgs/grrun/grrunarchitecture.png}
+	\caption{Recurren Neural Netowrk Based Model architecture visualization.}\label{fig:grrunarchitecture}
+\end{figure}
+
 \subsection{Training}
 The model was trained to learn the trend of the instant energy production curve of
 the plant during gaps of variable lengths, ranging from a minimum of 1

@@ -210,72 +210,72 @@ They do all of this by utilizing its gated units which help solve vanishing/expl
 \end{figure}
 
 %% Tratto da: https://arxiv.org/pdf/1706.03762.pdf
-\section{Transformer}
-
-Recurrent neural networks, long short-term memory and gated recurrent neural networks
-in particular, have been firmly established as state of the art approaches in sequence modeling and
-transduction problems such as language modeling and machine translation.
-Recurrent models typically factor computation along the symbol positions of the input and output
-sequences. Aligning the positions to steps in computation time, they generate a sequence of hidden
-states $h_t$, as a function of the previous hidden state $h_{t-1}$
-and the input for position $t$. This inherently
-sequential nature precludes parallelization within training examples, which becomes critical at longer
-sequence lengths, as memory constraints limit batching across examples.
-Attention mechanisms have become an integral part of compelling sequence modeling and transduction models in various tasks, allowing modeling of dependencies without regard to their distance in
-the input or output sequences.
-The Transformer allows for significantly more parallelization.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=10cm, keepaspectratio]{chapters/1_introduction/imgs/transformers.png}
-	\caption{This figure shows the Transformers model architecture.}
-	\label{fig:transarch}
-\end{figure}
-
-Most competitive neural sequence transduction models have an encoder-decoder structure.
-Here, the encoder maps an input sequence of symbol representations $(x_1, \ldots, x_n)$ to a sequence
-of continuous representations $z = (z_1, \ldots, z_n)$. Given $z$, the decoder then generates an output
-sequence $(y_1, \ldots, y_m)$ of symbols one element at a time. At each step the model is auto-regressive, consuming the previously generated symbols as additional input when generating the next.
-The Transformer follows this overall architecture using stacked self-attention and point-wise, fully
-connected layers for both the encoder and decoder, shown in the left and right halves of Figure \ref{fig:transarch}, respectively.
-
-\begin{itemize}
-	\item \textit{Encoder}: The encoder is composed of a stack of $N = 6$
-	      identical layers. Each layer has two
-	      sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, position-
-	      wise fully connected feed-forward network. Residual connection
-	      are employed around each of
-	      the two sub-layers, followed by layer normalization. That is, the output of each sub-layer is
-	      $\text{LayerNorm}(x + \text{Sublayer}(x))$, where $\text{Sublayer}(x)$ is the function implemented by the sub-layer
-	      itself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding
-	      layers, produce outputs of dimension $dmodel = 512$.
-
-	\item \textit{Decoder}: The decoder is also composed of a stack of $N = 6$
-	      identical layers. In addition to the two
-	      sub-layers in each encoder layer, the decoder inserts a third sub-layer, which performs multi-head
-	      attention over the output of the encoder stack. Similar to the encoder, there are residual connections
-	      around each of the sub-layers, followed by layer normalization. The self-attention sub-layer is modified in the decoder stack to prevent positions from attending to subsequent positions. This
-	      masking, combined with fact that the output embeddings are offset by one position, ensures that the
-	      predictions for position $i$ can depend only on the known outputs at positions less than $i$.
-
-	\item \textit{Attention}: An attention function can be described as
-	      mapping a query and a set of key-value pairs to an output,
-	      where the query, keys, values, and output are all vectors. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the
-	      query with the corresponding key.
-\end{itemize}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=12cm, keepaspectratio]{chapters/1_introduction/imgs/attention.png}
-	\caption{Scaled Dot-Product Attention (left). Multi-Head Attention consists of several attention layers running in parallel (right).}
-	\label{fig:attention}
-\end{figure}
-
-%% Immagine di Optimus Prime, un Transformer
-%%      ce lo mettiamo ??
-%\begin{figure}
+%\section{Transformer}
+%
+%Recurrent neural networks, long short-term memory and gated recurrent neural networks
+%in particular, have been firmly established as state of the art approaches in sequence modeling and
+%transduction problems such as language modeling and machine translation.
+%Recurrent models typically factor computation along the symbol positions of the input and output
+%sequences. Aligning the positions to steps in computation time, they generate a sequence of hidden
+%states $h_t$, as a function of the previous hidden state $h_{t-1}$
+%and the input for position $t$. This inherently
+%sequential nature precludes parallelization within training examples, which becomes critical at longer
+%sequence lengths, as memory constraints limit batching across examples.
+%Attention mechanisms have become an integral part of compelling sequence modeling and transduction models in various tasks, allowing modeling of dependencies without regard to their distance in
+%the input or output sequences.
+%The Transformer allows for significantly more parallelization.
+%
+%\begin{figure}[H]
 %    \centering
-%    \includegraphics[width=0.5\linewidth]{chapters/1_introduction/imgs/optimusprime.png}
-%    \caption{Enter Caption}
-%    \label{fig:enter-label}
+%    \includegraphics[width=10cm, keepaspectratio]{chapters/1_introduction/imgs/transformers.png}
+%    \caption{This figure shows the Transformers model architecture.}
+%    \label{fig:transarch}
 %\end{figure}
+%
+%Most competitive neural sequence transduction models have an encoder-decoder structure.
+%Here, the encoder maps an input sequence of symbol representations $(x_1, \ldots, x_n)$ to a sequence
+%of continuous representations $z = (z_1, \ldots, z_n)$. Given $z$, the decoder then generates an output
+%sequence $(y_1, \ldots, y_m)$ of symbols one element at a time. At each step the model is auto-regressive, consuming the previously generated symbols as additional input when generating the next.
+%The Transformer follows this overall architecture using stacked self-attention and point-wise, fully
+%connected layers for both the encoder and decoder, shown in the left and right halves of Figure \ref{fig:transarch}, respectively.
+%
+%\begin{itemize}
+%    \item \textit{Encoder}: The encoder is composed of a stack of $N = 6$
+%        identical layers. Each layer has two
+%        sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, position-
+%        wise fully connected feed-forward network. Residual connection
+%        are employed around each of
+%        the two sub-layers, followed by layer normalization. That is, the output of each sub-layer is
+%        $\text{LayerNorm}(x + \text{Sublayer}(x))$, where $\text{Sublayer}(x)$ is the function implemented by the sub-layer
+%        itself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding
+%        layers, produce outputs of dimension $dmodel = 512$.
+%    
+%    \item \textit{Decoder}: The decoder is also composed of a stack of $N = 6$
+%        identical layers. In addition to the two
+%        sub-layers in each encoder layer, the decoder inserts a third sub-layer, which performs multi-head
+%        attention over the output of the encoder stack. Similar to the encoder, there are residual connections
+%        around each of the sub-layers, followed by layer normalization. The self-attention sub-layer is modified in the decoder stack to prevent positions from attending to subsequent positions. This
+%        masking, combined with fact that the output embeddings are offset by one position, ensures that the
+%        predictions for position $i$ can depend only on the known outputs at positions less than $i$.
+%
+%    \item \textit{Attention}: An attention function can be described as
+%        mapping a query and a set of key-value pairs to an output,
+%        where the query, keys, values, and output are all vectors. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the
+%        query with the corresponding key.
+%\end{itemize}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=12cm, keepaspectratio]{chapters/1_introduction/imgs/attention.png}
+%    \caption{Scaled Dot-Product Attention (left). Multi-Head Attention consists of several attention layers running in parallel (right).}
+%    \label{fig:attention}
+%\end{figure}
+%
+%%% Immagine di Optimus Prime, un Transformer
+%%%      ce lo mettiamo ??
+%%\begin{figure}
+%%    \centering
+%%    \includegraphics[width=0.5\linewidth]{chapters/1_introduction/imgs/optimusprime.png}
+%%    \caption{Enter Caption}
+%%    \label{fig:enter-label}
+%%\end{figure}

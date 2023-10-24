@@ -44,18 +44,20 @@ Inference time is extremely fast, taking less than a second.
 	\begin{center}
 		\begin{tabular}[c]{l|l|l|c|c|c|c}
 			%\cline{2-4}
-			\multicolumn{1}{c|}{\textbf{Gap Period}} &
-			\multicolumn{1}{c|}{\textbf{MAE (kW)}}   &
-			\multicolumn{1}{c|}{\textbf{R}$^2$}      &
-			\multicolumn{2}{c|}{\textbf{Day 1}}      &
-			\multicolumn{2}{c}{\textbf{Day 2}}                                                                                                                                \\
+			\multicolumn{1}{c|}{\textbf{Gap}}   &
+			\makecell{\textbf{MAE}                                                                                        \\\textbf{(kW)}} &
+			\multicolumn{1}{c|}{\textbf{R}$^2$} &
+			\multicolumn{2}{c|}{\textbf{Day 1}} &
+			\multicolumn{2}{c}{\textbf{Day 2}}                                                                            \\
 			\hline
 
-			                                         &       &      & \tiny \textbf{MAE (kW)} & \tiny \textbf{MAPE (\%)} & \tiny \textbf{MAE (kW)} & \tiny \textbf{MAPE (\%)} \\
-			02-04 to 03-04                           & 18.63 & 0.64 & 1774.87                 & 36.32                    & 1774.87                 & 199.20                   \\
-			03-04 to 04-04                           & 06.90 & 0.52 & 355.04                  & 39.85                    & 355.04                  & 24.35                    \\
-			05-04 to 06-04                           & 17.99 & 0.42 & 152.34                  & 7.23                     & 152.34                  & 5.97                     \\
-			06-04 to 07-04                           & 20.07 & 0.62 & 1293.53                 & 50.70                    & 1293.53                 & 25.22                    \\
+			%& & & \tiny \textbf{MAE (kW)} & \tiny \textbf{MAPE (\%)} & \tiny \textbf{MAE (kW)} & \tiny \textbf{MAPE (\%)}\\
+			                                    &       &      & \small \makecell{\textbf{MAE}                            \\\textbf{(kW)}} & \small \makecell{\textbf{MAPE}\\\textbf{(\%)}} & \small \makecell{\textbf{MAE}\\\textbf{(kW)}} & \small \makecell{\textbf{MAPE}\\\textbf{(\%)}}\\
+			\cline{4-7}
+			02-04 to 03-04                      & 18.63 & 0.64 & 1774.87                       & 36.32 & 1774.87 & 199.20 \\
+			03-04 to 04-04                      & 06.90 & 0.52 & 355.04                        & 39.85 & 355.04  & 24.35  \\
+			05-04 to 06-04                      & 17.99 & 0.42 & 152.34                        & 7.23  & 152.34  & 5.97   \\
+			06-04 to 07-04                      & 20.07 & 0.62 & 1293.53                       & 50.70 & 1293.53 & 25.22  \\
 		\end{tabular}
 	\end{center}
 	\caption{The table displays the values of MAE (Mean Absolute Error)\cite{metrics} and the R$^2$ (R-squared)\cite{metrics} index applied to the model predictions shown in Figures~\ref{fig:ufcnevalbelli} and \ref{fig:ufcnevalbrutti}.}\label{tab:grrundatitab1}

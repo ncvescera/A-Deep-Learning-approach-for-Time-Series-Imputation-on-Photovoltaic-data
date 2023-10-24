@@ -22,23 +22,25 @@ and discuss some strengths and weaknesses of each model.
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{l|l|l|l|l}
-		\multicolumn{1}{c|}{\textbf{Gap}}       &
-		\multicolumn{2}{c|}{\textbf{MAE (kW)}}  &
-		\multicolumn{1}{c|}{\textbf{Diff (kW)}} &
-		\multicolumn{1}{c}{\textbf{Diff (\%)}}                                                \\ %% ((MLP - RNN)*100)/MLP
+	\begin{tabular}{l|l|l|l}
+		\multicolumn{1}{c}{}                         &
+		\multicolumn{2}{c}{\textit{lower is better}} &                                                   \\
+		\multicolumn{1}{c|}{\textbf{Gap}}            &
+		\multicolumn{2}{c|}{\textbf{MAE (kW)}}       &
+		\multicolumn{1}{c}{\textbf{Gain (\%)}}                                                           \\ %% ((MLP - RNN)*100)/MLP
 		\hline
-		                                        & \textit{MLP} & \textit{RNN} &       &       \\
-		02-04 to 03-04                          & 18.63        & 3.91         & 14.72 & 79.01 \\
-		03-04 to 04-04                          & 06.90        & 3.29         & 03.61 & 52.31 \\
-		04-04 to 05-04                          & 10.41        & 5.55         & 04.86 & 46.68 \\
-		05-04 to 06-06                          & 17.99        & 6.89         & 11.10 & 61.70 \\
-		06-04 to 07-04                          & 20.07        & 6.78         & 13.29 & 66.21 \\
-		07-04 to 08-04                          & 14.77        & 9.25         & 5.52  & 37.37 \\
-		08-04 to 09-04                          & 15.82        & 7.85         & 7.97  & 50.39 \\
-		09-04 to 10-04                          & 10.30        & 5.82         & 4.48  & 43.49
+		                                             & \small \textbf{MLP} & \small \textbf{RNN} &       \\
+		\cline{2-3}
+		02-04 to 03-04                               & 18.63               & 3.91                & 79.01 \\
+		03-04 to 04-04                               & 06.90               & 3.29                & 52.31 \\
+		04-04 to 05-04                               & 10.41               & 5.55                & 46.68 \\
+		05-04 to 06-06                               & 17.99               & 6.89                & 61.70 \\
+		06-04 to 07-04                               & 20.07               & 6.78                & 66.21 \\
+		07-04 to 08-04                               & 14.77               & 9.25                & 37.37 \\
+		08-04 to 09-04                               & 15.82               & 7.85                & 50.39 \\
+		09-04 to 10-04                               & 10.30               & 5.82                & 43.49
 	\end{tabular}
-	\caption{This table highlights the difference between the error of the MLP-based model and the RNN-based model. The column \texttt{Diff (kW)} represents the absolute difference between MLP MAE and RNN MAE, while \texttt{Diff (\%)} represents the percentage difference.}
+	\caption{This table highlights the difference between the error of the MLP-based model and the RNN-based model. The column \texttt{Gain (\%)} represents the absolute percentage difference between MLP MAE and RNN MAE.}
 	%In questa tabella viene messo in evidenza la differenza tra l'errore del modello basato su MLP e quello su Reti Ricorrenti. La colonna \texttt{Diff (kW)} è la differenza in valore assoluto tra MLP MAE e RNN MAE, mentre \texttt{Diff (\%)} è la differenza in percentuale.}
 	\label{tab:mlpvsrnndiff}
 \end{table}
@@ -47,19 +49,22 @@ and discuss some strengths and weaknesses of each model.
 	\begin{minipage}[t]{.45\textwidth}
 		\centering
 		\begin{tabular}[t]{l|l|l|l}
-			\multicolumn{1}{c|}{\textbf{GAP}}      &
-			\multicolumn{2}{c|}{\textbf{Max Err.}} &
-			\multicolumn{1}{c}{\textbf{Diff.}}                                           \\
+			\multicolumn{1}{c}{}                         &
+			\multicolumn{2}{c}{\textit{lower is better}} &                                                  \\
+			\multicolumn{1}{c|}{\textbf{Gap}}            &
+			\multicolumn{2}{c|}{\makecell{\textbf{Max Err.}                                                 \\\textbf{(kW)}}} &
+			\makecell{\textbf{Gain}                                                                         \\\textbf{(\%)}} \\
 			\hline
-			                                       & \textit{MLP} & \textit{RNN} &       \\
-			02-04 to 03-04                         & 90.74        & 35.74        & 55.0  \\
-			03-04 to 04-04                         & 96.29        & 21.69        & 74.60 \\
-			04-04 to 05-04                         & 89.01        & 54.95        & 26.06 \\
-			05-04 to 06-06                         & 105.01       & 53.91        & 51.10 \\
-			06-04 to 07-04                         & 122.56       & 51.35        & 71.21 \\
-			07-04 to 08-04                         & 105.94       & 75.91        & 30.03 \\
-			08-04 to 09-04                         & 86.14        & 75.47        & 05.65 \\
-			09-04 to 10-04                         & 78.76        & 59.97        & 18.79
+			                                             & \small \textbf{MLP} & \small\textbf{RNN} &       \\
+			\cline{2-3}
+			02-04 to 03-04                               & 90.74               & 35.74              & 60.61 \\ %55.0 \\
+			03-04 to 04-04                               & 96.29               & 21.69              & 77.47 \\ %74.60\\
+			04-04 to 05-04                               & 89.01               & 54.95              & 29.27 \\ %26.06\\
+			05-04 to 06-06                               & 105.01              & 53.91              & 48.66 \\ %51.10\\
+			06-04 to 07-04                               & 122.56              & 51.35              & 58.10 \\%71.21\\
+			07-04 to 08-04                               & 105.94              & 75.91              & 28.34 \\ % 30.03\\
+			08-04 to 09-04                               & 86.14               & 75.47              & 06.55 \\%05.65\\
+			09-04 to 10-04                               & 78.76               & 59.97              & 23.85 %18.79
 		\end{tabular}
 		\caption*{(a)}
 		%\caption{Nella tabella viene mostrata la differenza tra i valori dell'indice $R^2$ per i due modelli.}
@@ -68,51 +73,56 @@ and discuss some strengths and weaknesses of each model.
 	\begin{minipage}[t]{.45\textwidth}
 		\centering
 		\begin{tabular}[t]{l|l|l|l}
-			\multicolumn{1}{c|}{\textbf{GAP}}      &
-			\multicolumn{2}{c|}{\textbf{Min Err.}} &
-			\multicolumn{1}{c}{\textbf{Diff.}}                                           \\
+			\multicolumn{1}{c}{}                         &
+			\multicolumn{2}{c}{\textit{lower is better}} &                                                  \\
+			\multicolumn{1}{c|}{\textbf{Gap}}            &
+			\multicolumn{2}{c|}{\makecell{\textbf{Min Err.}                                                 \\\textbf{(kW)}}} &
+			\makecell{\textbf{Gain}                                                                         \\\textbf{(\%)}} \\
 			\hline
-			                                       & \textit{MLP} & \textit{RNN} &       \\
-			02-04 to 03-04                         & 7.58         & 0.90         & 6.68  \\
-			03-04 to 04-04                         & 0.79         & 0.05         & 0.74  \\
-			04-04 to 05-04                         & 0.39         & 0.85         & -0.46 \\
-			05-04 to 06-06                         & 1.45         & 0.05         & 1.40  \\
-			06-04 to 07-04                         & 4.84         & 0.13         & 4.71  \\
-			07-04 to 08-04                         & 1.73         & 1.39         & 0.34  \\
-			08-04 to 09-04                         & 5.19         & 0.89         & 4.30  \\
-			09-04 to 10-04                         & 3.19         & 0.71         & 2.48
+			                                             & \small \textbf{MLP} & \small\textbf{RNN} &       \\
+			\cline{2-3}
+			02-04 to 03-04                               & 7.58                & 0.90               & 88.12 \\ %6.68 \\
+			03-04 to 04-04                               & 0.79                & 0.05               & 93.67 \\ %0.74 \\
+			04-04 to 05-04                               & 0.39                & 0.85               & 50.11 \\ %-0.46\\
+			05-04 to 06-06                               & 1.45                & 0.05               & 96.55 \\ %1.40 \\
+			06-04 to 07-04                               & 4.84                & 0.13               & 97.31 \\ %4.71 \\
+			07-04 to 08-04                               & 1.73                & 1.39               & 19.65 \\ %0.34 \\
+			08-04 to 09-04                               & 5.19                & 0.89               & 82.85 \\% 4.30\\
+			09-04 to 10-04                               & 3.19                & 0.71               & 77.74 \\ %2.48
 		\end{tabular}
 		\caption*{(b)}
 	\end{minipage}
 	\begin{minipage}{\textwidth}
+		\vspace{.1cm}
 		\centering
 		\begin{tabular}[t]{l|l|l|l}
-			\multicolumn{1}{c|}{\textbf{GAP}}   &
-			\multicolumn{2}{c|}{\textbf{$R^2$}} &
-			\multicolumn{1}{c}{\textbf{Diff.}}                                        \\
+			\multicolumn{1}{c}{}                          &
+			\multicolumn{2}{c}{\textit{bigger is better}} &                                                  \\
+			\multicolumn{1}{c|}{\textbf{Gap}}             &
+			\multicolumn{2}{c|}{\textbf{$R^2$}}           &
+			\multicolumn{1}{c}{\textbf{Gain (\%)}}                                                           \\
 			\hline
-			                                    & \textit{MLP} & \textit{RNN} &       \\
-			02-04 to 03-04                      & 0.64         & 0.98         & -0.34 \\
-			03-04 to 04-04                      & 0.52         & 0.91         & -0.39 \\
-			04-04 to 05-04                      & 0.52         & 0.89         & -0.37 \\
-			05-04 to 06-06                      & 0.42         & 0.91         & -0.49 \\
-			06-04 to 07-04                      & 0.62         & 0.95         & -0.33 \\
-			07-04 to 08-04                      & 0.78         & 0.91         & -0.13 \\
-			08-04 to 09-04                      & 0.55         & 0.85         & -0.30 \\
-			09-04 to 10-04                      & 0.42         & 0.78         & -0.36
+			                                              & \small \textbf{MLP} & \small\textbf{RNN} &       \\
+			\cline{2-3}
+			02-04 to 03-04                                & 0.64                & 0.98               & 34.69 \\ %-0.34\\
+			03-04 to 04-04                                & 0.52                & 0.91               & 42.85 \\ %-0.39\\
+			04-04 to 05-04                                & 0.52                & 0.89               & 41.57 \\%-0.37\\
+			05-04 to 06-06                                & 0.42                & 0.91               & 53.84 \\ %-0.49\\
+			06-04 to 07-04                                & 0.62                & 0.95               & 37.73 \\ %-0.33\\
+			07-04 to 08-04                                & 0.78                & 0.91               & 14.28 \\ %-0.13\\
+			08-04 to 09-04                                & 0.55                & 0.85               & 35.29 \\ %-0.30\\
+			09-04 to 10-04                                & 0.42                & 0.78               & 46.15 %-0.36
 		\end{tabular}
 		\caption*{(c)}
 	\end{minipage}
 
-	\caption{The tables compare the results of the two models, highlighting the maximum pointwise error (a) expressed in kW, the minimum pointwise error (b) expressed in kW, and the $R^2$ index (c). For each metric, the difference between the two values ($MPL - RNN$) is also shown.}
+	\caption{The tables compare the results of the two models, highlighting the maximum pointwise error (a), the minimum pointwise error (b), and the $R^2$ index (c). For each metric, the absolute percentage difference is also shown.}
 	%Le tabelle mettono a confronto i risultati dei due modelli paragonando il massimo errore puntuale (a) espresso in kW, il minimo errore puntuale (b) espresso in kW e l'indice $R^2$ (c). Per ognuna viene mostrata anche la differenza tra i due valore ($MPL - RNN$).}
 \end{table}
 
-From the previous tables, it's evident that the RNN-based model achieves significantly higher $R^2$ values compared to the MLP-based model. On average, the RNN-based model's values hover around 0.90, while the MLP-based model is around 0.60, with an average difference of 0.30 points. The second model approximates the trend of instant energy production during gaps much better.
+From the previous tables, it's evident that the RNN-based model achieves significantly higher $R^2$ values compared to the MLP-based model. On average, the RNN-based model's values hover around 0.90, while the MLP-based model is around 0.60, with an average difference of 30\%. The second model approximates the trend of instant energy production during gaps much better.
 
-In tables (a) and (b), it can be observed that the architecture utilizing RNN has maximum and minimum error values significantly lower than the MLP-based model.
-
-Regarding Gap MAE, the second model is also superior to the first by approximately 60\%, with significantly lower average errors.
+In tables (a) and (b), it can be observed that the architecture utilizing RNN has maximum and minimum error values significantly lower than the MLP-based model. Regarding Gap MAE, the second model is also superior to the first by approximately 60\%, with significantly lower average errors.
 
 %Dalle precedenti tabelle possiamo vedere com il modello basato su RNN ottiene
 %predizioni con un indice $R^2$ molto superiore a quello del modello basato su MLP. In media i valori del primo si aggirano intorno a 0.90 mentre per 
