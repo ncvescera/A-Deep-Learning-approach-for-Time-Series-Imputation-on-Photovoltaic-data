@@ -21,16 +21,16 @@ Here's a brief introduction to the indices we will use:
 %Di seguito una breve introduzione agli indici che utilizzeremo:
 
 \begin{itemize}
-	\item \textbf{Gap MAE}: This metric represents the average pointwise error that the model makes compared to the ground truth. It is expressed in kW.
+	\item \textbf{Mean Absolute Error (MAE)}: This metric represents the average pointwise error that the model makes compared to the ground truth. It is expressed in kW.
 	      %MAE dell'intero buco, indica in meda l'errore puntuale che il modello commette rispetto alla ground truth. Viene espresso in kW.
 	\item \textbf{$R^2$ (R-squared)}: This index quantifies how well the prediction curve approximates the ground truth. It helps us understand how well the model approximates the trend of the reference instant prediction.
 	      %$R^2$, questo indice ci va a quantificare quanto bene la curva della predizione approssimi quella della ground truth. Ci permette di
 	      %capire quanto bene il modello riesce ad approssimare l'andamento della predizione istantanea di riferimento.
-	\item \textbf{Daily MAE}: It is calculated only for individual days within the gap. This metric highlights the average daily error that the model makes, measured in kW.
+	      %\item \textbf{Daily MAE} FORSE TOGLIERE: It is calculated only for individual days within the gap. This metric highlights the average daily error that the model makes, measured in kW.
 	      %MAE giornaliero, viene calcolato solo sui singoli giorni del buco. Mette in evidenza l'errore giornaliero medio che commette il modello misurato in kW.
-	\item \textbf{Global MAE}: This is the average of all daily errors, expressed in kW.
+	      %\item \textbf{Global MAE}: This is the average of all daily errors, expressed in kW.
 	      %Global MAE , è la media di tutti i gli errori giornalieri espresso in kW.
-	\item \textbf{MAPE (Mean Absolute Percentage Error)}\cite{metrics}: It indicates the error of the model relative to the ground truth, measured in percentage.
+	\item \textbf{Mean Absolute Percentage Error (MAPE)}\cite{metrics}: It indicates the error of the model relative to the ground truth, measured in percentage. The calculation of this metric in our case can be quite problematic due to the presence of many values close to zero or exactly zero. Therefore, the calculation is performed by only considering positive values.
 	      %MAPE, indica in percentuale quanto è l'errore del modello rispetto la groundh truth, misurato in percentuale
 \end{itemize}
 
@@ -40,6 +40,6 @@ Here's a brief introduction to the indices we will use:
 \input{chapters/4_evaluation/mlp}
 \input{chapters/4_evaluation/rrn}
 \input{chapters/4_evaluation/transformer}
-\newpage
+%\newpage
 \input{chapters/4_evaluation/mlpvsrnn}
 \input{chapters/4_evaluation/conclusions}

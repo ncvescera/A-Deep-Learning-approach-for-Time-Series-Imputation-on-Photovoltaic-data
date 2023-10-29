@@ -13,17 +13,19 @@ This model is designed to make the most of the capabilities of
 Recurrent Neural Networks to predict the behavior of instant
 energy production during a variable-length gap period.
 
-The required input format is similar to the previous one:
-a tensor named \textit{before} containing the plant's status
-one day before the gap, a tensor named \textit{after} with information
-about the plant the day after the hole, and an additional tensor
-named \textit{future} containing features that are \textit{always} available
-even during blackout periods.
-These features specifically include \verb|Solargis|, \verb|isday|,
-and information obtained from OpenMeteo\cite{openmeteo}.
-This last tensor should assist the model in prediction by helping
-it better understand the state of meteorological conditions
-and adapt instant production accordingly.
+The required input format is quite similar to the previous one: a tensor named \textit{before} containing the plant's status for a period before the gap, a tensor named \textit{after} with information about the plant for a period after the gap, and an additional tensor named \textit{future} containing features that are \textit{always} available even during blackout periods. These features specifically include \verb|Solargis|, \verb|isday|, and information obtained from OpenMeteo. This last tensor should assist the model in prediction by helping it better understand the state of meteorological conditions and adapt instant production accordingly.
+
+%The required input format is quite similar to the previous one:
+%a tensor named \textit{before} containing the plant's status
+%one day before the gap, a tensor named \textit{after} with information
+%about the plant the day after the hole, and an additional tensor
+%named \textit{future} containing features that are \textit{always} available
+%even during blackout periods.
+%These features specifically include \verb|Solargis|, \verb|isday|,
+%and information obtained from OpenMeteo\cite{openmeteo}.
+%This last tensor should assist the model in prediction by helping
+%it better understand the state of meteorological conditions
+%and adapt instant production accordingly.
 
 Now, let's display the main elements that compose it.
 
@@ -39,7 +41,7 @@ Now, let's display the main elements that compose it.
 %Mostriamo ora le parti principali che lo compongono:
 
 \begin{itemize}
-	\item \textbf{Input}: As described earlier, the model requires 3 input tensors: \textit{before}, \textit{after}, and \textit{future}. The first two should contain information from just one day before and after the gap, respectively, while the last one will have weather features to support predictions, which can vary in length. An example of input could be \verb|[BATCH_SIZE, 96, 33]| for \textit{before}, \verb|[BATCH_SIZE, 96, 33]| for \textit{after}, and \verb|[BATCH_SIZE, 288, 18]| for \textit{future}.
+	\item \textbf{Input}: As described earlier, the model requires 3 input tensors: \textit{before}, \textit{after}, and \textit{future}. The first two should contain plant's information from some period of time before and after the gap, while the last one will have weather features to support predictions, which can vary in length. An example of input could be \verb|[BATCH_SIZE, 23, 33]| for \textit{before}, \verb|[BATCH_SIZE, 120, 33]| for \textit{after}, and \verb|[BATCH_SIZE, 79, 13]| for \textit{future}.
 	      % come descritto in precedenza, il modello richiede 3 tensori in input: \textit{before}, \textit{after} e \textit{future}. I primi due dovranno contenere le informazioni di 
 	      % uno ed un solo giorno prima e dopo il buco, mentre l'ultimo avrà le 
 	      % feature meteo a supporto della predizione che potranno essere di lunghezza variabile. Un esempio di input può essere \verb|[BATCH_SIZE, 96, 33]| (before), \verb|[BATCH_SIZE, 96, 33]| (after) e \verb|[BATCH_SIZE, 288, 18]| (future).
@@ -80,9 +82,7 @@ Now, let's display the main elements that compose it.
 \end{figure}
 
 \subsection{Training}
-The model was trained to learn the trend of the instant energy production curve of
-the plant during gaps of variable lengths, ranging from a minimum of 1
-day to a maximum of 4 days.
+The model was trained to learn the trend of the instant energy production curve of the plant during gaps of variable lengths, ranging from a minimum of 60 timestamp to a maximum of 4 days, using variable dimensions for both \textit{before} and \textit{after}, ranging from 2 timestamps up to a maximum of 1 day.
 These gaps were artificially generated in the training dataset and provided to the model
 as described earlier, with attention to grouping gaps of the same length in
 batches to avoid complications during training.
@@ -99,7 +99,7 @@ This allows the model to learn the shape of the curve and not exceed the limits
 of energy production during the gap.
 
 The Adam\cite{adam} optimizer was used, and the L1Loss\cite{loss} was applied as the loss function.
-The batch size was set to 10, the learning rate ($\lambda$) was set to 0.01,
+The batch size was set to 10, the learning rate ($\lambda$) was set to 0.0001,
 a maximum of 100 epochs was set, and the patience was set to 20.
 
 %Il modello è stato allenato per cercare di apprendere l'andamento della
@@ -125,7 +125,7 @@ a maximum of 100 epochs was set, and the patience was set to 20.
 		\begin{tabular}[c]{l|l}
 			\textbf{Total Parameters (\#)}     & 92737 \\
 			\textbf{Trainable Parameters (\#)} & 92737 \\
-			\textbf{Training Duration (s)}     & 39.0  \\
+			\textbf{Training Duration (s)}     & 49.0  \\
 			\textbf{Model Size (KB)}           & 366.6
 		\end{tabular}
 	\end{center}
