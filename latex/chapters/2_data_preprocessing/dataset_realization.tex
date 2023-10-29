@@ -1,6 +1,8 @@
 \section{Dataset Realization}
-For the creation of our dataset, we devised a procedure that
-allowed us to obtain a single file, in CSV format, where for
+ {\bf (*VP* se sposti la sez 1.7, devi distinguere fra il dataset dei dati originali e quello ottenuto dalla loro lavorazione. Il primo potrebbe essere "Original Dataset"}
+
+For the creation of a dataset taht can be passed directly to our imputation models, we devised a procedure that
+allowed us to merge all the original files into a single file, where for
 each timestamp, we have all the data for the entire system at
 that exact moment. Below is the final structure of the dataset
 and the algorithm for generating it.
@@ -156,7 +158,7 @@ forecasts for the time period covered by our dataset (from 02-02-2022 to 18-06-2
 \end{algorithm}
 
 We have obtained most of the information made available by Open-Meteo since the API
-request is free\cite{openmeteo} and computationally and storage-wise inexpensive.
+request is free \cite{openmeteo} and computationally and storage-wise inexpensive.
 These will be filtered at a later time (see Section~\ref{sec:featureselection}).
 Among these, we find \texttt{sunrise} and \texttt{sunset}, which indicate the exact time
 (down to the minute) of when dawn and sunset occurred, respectively.
@@ -206,7 +208,7 @@ during the night.
 	\caption{All feature selected from Open-Meteo with description\cite{openmeteo}.}\label{tab:openmeteofeatures}
 \end{longtable}
 
-The new feature \texttt{is\_day} will contain two values: 0 and 1,
+The new feature \texttt{is\_day} contains two values: 0 and 1,
 representing \textit{Night} and \textit{Day}, respectively.
 To create this feature, we add 0 with a frequency of 5 minutes until sunrise,
 then add 1 until sunset, and finally add more 0s until the end of the day.
@@ -305,10 +307,11 @@ for each timestamp, will indicate whether it is day or night.
 
 As we can see from Figure~\ref{fig:graficibuchi}, there are certain
 periods within the dataset (highlighted in red) where data is missing,
-which we refer to as \textquote{holes}. Leaving these gaps in the
-dataset causes problems during model training
+which we refer to as \textquote{holes}. These data gaps can cause problems during model training
 (hindering the correct calculation of the loss function), and therefore,
-they need to be removed. One possible approach for holes removal
+they need to be removed.
+
+One possible approach for holes removal
 is to perform a \textit{fill} operation: filling the gap with the
 first available non-null value. This tactic may be considered
 acceptable only if the time span involves just a few timestamps.
@@ -387,7 +390,7 @@ just been described.
 
 \subsection{Target Feature}
 For the deep learning models that we will introduce later,
-it could be very difficult to learn to predict the Total Missing Energy,
+it could be very difficult learning how to predict the Total Missing Energy,
 as it is a curve that grows constantly, potentially to infinity.
 These models need to have features that vary within a limited range of
 values. To achieve this, we transformed the variable
@@ -428,7 +431,7 @@ This new feature was added to the dataset with the name \verb|target|.
 \end{figure}
 
 \subsection{Re-Sampling}
-Finally, after all the operations described above, we have a dataset
+Finally, after all the operations described above, we obtain a dataset
 with samples taken at 5-minute intervals. As we can see from
 Figure~\ref{fig:targetfeature}, this data appears to be quite noisy,
 which could pose
