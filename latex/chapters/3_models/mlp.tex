@@ -1,7 +1,7 @@
 \section{MLP}\label{sec:mlpbaseline}
 In this section, we will introduce the first model, which we will refer to as the
 baseline model, based on a Multi-Layer Perceptron.
-We will analyze its architecture, the training phase, and its final performance.
+We will analyze its architecture and the training phase.
 
 %In questa sezione andremo ad introdurre il primo modello a cui faremo
 %riferiento come baseline model, basato su MultiLayer Perceptron.
@@ -25,8 +25,7 @@ The model consists of 6 main layers:
 
 \begin{itemize}
 	\item \textbf{Input layer}: This is the first layer of the network.
-	      It takes two input tensors: \textit{before} and \textit{after}.
-	      These tensors represent the day before and the day after the specific period we want to
+	      It takes two input tensors: \textit{before} and \textit{after}., representing the day before and the day after the specific period we want to
 	      predict. They have the shape \verb|[BATCH_SIZE, 96, 33]|, where 96 is the number
 	      of timestamps in our dataset that make up one day, and 33 represents the
 	      features obtained from the Data Preprocessing phase.
@@ -37,11 +36,11 @@ The model consists of 6 main layers:
 	      % è il primo livello della rete, prende in input 2 tensori: \textit{before} e \textit{after}. Questi stanno ad indicare rispettivamente il giorno prima e quello dopo del buco che vogliamo chiudere. Avranno la forma \verb|[BATCH_SIZE, 96, 33]|, dove \verb|96| è il numero di timestamp del nostro dataset che formano un giorno e \verb|33| sono le feature ottenute dalla fase di preprocessing dei dati. A questi verrà poi applicata un'operazione di Flatten ed infine concatenati per poter essere poi passati al layer successio.
 	      %L'output di questo layer passa per un livello di Batch Normalization e viene utilizzata la ReLu come funzione di attivazione. 
 
-	\item \textbf{Hidden layers}: In total, there are 4 layers, each of which takes the
-	      output of the previous layer as input and reduces the number of neurons by half.
+	\item \textbf{Hidden layers}: In total, there are 3 layers, each of which takes the
+	      output of the previous layer as input and reduces the number of neurons by approximately half. The 3 hidden layers are composed of 3069, 1527, and 986 nodes, respectively.
 	      Batch Normalization\cite{batchnorm} is applied to the result, and the Rectified Linear Unit (ReLU)\cite{functions}
 	      is used as the activation function.
-
+	      %{\bf (*VP* aggiungerei in maniera esplicita il numero dei nodi degli hidden layer)}
 	      %in totale 4, ognuno prende in input il risultato del layer precedente e va a dimezzare il numero dei neuroni. Al risultato viene applicata un'operazione di Batch Normalization e utilizzata la ReLu come funzione di attivazione.
 
 	\item \textbf{Output layer}: The final layer of our network, it takes the result from the
@@ -64,19 +63,25 @@ The model was trained by artificially creating gaps of two days in length within
 training dataset.
 These gaps were passed to the network in the format described earlier,
 and the output result was compared to the actual instantaneous energy produced during the gap.
-An \textit{Early Stopping}\cite{es} procedure was implemented to prevent training from continuing if
+An \textit{Early Stopping}\cite{es} procedure was used
+%\textbf{(*VP* a meno che tu non abbia implementato una procedura personalizzata, cambierei implemented in used)} 
+to prevent training from continuing if
 the model was not improving its performance.
 A procedure, called \textit{Save Best}, has also been integrated,
 which saves the model to a file whenever the Validation Loss improves.
 The validation dataset was applied in this phase to assess the learning progress at the end
 of each epoch.
-A normalization procedure of the area was applied to the model's output in relation to
+A normalization procedure was applied to the model's output in relation to
 that of the gap to ensure that the output starts exactly from the last value of the
 instantaneous energy produced \textit{before} and ends exactly with the first value
-of the energy produced \textit{after}. Adam\cite{adam} was used as the optimizer,
-and L1Loss\cite{loss} (Equation~\ref{eq:l1loss}) served as the loss function.
+of the energy produced \textit{after}.
+{\bf (*VP* Non ho capito cosa fa e perchè usi questa normalizzazione)}
+Adam\cite{adam} was used as the optimizer,
+and L1Loss\cite{loss} (Equation~\ref{eq:l1loss}) served as the loss function. %{\bf (*VP*) non è la 3.2?}
 We chose to set the batch size parameter to 10, the learning rate $\lambda$ to 0.01,
 a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
+
+	{\bf (*VP* SE FAI IN TEMPO, CONSIDERA CHE TUTTE LE FIGURE DOVREBBERO ESSERE REFERENZIATE E SPIEGATE NEL TESTO. Le fig 3.2 e 3.3 le citi dove parli delle activation functions. La tab 3.1 la introduci dicendo una cosa tipo "In sintesi, in Tab 3.1 possiamo vedere il numerod i parametri totali etc...). Devi illustrare la fif 3.4 e soprattutto i grafici in 3.5. La speigazione di questi è essenziale perchè costituiscono a tutti gli effetti delle misure per comprendere quanto è costoso il training. Devi introdurre con una frase tipo "Per valutare il costo della procedura di training abbiamo utilizzato diverse misure, le elenchi e le spieghi rapidamente in un elenco puntato. Poi ti togli d'impiccio dicendo che per ognuna il corrispondente grafico in funzione del tempo di training è illustrato in Fig.3.5}
 
 %Il modello è stato allenato creando, in modo artificiale, buchi di lunghezza
 %pari a due giorni all'interno del dataset di training, passati alla rete nel formato
@@ -94,10 +99,10 @@ a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
 %Abbiamo scelto di impostare il parametro batch size a 10, learning rate $\lambda$ a 0.01, 100
 %come numero massimo di epoche e 20 come patience per l'Early Stopping.
 
-\begin{gather}\label{eq:l1loss}
+\begin{gather}
 	L = \{l_1,\dots,l_N\}^\top, \quad
 	l_n = \left| x_n - y_n \right|,\\
-	\ell(x,y) = \operatorname{mean}(L)
+	\ell(x,y) = \operatorname{mean}(L) \label{eq:l1loss}
 \end{gather}
 
 \begin{table}[H]
@@ -216,4 +221,23 @@ a maximum of 100 epochs, and a patience value of 20 for Early Stopping.
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
+
+From the training phase graph shown in Figure~\ref{fig:ufcntraining},
+we can see that it has concluded successfully because the two curves
+(training loss and validation loss) do not diverge but remain at a
+relatively constant distance from each other.
+This also suggests that there is no overfitting.
+However, the values of the two loss functions do not appear to decrease
+significantly as the epochs progress, indicating that the model may
+not have generalized well.
+
+From the graphs in Figure~\ref{fig:ufcnsysusage}, it is apparent that the
+machine on which this model was trained was relatively underutilized.
+In particular, it's worth noting that GPU utilization did not exceed 30\%,
+and GPU memory was barely utilized, staying at around 20\%.
+This suggests that the model can be trained on less powerful machines as well.
+The model is also relatively lightweight in terms of memory,
+with just 100 MB (see Table~\ref{tab:ufcnspecs}), and the training time
+did not exceed 30 seconds.
+Inference time is extremely fast, taking less than a second.
 

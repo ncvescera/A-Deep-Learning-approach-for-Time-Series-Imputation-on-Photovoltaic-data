@@ -1,8 +1,7 @@
 \section{RNN}\label{sec:rnnbasemodel}
 We will now introduce a second model based on Recurrent Neural Networks.
-We will examine its structure, analyze the training phase,
-and finally evaluate its performance, demonstrating how it manages
-to outperform the previous architecture, the Baseline model introduced in Section~\ref{sec:mlpbaseline}.
+We will examine its structure and analyze the training phase.
+%,and finally evaluate its performance, demonstrating how it manages to outperform the previous architecture, the Baseline model introduced in Section~\ref{sec:mlpbaseline}.
 
 %Andremo ora a presentare un secondo modello che si basa su Recurrent Neural Network. Vedremo la sua struttura, analizzeremo la
 %fase di training ed infine valuteremo le sue performance e mostreremo come
@@ -13,7 +12,7 @@ This model is designed to make the most of the capabilities of
 Recurrent Neural Networks to predict the behavior of instant
 energy production during a variable-length gap period.
 
-The required input format is quite similar to the previous one: a tensor named \textit{before} containing the plant's status for a period before the gap, a tensor named \textit{after} with information about the plant for a period after the gap, and an additional tensor named \textit{future} containing features that are \textit{always} available even during blackout periods. These features specifically include \verb|Solargis|, \verb|isday|, and information obtained from OpenMeteo. This last tensor should assist the model in prediction by helping it better understand the state of meteorological conditions and adapt instant production accordingly.
+The required input format is quite similar to the previous one: a tensor named \textit{before} containing the plant's status for a period before the gap, a tensor named \textit{after} with information about the plant for a period after the gap, and an additional tensor named \textit{future} containing features that are \textit{always} available even during blackout periods. These features specifically include \verb|Solargis|, \verb|isday|, and information obtained from Open-Meteo. This last tensor should assist the model in prediction by helping it better understand the state of meteorological conditions and adapt instant production accordingly.
 
 %The required input format is quite similar to the previous one:
 %a tensor named \textit{before} containing the plant's status
@@ -78,16 +77,18 @@ Now, let's display the main elements that compose it.
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=.9\textheight]{chapters/3_models/imgs/grrun/grrunarchitecture.png}
-	\caption{Recurren Neural Netowrk Based Model architecture visualization.}\label{fig:grrunarchitecture}
+	\caption{Recurrent Neural Network Based Model architecture visualization.}\label{fig:grrunarchitecture}
 \end{figure}
 
 \subsection{Training}
-The model was trained to learn the trend of the instant energy production curve of the plant during gaps of variable lengths, ranging from a minimum of 60 timestamp to a maximum of 4 days, using variable dimensions for both \textit{before} and \textit{after}, ranging from 2 timestamps up to a maximum of 1 day.
+The model was trained to learn the trend of the instant energy production curve of the plant during gaps of variable lengths, ranging from a minimum of 60 timestamps (corresponding to 15 hours)
+%{\bf (*VP metti il corrispondente in ore e minuti)}
+to a maximum of 4 days, using variable dimensions for both \textit{before} and \textit{after}, ranging from 2 timestamps (corresponding to 30 minutes) up to a maximum of 1 day.
 These gaps were artificially generated in the training dataset and provided to the model
 as described earlier, with attention to grouping gaps of the same length in
 batches to avoid complications during training.
 
-In this case, an \textit{Early Stopping}\cite{es} and \textit{Save Best} procedure were implemented
+In this case, an \textit{Early Stopping} and \textit{Save Best} procedure were used %{\bf (*VP* come nella sezione precedente, forse è meglio used invece di implemented.)}
 as well to ensure that the model always saves the best-performing model and to prevent
 resource waste.
 
@@ -98,9 +99,14 @@ to the ground truth area.
 This allows the model to learn the shape of the curve and not exceed the limits
 of energy production during the gap.
 
-The Adam\cite{adam} optimizer was used, and the L1Loss\cite{loss} was applied as the loss function.
+The Adam optimizer was used, and the L1Loss (Equation~\ref{eq:l1loss}) was applied as the loss function.
 The batch size was set to 10, the learning rate ($\lambda$) was set to 0.0001,
 a maximum of 100 epochs was set, and the patience was set to 20.
+
+	{\bf (*VP*
+		%Le citazioni, una volta messe, non serve ripeterle tutte le volte per la stessa corrispondenza. Io le toglierei in questa sezione, perchè sono le stesse della precedente. 
+		%Inserirei invece il riferimento alla formula della loss inserita nella sezione precedente. 
+		Valgono tutte le cose dette prima in merito alla tabella e ai grafici. E' importante fare subito qualche confrotno, per esemio che questo modello è molto più light del precedente perchè ha solo x parametri invece di y e occupa solo x MB invece di y MB. Stessa cosa per i grafici sull'uso delle risorse.)}
 
 %Il modello è stato allenato per cercare di apprendere l'andamento della
 %curva dell'energia istantanea prodotta dall'impianto durante buchi di 
@@ -206,4 +212,17 @@ a maximum of 100 epochs was set, and the patience was set to 20.
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
+
+From the graphs shown in Figure~\ref{fig:grruntraining},
+we can see that the training phase was successful,
+and after an initial descent, the loss values remained relatively
+constant without displaying any abnormal trends.
+The statistics presented in Figure~\ref{fig:grrunsysusage} reveal
+that the machine at our disposal was not fully utilized,
+suggesting that this architecture can be trained and used on
+less powerful computers than the one we have.
+Additionally, the model appears to be very lightweight, both in terms
+of the relatively small number of parameters and its weight,
+which doesn't exceed 400~KB. The inference time does not even
+approach one second, making it extremely fast in execution.
 

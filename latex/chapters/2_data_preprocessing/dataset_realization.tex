@@ -1,5 +1,5 @@
 \section{Dataset Realization}
- {\bf (*VP* se sposti la sez 1.7, devi distinguere fra il dataset dei dati originali e quello ottenuto dalla loro lavorazione. Il primo potrebbe essere "Original Dataset"}
+%{\bf (*VP* se sposti la sez 1.7, devi distinguere fra il dataset dei dati originali e quello ottenuto dalla loro lavorazione. Il primo potrebbe essere "Original Dataset"}
 
 For the creation of a dataset taht can be passed directly to our imputation models, we devised a procedure that
 allowed us to merge all the original files into a single file, where for
@@ -17,7 +17,7 @@ and the algorithm for generating it.
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}[c]{l|l|l|l}
-			\hline
+			%\hline
 			\multicolumn{1}{c|}{\textbf{timestamp}}              &
 			\multicolumn{1}{c|}{\textbf{DEV.NAME$_1$\_FEAT$_1$}} &
 			\multicolumn{1}{c|}{$\ldots$}                        &
@@ -27,7 +27,7 @@ and the algorithm for generating it.
 			01/10/2022 10:00                                     & $\ldots$ & $\ldots$ & $\ldots$ \\
 			01/10/2022 10:05                                     & $\ldots$ & $\ldots$ & $\ldots$ \\
 			01/10/2022 10:10                                     & $\ldots$ & $\ldots$ & $\ldots$ \\
-			\hline
+			%\hline
 		\end{tabular}
 	\end{center}
 	\caption{Final dataset feature structure.}\label{tab:datasetform}
@@ -65,7 +65,7 @@ and the algorithm for generating it.
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}[c]{l|l|l|l}
-			\hline
+			%\hline
 			\multicolumn{1}{c|}{\textbf{timestamp}}      &
 			\multicolumn{1}{c|}{\textbf{INV01\_PowerAC}} &
 			\multicolumn{1}{c|}{\textbf{$\ldots$}}       &
@@ -180,7 +180,7 @@ during the night.
 %periodo di tempo dove è giorno o nette. Questo per assicurarci che
 %non daranno come predizioni produzioni di energia duarante la notte.
 
-\newpage
+%\newpage
 \begin{longtable}[c]{p{0.3\linewidth}|p{0.07\linewidth}| p{0.54\linewidth}}
 	\hline
 	\multicolumn{1}{c|}{\textbf{Feature}}                                                                                                                                                   &
@@ -207,7 +207,7 @@ during the night.
 	\verb|soil_moisture_0_| \verb|   to_7cm| \verb|soil_moisture_7_| \verb|   to_28cm| \verb|soil_moisture_28_| \verb|   to_100cm| \verb|soil_moisture_100_| \verb|   to_255cm|             & $\text{m}^3/\text{m}^3$ & Average soil water content as volumetric mixing ratio at 0-7, 7-28, 28-100 and 100-255 cm depths.                                                                                                                                                                                                      \\
 	\caption{All feature selected from Open-Meteo with description\cite{openmeteo}.}\label{tab:openmeteofeatures}
 \end{longtable}
-
+\newpage
 The new feature \texttt{is\_day} contains two values: 0 and 1,
 representing \textit{Night} and \textit{Day}, respectively.
 To create this feature, we add 0 with a frequency of 5 minutes until sunrise,

@@ -1,19 +1,17 @@
 \chapter{Deep Learning Models}
 In this chapter, we will present three models based on
 different architectures: the first, our baseline, is based on a
-Multi-Layer Perceptron, which will be the most basic one.
-The second model is based on a Recurrent Neural Network, and finally,
+Multi-Layer Perceptron, the second model is based on a Recurrent Neural Network, and finally,
 the last one utilizes the newer and more powerful Transformer layers.
-We will describe in detail their architecture, the various training phases,
-and any associated issues along with their strengths and weaknesses
-for each model.
+We will describe in detail these architectures, the corresponding training phases,
+and any associated issues along with their strengths and weaknesses.
 
 It's important to note that these models were implemented using only
 the PyTorch\cite{pytorch} library.
 Each run was preceded by setting a seed (the same for all runs of each model)
 to allow for comparisons and ensure the repeatability of the
 various operations. For training phase, the dataset created in the
-previous Chapter (\ref{chap:datapreprocessing}) was used and divided
+previous Chapter \ref{chap:datapreprocessing} was used and split
 into training, validation, and testing sets as described in Section~\ref{sec:datasetsplitting}.
 All of these phases were executed on a machine with 64 GB (2x32GB) DDR5 5600MT/s of RAM,
 an AMD Ryzen 9 7950X3D processor, and an Nvidia 4090 GPU.

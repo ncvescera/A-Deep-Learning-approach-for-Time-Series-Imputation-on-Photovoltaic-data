@@ -2,8 +2,7 @@
 Now, we will introduce a third model with an architecture based on Transformers\cite{attention}.
 We will analyze its layers, the training phase, highlighting the differences
 compared to the previous ones, especially in the construction of the input.
-We will see how this model will prove to be the best among the three
-models presented in this thesis.
+%We will see how this model will prove to be the best among the three models presented in this thesis.
 
 %Ora introdurremo un terzo modello la cui architettura di basa sui 
 %Transformers. Andremo ad analizzare la sua architettura, la
@@ -14,11 +13,13 @@ models presented in this thesis.
 \subsection{Architecture}
 The input and operation of this model are slightly different
 from what we have seen previously.
-This model requires an entire week as input, with a gap represented by a
-sequence of special characters, specifically \textquote{-1}.
+This model requires only one tensor as input, representing the data for an entire week, with the \verb|target| feature containing a variable period of values set to \textquote{-1}. This special character, called \textit{placeholder}, indicates to the model the presence of a gap that needs to be filled. %{\bf (*VP* dire meglio che l'input è uno solo invece di più tensori come negli altri modelli, e che il -1 è un placeholder che indica i dati mancanti, se ho capito bene. )}
 This gap can have an extremely variable length,
 ranging from a minimum of 2 timestamps to the equivalent
 of one-third of a week, and it can be positioned anywhere within the week.
+This is a very interesting aspect of the model, as it allows it not only to detect the presence of gaps and fill them easily but also enables the immediate construction and preparation of the input.
+%Questo è un aspetto molto interessante del modello che gli permette, oltre di poter individuare la presenza dei buchi e di chiuderli in modo semplice, permette anche una costruzione e preparazione immediata dell'input.
+%{\bf (*VP* aggiungi una frasetta per dire che questa è una caratteristica interessante del modello che ne permette una applicabilità più ampia, più generale. Sempre se ho capito bene.)}
 
 The model's objective is to learn to predict the entire week, including the gap.
 Through a masking system, we can then extract only the values of interest.
@@ -89,15 +90,17 @@ which are used for evaluating the loss function.
 
 In this case, a procedure for normalizing the area was applied to ensure that the
 model learns the gap curve's behavior.
-The L1Loss\cite{loss} function was employed as the loss function, and AdamW\cite{adamw} was used as the
+The L1Loss (Equation~\ref{eq:l1loss}) function was employed as the loss function, and AdamW\cite{adamw} was used as the
 optimizer with a learning rate ($\lambda$) set to 0.00001.
 The learning rate is then adjusted during training using a cosine annealing scheduler\cite{scheduler1}\cite{scheduler2}
 to provide optimal conditions for the model during this phase.
 
 Additionally, a validation dataset was used to assess the model's
 performance during training and to enable the
-\textit{Early Stopping}\cite{es} and \textit{Save Best} procedures,
-which were also implemented in this case.
+\textit{Early Stopping} and \textit{Save Best} procedures,
+which were also used in this case.
+
+	{\bf (*VP* valgono anche qui tutte le cose dette prima. Sarebbe opportuno giustificare la forma dei grafici reltaivi all'uso dlle risorse, visto che hanno una forma diversa (a trapezio) rispetto a quelle precedenti. Ovviamente se sai giustificarlo, altrimenti lascia stare.)}
 
 %Il modello è stato allenato utilizzando il formato di input discusso in
 %precedenza andando a creare buchi in modo artificiale nel dataset
@@ -219,3 +222,7 @@ which were also implemented in this case.
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
+\newpage
+From the graph shown in Figure~\ref{fig:gabtrainchart}, we can observe that the training and validation loss curves, after an initial descent, remain relatively constant, and most importantly, they do not seem to diverge from each other. This indicates that the training phase has concluded successfully, with the validation loss value being lower by 0.01 compared to the RNN-based model.
+
+From the graphs in Figure~\ref{fig:gabsysusage}, which show the machine's usage during the training phase, and from Table~\ref{tab:gabspecs}, it can be inferred that the model utilizes almost all of the available hardware resources, suggesting that it is computationally intensive and might be challenging to train on less powerful machines. However, it's essential to note that the inference time is extremely fast, not exceeding one second, and the model file size is very compact, with a dimension of approximately 2 MB.

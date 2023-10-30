@@ -1,13 +1,16 @@
 
 \section{MLP based model Evaluation}\label{sec:mlpeval}
-From the training phase graph shown in Figure~\ref{fig:ufcntraining},
-we can see that it has concluded successfully because the two curves
-(training loss and validation loss) do not diverge but remain at a
-relatively constant distance from each other.
-This also suggests that there is no overfitting.
-However, the values of the two loss functions do not appear to decrease
-significantly as the epochs progress, indicating that the model may
-not have generalized well.
+
+{\bf (*VP* la prima cosa da fare è decsrivere per bene il test set. E' importante e non può stare nella caption di una figura. Se ti può essere utile, puoi nominare i 5 periodi di test, tipo T1...T5 in modo tale da usare questi nomi nelle caption delle figure, o dove altro servono. ) }
+
+%From the training phase graph shown in Figure~\ref{fig:ufcntraining},
+%we can see that it has concluded successfully because the two curves
+%(training loss and validation loss) do not diverge but remain at a
+%relatively constant distance from each other.
+%This also suggests that there is no overfitting.
+%However, the values of the two loss functions do not appear to decrease
+%significantly as the epochs progress, indicating that the model may
+%not have generalized well.
 
 
 %Dal grafico della fase di training mostrato in Figura~\ref{fig:ufcntraining}
@@ -19,15 +22,15 @@ not have generalized well.
 %delle epoche ma rimangono pressochè costanti, indice che il modello
 %potrebbe non essere riuscito a generalizzare bene.
 
-From the graphs in Figure~\ref{fig:ufcnsysusage}, it is apparent that the
-machine on which this model was trained was relatively underutilized.
-In particular, it's worth noting that GPU utilization did not exceed 30\%,
-and GPU memory was barely utilized, staying at around 20\%.
-This suggests that the model can be trained on less powerful machines as well.
-The model is also relatively lightweight in terms of memory,
-with just 100 MB (see Table~\ref{tab:ufcnspecs}), and the training time
-did not exceed 30 seconds.
-Inference time is extremely fast, taking less than a second.
+%From the graphs in Figure~\ref{fig:ufcnsysusage}, it is apparent that the
+%machine on which this model was trained was relatively underutilized.
+%In particular, it's worth noting that GPU utilization did not exceed 30\%,
+%and GPU memory was barely utilized, staying at around 20\%.
+%This suggests that the model can be trained on less powerful machines as well. 
+%The model is also relatively lightweight in terms of memory,
+%with just 100 MB (see Table~\ref{tab:ufcnspecs}), and the training time
+%did not exceed 30 seconds.
+%Inference time is extremely fast, taking less than a second.
 
 %Dai grafici in Figura~\ref{fig:ufcnsysusage} possiamo notare come
 %la macchina su cui è stato addestrato questo modello sia stata
@@ -103,17 +106,17 @@ Inference time is extremely fast, taking less than a second.
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=.8\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred2-4.png}
+		\includegraphics[width=.9\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred2-4.png}
 		\caption{}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=.8\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred6-4.png}
+		\includegraphics[width=.9\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred6-4.png}
 		\caption{}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=.8\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred11-4.png}
+		\includegraphics[width=.9\textwidth]{chapters/3_models/imgs/ufnc/eval/ufcpred11-4.png}
 		\caption{}
 	\end{subfigure}
 	\caption{The figure displays three predictions made by the model, where you can observe the network's output (in red) and the ground truth (in blue). The model was tested on two gaps, each covering a period of 2 days. The first gap (a) spans from 02-04-2023 to 04-04-2023, the second gap (b) spans from 06-04-2023 to 06-08-2023
@@ -123,10 +126,12 @@ Inference time is extremely fast, taking less than a second.
 	\label{fig:ufcnevalbelli}
 \end{figure}
 
+{\bf (*VP* ho ingrandito le figure a 0.9, vedi se riducendo la caption puoi aumentarle un altro po'. E fai lo stesso con quelle delle altre sezioni. )}
+
 Analyzing the graphs presented in Figure~\ref{fig:ufcnevalbelli},
 we can confirm the previous suspicion that the model did not learn well how
 to predict the trend of instant energy production from the plant.
-Plot (a) clearly illustrates how the model's prediction is very timid
+Plot (a) clearly shows how the model's prediction is very timid
 and fails to grasp the possibility that some days may be more productive
 than others.
 In graph (b), we can see how the model almost approximates the second
@@ -183,6 +188,8 @@ to each other.
 It's also important to note that the model can only work with
 gaps of a fixed size, and if a gap of a larger size is encountered,
 it would be necessary to retrain the model.
+
+	{\bf (*VP*) qui lasciamo com'è ma per la presentazione vedi se è il caso usare l'esempio in 4.2(c). Perchè il dato reale ha quelle oscillazioni in cui si azzera la predizione durante il giorno? Che si abbassi un po' può capitare (immagino nuvole importanti che vanno e vengono) , ma azzerare mi pare troppo. Qui potrebbe esserci una anomalia ed è giusto che il modello non la catturi.}
 
 %La Figura~\ref{fig:ufcnevalbrutti} mette in risalto i notevoli limiti del modello
 %mostrando come non riesca minimamente ad individuare possibili valori di picco della 
