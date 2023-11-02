@@ -1,4 +1,7 @@
 \section{Transformer based model Evaluation}
+Analyzing the results of the evaluation phase presented partly in Table~\ref{tab:gabpmaer} and in the graphs in Figure~\ref{fig:gabsolobuchi}, we can see that this model is very effective in predicting instantaneous energy during gaps of varying sizes. It excels in this task, whether for gaps of nearly a day or up to three days. We can observe that the $R^2$ index in these cases is consistently high, almost always hovering around the value of 0.97, with relatively low MAE, MAPE and MAPE@20 values.
+
+Examining the global metrics reported in Table~\ref{tab:gabglobalmetrics}(a), we can confirm these findings. It shows an extremely low average MAE of 3.83 kW with a standard deviation of 1.40 kW, an average MAPE of 18.49\% with a standard deviation of 7.99\%, an average MAPE@20 of 11.29$\pm$4.73 and an average $R^2$ value of 0.97$\pm$0.05. This demonstrates how the model effectively approximates the ground truth with very low errors.
 %From the graph shown in Figure~\ref{fig:gabtrainchart}, we can observe that the training and validation loss curves, after an initial descent, remain relatively constant, and most importantly, they do not seem to diverge from each other. This indicates that the training phase has concluded successfully, with the validation loss value being lower by 0.01 compared to the RNN-based model.
 %
 %From the graphs in Figure~\ref{fig:gabsysusage}, which show the machine's usage during the training phase, and from Table~\ref{tab:gabspecs}, it can be inferred that the model utilizes almost all of the available hardware resources, suggesting that it is computationally intensive and might be challenging to train on less powerful machines. However, it's essential to note that the inference time is extremely fast, not exceeding one second, and the model file size is very compact, with a dimension of approximately 2 MB.
@@ -20,47 +23,52 @@
 
 \begin{table}[H]
 	\begin{center}
-		\begin{tabular}[c]{l|l|l|l}
+		\begin{tabular}[c]{l|l|l|l|l|l}
 			%\cline{2-4}
-			\multicolumn{1}{c|}{\textbf{Gap Period}} &
-			\multicolumn{1}{c|}{\textbf{MAE (kW)}}   &
-			\multicolumn{1}{c|}{\textbf{MAPE (\%)}}  &                     % * 100
-			\multicolumn{1}{c}{\textbf{R}$^2$}                             \\
+			                                           &
+			\multicolumn{1}{c|}{\textbf{Gap size}}     &
+			\multicolumn{1}{c|}{\textbf{MAE (kW)}}     &
+			\multicolumn{1}{c|}{\textbf{MAPE (\%)}}    &                                   % * 100
+			\multicolumn{1}{c|}{\textbf{MAPE@20 (\%)}} &                                   % * 100
+			\multicolumn{1}{c}{\textbf{R}$^2$}                                             \\
 			\hline
 
-			05-04 10:15 to 07-04 17:45               & 5.02 & 22.38 & 0.98 \\
-			01-04 10:00 to 01-04 19:45               & 7.24 & 11.72 & 0.96 \\
-			02-04 09:30 to 04-04 08:15               & 3.14 & 25.11 & 0.99 \\
-			05-04 03:00 to 06-04 01:30               & 4.02 & 24.40 & 0.96 \\
+			Fig. \ref{fig:gaballplotsgaps}(a)          & 265 & 5.02 & 22.38 & 15.98 & 0.98 \\
+			Fig. \ref{fig:gaballplotsgaps}(b)          & 40  & 7.24 & 11.72 & 10.80 & 0.96 \\
+			Fig. \ref{fig:gaballplotsgaps}(c)          & 189 & 3.14 & 25.11 & 12.74 & 0.99 \\
+			Fig. \ref{fig:gaballplotsgaps}(d)          & 87  & 4.02 & 24.40 & 14.70 & 0.96 \\
 			% 06-04 to 07-04 & 20.07 & 0.62 &1293.53&50.70&1293.53&25.22 \\
 		\end{tabular}
 	\end{center}
-	\caption{The table displays the values of MAE (Mean Absolute Error), MAPE (Mean Absolute Percentage Error) and the R$^2$ (R-squared) index applied to some model predictions made during testing phase shown in Figures~\ref{fig:gabsolobuchi}.}\label{tab:gabpmaer}
+	\caption{The table displays the values of MAE (Mean Absolute Error), MAPE (Mean Absolute Percentage Error), MAPE@20 and the R$^2$ (R-squared) index applied to some model predictions made during testing phase shown in Figures~\ref{fig:gabsolobuchi}.}\label{tab:gabpmaer}
 	%La tabella mostra i valori del MAE e dell'indice R$^2$ applicate alle predizioni del modello mostrate nelle Figure~\ref{fig:ufcnevalbelli} e \ref{fig:ufcnevalbrutti}.}\label{tab:dfsplit}
 \end{table}
 
 \begin{table}[H]
+
 	\begin{minipage}{.5\textwidth}
 		\centering
-		\begin{tabular}{l|c}
-			\multicolumn{2}{c}{\textit{variable gap size}}            \\
-			                       & \multicolumn{1}{c}{\textbf{AVG}} \\
+		\begin{tabular}{c|c}
+			\multicolumn{2}{c}{\textit{variable gap size}}        \\
+			                   & \multicolumn{1}{c}{\textbf{AVG}} \\
 			\hline
-			\textbf{AVG MAE (kW)}  & 3.83 $\pm$ 1.40                  \\
-			\textbf{AVG MAPE (\%)} & 18.49 $\pm$ 7.99                 \\
-			\textbf{AVG R$^2$}     & 0.97 $\pm$ 0.05
+			\makecell{\textbf{AVG MAE}                            \\\textbf{(kW)}}& 3.83 $\pm$ 1.40\\
+			\makecell{\textbf{AVG MAPE}                           \\\textbf{(\%)}}& 18.49 $\pm$ 7.99\\
+			\makecell{\textbf{AVG MAPE@20}                        \\\textbf{(\%)}}& 11.29 $\pm$ 4.37\\
+			\textbf{AVG R$^2$} & 0.97 $\pm$ 0.05
 		\end{tabular}
 		\caption*{(a)}
 	\end{minipage}%
 	\begin{minipage}{.5\textwidth}
 		\centering
-		\begin{tabular}{l|c}
-			\multicolumn{2}{c}{\textit{2 days gap size}}              \\
-			                       & \multicolumn{1}{c}{\textbf{AVG}} \\
+		\begin{tabular}{c|c}
+			\multicolumn{2}{c}{\textit{2 days gap size}}          \\
+			                   & \multicolumn{1}{c}{\textbf{AVG}} \\
 			\hline
-			\textbf{AVG MAE (kW)}  & 3.76 $\pm$ 0.39                  \\
-			\textbf{AVG MAPE (\%)} & 18.14 $\pm$ 6.76                 \\
-			\textbf{AVG R$^2$}     & 0.98 $\pm$ 0.02
+			\makecell{\textbf{AVG MAE}                            \\\textbf{(kW)}}& 3.76 $\pm$ 0.39\\
+			\makecell{\textbf{AVG MAPE}                           \\\textbf{(\%)}}& 18.14 $\pm$ 6.76\\
+			\makecell{\textbf{AVG MAPE@20}                        \\\textbf{(\%)}}& 11.18 $\pm$ 3.33\\
+			\textbf{AVG R$^2$} & 0.98 $\pm$ 0.02
 		\end{tabular}
 		\caption*{(b)}
 	\end{minipage}%
@@ -86,7 +94,7 @@
 		\includegraphics[width=\textwidth]{chapters/3_models/imgs/gab/eval/gabplotall3.png}
 		\caption{}
 	\end{subfigure}
-	\caption{This figure shows some of the input time series provided to the model during the testing phase. We can see the entire series (in blue), the ground truth only for the gap period (in red), and the model's output only in the relevant gap period (in green). In graph (a), we have a gap size of almost two days, in (b) almost one day, and in (c) just over half a day.}
+	\caption{This figure shows some of the input time series provided to the model during the testing phase. We can see the entire series (in blue), the ground truth only for the gap period (in red), and the model's output only in the relevant gap period (in green). In plot (a), we have a gap size of almost two days, in (b) almost one day, and in (c) just over half a day.}
 	%In questa Figura vengono mostrate alcune serie temporali passate in input al modello durante la fase di testing. Possiamo vedere l'intera serie (in blu), la ground truth solo del buco (in rosso) e l'output del modello solo nel periodo di buco interessato (in verde). Nel grafico (a) abbiamo una gap size di quasi due giorni, in (b) di quasi un giorno ed in (c) di poco più di metà giorno. }
 	\label{fig:gaballplotsgaps}
 \end{figure}
@@ -118,10 +126,6 @@
 	%Nella figura sono mostrati alcuni risultati del modello ottenuti durante la fase di testing, utilizzando gap size di lunghezza variabile. Possiamo vedere gli output del modello (in rosso) confrontati con le relative ground truth (in blu).}
 	\label{fig:gabsolobuchi}
 \end{figure}
-
-Analyzing the results of the evaluation phase presented partly in Table~\ref{tab:gabpmaer} and in the graphs in Figure~\ref{fig:gabsolobuchi}, we can see that this model is very effective in predicting instantaneous energy during gaps of varying sizes. It excels in this task, whether for gaps of nearly a day or up to three days. We can observe that the $R^2$ index in these cases is consistently high, almost always hovering around the value of 0.97, with relatively low MAE and MAPE values.
-
-Examining the global metrics reported in Table~\ref{tab:gabglobalmetrics} (a), we can confirm these findings. It shows an extremely low average MAE of 3.83 kW with a standard deviation of 1.40 kW, an average MAPE of 18.49\% with a standard deviation of 7.99\%, and an average $R^2$ value of 0.97 $\pm$ 0.05. This demonstrates how the model effectively approximates the ground truth with very low errors.
 
 %Analizzando i risultati della fase di valutazione mostrati in 
 %parte nella Tabella~\ref{tab:gabpmaer} e dai grafici in Figura~\ref{fig:gabsolobuchi} possiamo vedere come questo
@@ -159,7 +163,7 @@ Examining the global metrics reported in Table~\ref{tab:gabglobalmetrics} (a), w
 %    \label{fig:enter-label}
 %\end{figure}
 
-\begin{figure}[H]
+\begin{figure}[]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
@@ -176,14 +180,19 @@ Examining the global metrics reported in Table~\ref{tab:gabglobalmetrics} (a), w
 		\includegraphics[width=\textwidth]{chapters/3_models/imgs/gab/eval/2days/gab2giorni104.png}
 		\caption{}
 	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chapters/3_models/imgs/gab/eval/gabeval2giornibucobello.png}
+		\caption{}
+	\end{subfigure}
 	\caption{In this figure, some outputs from the testing phase of the model with a fixed 2-day gap size are presented. The model's predictions are shown in red, while the ground truth is in blue.}
 	%Nella figura sono riportati alcuni output della fasi di testing del modello con gap size fissa a 2 giorni. Le predizioni del modello sono mostrate in rosso mentre la ground turth in blu.}
 	%\caption{This figure displays some results of the model obtained during the testing phase, using gaps of varying lengths. You can see the model's outputs (in red) compared to their respective ground truths (in blue).}
 	%Nella figura sono mostrati alcuni risultati del modello ottenuti durante la fase di testing, utilizzando gap size di lunghezza variabile. Possiamo vedere gli output del modello (in rosso) confrontati con le relative ground truth (in blu).}
 	\label{fig:gabsolobuchi2giorni}
 \end{figure}
-\newpage
-By repeating the evaluation phase with fixed gap sizes of two days to allow for a comparison with the other models, we can notice a slight improvement in the model's performance. Analyzing the data presented in Table~\ref{tab:gabglobalmetrics} (b), we have an average MAE of 3.76 $\pm$ 0.39 kW (2\% improvement with a 72\% better standard deviation), an average MAPE of 18.14 $\pm$ 6.76\% (2\% improvement with a 15\% better standard deviation), and an average $R^2$ value of 0.98 $\pm$ 0.02 (1\% improvement). In general, there is a 2\% overall increase in performance with a significant reduction in the standard deviation values.
+
+By repeating the evaluation phase with fixed gap sizes of two days to allow for a comparison with the other models, we can notice a slight improvement in the model's performance. Analyzing the data presented in Table~\ref{tab:gabglobalmetrics}(b), we have an average MAE of 3.76$\pm$0.39 kW (2\% improvement with a 72\% better standard deviation), an average MAPE of 18.14$\pm$6.76\% (2\% improvement with a 15\% better standard deviation), an average MAPE@20 of 11.18$\pm$3.33 (1\% improvement with a 23\% better standard deviation) and an average $R^2$ value of 0.98$\pm$0.02 (1\% improvement). In general, there is a 2\% overall increase in performance with a significant reduction in the standard deviation values.
 
 %Ripetendo nuovamente la fase di valutazione e fissando a due giorni 
 %le dimensioni dei buchi generabili, per permettere poi un confronto
@@ -198,31 +207,33 @@ By repeating the evaluation phase with fixed gap sizes of two days to allow for 
 
 \begin{table}[H]
 	\begin{center}
-		\begin{tabular}[c]{l|l|l|l}
+		\begin{tabular}[c]{l|l|l|l|l|l}
 			%\cline{2-4}
-			\multicolumn{1}{c|}{\textbf{Gap Period}} &
-			\multicolumn{1}{c|}{\textbf{MAE (kW)}}   &
-			\multicolumn{1}{c|}{\textbf{MAPE (\%)}}  &                     % * 100
-			\multicolumn{1}{c}{\textbf{R}$^2$}                             \\
+			                                           &
+			\multicolumn{1}{c|}{\textbf{Gap size}}     &
+			\multicolumn{1}{c|}{\textbf{MAE (kW)}}     &
+			\multicolumn{1}{c|}{\textbf{MAPE (\%)}}    &                                   % * 100
+			\multicolumn{1}{c|}{\textbf{MAPE@20 (\%)}} &                                   % * 100
+			\multicolumn{1}{c}{\textbf{R}$^2$}                                             \\
 			\hline
 
-			04-04 to 05-04                           & 3.72 & 30.48 & 0.96 \\
-			05-04 to 06-04                           & 4.25 & 26.99 & 0.96 \\
-			06-04 to 07-04                           & 4.59 & 20.39 & 0.98 \\
-			07-04 to 08-04                           & 4.33 & 15.29 & 0.98 \\
-			08-04 to 09-04                           & 3.72 & 22.86 & 0.97 \\
-			09-04 to 10-04                           & 3.52 & 29.76 & 0.94 \\
-			10-04 to 11-04                           & 3.88 & 20.91 & 0.99
-
+			%04-04 to 05-04 & 3.72 &30.48 &0.96\\
+			Fig. \ref{fig:gabsolobuchi2giorni}(a)      & 96 & 4.25 & 26.99 & 19.673 & 0.96 \\
+			%06-04 to 07-04 & 4.59 &20.39&0.98\\
+			%07-04 to 08-04 & 4.33 & 15.29 & 0.98\\
+			%08-04 to 09-04 & 3.72&22.86&0.97\\
+			%09-04 to 10-04 &3.52&29.76&0.94\\
+			Fig. \ref{fig:gabsolobuchi2giorni}(b)      & 96 & 3.88 & 20.91 & 11.94  & 0.99 \\
+			Fig. \ref{fig:gabsolobuchi2giorni}(c)      & 96 & 3.52 & 9.25  & 7.09   & 0.99
 			% 06-04 to 07-04 & 20.07 & 0.62 &1293.53&50.70&1293.53&25.22 \\
 		\end{tabular}
 	\end{center}
-	\caption{The table displays the values of MAE (Mean Absolute Error), MAPE (Mean Absolute Percentage Error), and the R$^2$ (R-squared) index applied to some model predictions made during the testing phase with a fixed gap size of 2 days. Some of these predictions are shown in Figures~\ref{fig:gabsolobuchi2giorni}.}
+	\caption{The table displays the values of MAE (Mean Absolute Error), MAPE (Mean Absolute Percentage Error), MAPE@20, and the R$^2$ (R-squared) index applied to some model predictions made during the testing phase with a fixed gap size of 2 days shown in Figures~\ref{fig:gabsolobuchi2giorni}.}
 	%\label{tab:gabpmaer}
 	%La tabella mostra i valori del MAE e dell'indice R$^2$ applicate alle predizioni del modello mostrate nelle Figure~\ref{fig:ufcnevalbelli} e \ref{fig:ufcnevalbrutti}.}\label{tab:dfsplit}
 \end{table}
 
-In conclusion, we can affirm that, despite the more demanding training phase, this model excels in the task of estimating instant energy production during periods of significantly variable gap sizes, achieving significantly better MAE, MAPE, and R$^2$ index values compared to those of the previous architectures.
+In conclusion, we can affirm that, despite the more demanding training phase, this model excels in the task of estimating instant energy production during periods of significantly variable gap sizes, achieving significantly better MAE, MAPE, MAPE@20, and R$^2$ index values compared to those of the previous architectures.
 
 %In conclusione possiamo affermare che, nonostante la più impegnativa fase di training, questo modello eccelle
 %nel compito di stimare l'energia istantanea prodotta durante periodi

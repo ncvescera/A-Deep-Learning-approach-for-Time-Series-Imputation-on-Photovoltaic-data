@@ -247,8 +247,7 @@ connected layers for both the encoder and decoder, shown in the left and right h
 \begin{itemize}
 	\item \textit{Encoder}: The encoder is composed of a stack of $N = 6$
 	      identical layers. Each layer has two
-	      sub-layers. The first is a multi-head self-attention mechanism\cite{attention}, and the second is a simple, position-
-	      wise fully connected feed-forward network. Residual connection
+	      sub-layers. The first is a multi-head self-attention mechanism \cite{attention}, and the second is a simple, position-wise fully connected feed-forward network. Residual connection
 	      are employed around each of
 	      the two sub-layers, followed by layer normalization. That is, the output of each sub-layer is
 	      $\text{LayerNorm}(x + \text{Sublayer}(x))$, where $\text{Sublayer}(x)$ is the function implemented by the sub-layer
@@ -260,19 +259,19 @@ connected layers for both the encoder and decoder, shown in the left and right h
 	      sub-layers in each encoder layer, the decoder inserts a third sub-layer, which performs multi-head
 	      attention over the output of the encoder stack. Similar to the encoder, there are residual connections
 	      around each of the sub-layers, followed by layer normalization. The self-attention sub-layer is modified in the decoder stack to prevent positions from attending to subsequent positions. This
-	      masking\cite{attention}, combined with fact that the output embeddings are offset by one position, ensures that the
+	      masking \cite{attention}, combined with fact that the output embeddings are offset by one position, ensures that the
 	      predictions for position $i$ can depend only on the known outputs at positions less than $i$.
 
-	\item \textit{Attention}: An attention\cite{attention} function can be described as
+	\item \textit{Attention}: An attention \cite{attention} function can be described as
 	      mapping a query and a set of key-value pairs to an output,
-	      where the query, keys, values, and output are all vectors\cite{trans1}. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the
-	      query with the corresponding key\cite{attention}.
+	      where the query, keys, values, and output are all vectors \cite{trans1}. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the
+	      query with the corresponding key \cite{attention}.
 \end{itemize}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=12cm, keepaspectratio]{chapters/1_introduction/imgs/attention.png}
-	\caption{Scaled Dot-Product Attention\cite{attention} (left). Multi-Head Attention\cite{attention} consists of several attention layers running in parallel (right).}
+	\caption{Scaled Dot-Product Attention \cite{attention} (left). Multi-Head Attention \cite{attention} consists of several attention layers running in parallel (right).}
 	\label{fig:attention}
 \end{figure}
 %

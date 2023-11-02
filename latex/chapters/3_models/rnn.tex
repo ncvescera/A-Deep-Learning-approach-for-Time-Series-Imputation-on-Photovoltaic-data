@@ -45,14 +45,14 @@ Now, let's display the main elements that compose it.
 	      % uno ed un solo giorno prima e dopo il buco, mentre l'ultimo avrà le 
 	      % feature meteo a supporto della predizione che potranno essere di lunghezza variabile. Un esempio di input può essere \verb|[BATCH_SIZE, 96, 33]| (before), \verb|[BATCH_SIZE, 96, 33]| (after) e \verb|[BATCH_SIZE, 288, 18]| (future).
 
-	\item \textbf{Encoder}: This component's role is to identify the most important features described by the \textit{before} and \textit{after} tensors to understand how the plant is operating. These two tensors are passed to two different GRU\cite{gru2} layers, which will analyze these time series and extract key information. The final output of each GRU will then be extracted and concatenated together to form the Hidden State for the \textit{Decoder}.
+	\item \textbf{Encoder}: This component's role is to identify the most important features described by the \textit{before} and \textit{after} tensors to understand how the plant is operating. These two tensors are passed to two different GRU \cite{gru2} layers, which will analyze these time series and extract key information. The final output of each GRU will then be extracted and concatenated together to form the Hidden State for the \textit{Decoder}.
 	      % questo elemento ha il compito di andare
 	      %  ad individuare le caratteristiche più importanti descritte dai
 	      %  tensori \textit{before} e \textit{after} per poter capire quindi come
 	      %  sta funzionando l'impianto. Questi due tensori vengono passati a due
 	      %  layer GRU differenti che andranno ad analizzare queste serie temporali ed estrarranno le informazioni principali. Verrà quindi estrapolato l'ultimo output di ogni GRU per poi essere concatenate l'una dopo l'altra per formare l'Hidden State per il \textit{Decoder}.
 
-	\item \textbf{Middle layer}: This layer consists of 2 Fully Connected Layers. It takes as input the result of the Encoding phase and reshapes it to the necessary format for input to the \textit{Decoder}. For both layers, the ReLU\cite{functions} function is used as the activation function.
+	\item \textbf{Middle layer}: This layer consists of 2 Fully Connected Layers. It takes as input the result of the Encoding phase and reshapes it to the necessary format for input to the \textit{Decoder}. For both layers, the ReLU \cite{functions} function is used as the activation function.
 	      %è formato da 2 Fully Connected Layers. Questo prende in input il risultato della fase di Encoding e lo riporta alla forma necessaria per essere passato
 	      %in input al \textit{Decoder}. Per tutti e due i layer viene utilizzata
 	      %la ReLu come funzione di attivazione.
@@ -73,6 +73,20 @@ Now, let's display the main elements that compose it.
 	      % così da assicurarci che la predizione del modello durante
 	      % la notte sia sempre nulla.
 \end{itemize}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}[c]{l|l}
+			\textbf{Total Parameters (\#)}     & 92,737 \\
+			\textbf{Trainable Parameters (\#)} & 92,737 \\
+			\textbf{Training Duration (s)}     & 49.0   \\
+			\textbf{Model Size (KB)}           & 366.6
+		\end{tabular}
+	\end{center}
+	\caption{RNN based model specification.}\label{tab:grrunspecs}
+\end{table}
+
+As we can immediately see from Table~\ref{tab:grrunspecs}, the model turns out to be extremely compact, with only 92,737 parameters and a total file weight of just around 400 KB. This makes it extremely lightweight, and it could potentially be used in different architectures with varying computational capabilities.
 
 \begin{figure}[H]
 	\centering
@@ -103,10 +117,10 @@ The Adam optimizer was used, and the L1Loss (Equation~\ref{eq:l1loss}) was appli
 The batch size was set to 10, the learning rate ($\lambda$) was set to 0.0001,
 a maximum of 100 epochs was set, and the patience was set to 20.
 
-	{\bf (*VP*
-		%Le citazioni, una volta messe, non serve ripeterle tutte le volte per la stessa corrispondenza. Io le toglierei in questa sezione, perchè sono le stesse della precedente. 
-		%Inserirei invece il riferimento alla formula della loss inserita nella sezione precedente. 
-		Valgono tutte le cose dette prima in merito alla tabella e ai grafici. E' importante fare subito qualche confrotno, per esemio che questo modello è molto più light del precedente perchè ha solo x parametri invece di y e occupa solo x MB invece di y MB. Stessa cosa per i grafici sull'uso delle risorse.)}
+% {\bf (*VP* 
+%Le citazioni, una volta messe, non serve ripeterle tutte le volte per la stessa corrispondenza. Io le toglierei in questa sezione, perchè sono le stesse della precedente. 
+%Inserirei invece il riferimento alla formula della loss inserita nella sezione precedente. 
+%Valgono tutte le cose dette prima in merito alla tabella e ai grafici. E' importante fare subito qualche confrotno, per esemio che questo modello è molto più light del precedente perchè ha solo x parametri invece di y e occupa solo x MB invece di y MB. Stessa cosa per i grafici sull'uso delle risorse.)}
 
 %Il modello è stato allenato per cercare di apprendere l'andamento della
 %curva dell'energia istantanea prodotta dall'impianto durante buchi di 
@@ -126,17 +140,6 @@ a maximum of 100 epochs was set, and the patience was set to 20.
 %Abbiamo impostato a 10 la batch size, a 0.01 il learning rate $\lambda$, un
 %massimo di 100 epoche ed una patience pari a 20.
 
-\begin{table}[H]
-	\begin{center}
-		\begin{tabular}[c]{l|l}
-			\textbf{Total Parameters (\#)}     & 92737 \\
-			\textbf{Trainable Parameters (\#)} & 92737 \\
-			\textbf{Training Duration (s)}     & 49.0  \\
-			\textbf{Model Size (KB)}           & 366.6
-		\end{tabular}
-	\end{center}
-	\caption{RNN based model specification.}\label{tab:grrunspecs}
-\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -144,6 +147,19 @@ a maximum of 100 epochs was set, and the patience was set to 20.
 	\caption{The chart displays the loss progression during the training phase.The blue line represents the Training Loss, while the orange line represents the Validation Loss.}
 	\label{fig:grruntraining}
 \end{figure}
+
+From the plot shown in Figure~\ref{fig:grruntraining},
+we can see that the training phase was successful,
+and after an initial descent, the loss values remained relatively
+constant without displaying any abnormal trends.
+The statistics presented in Figure~\ref{fig:grrunsysusage} reveal
+that the machine at our disposal was not fully utilized,
+suggesting that this architecture can be trained and used on
+less powerful computers than the one we have.
+Additionally, the model appears to be very lightweight, both in terms
+of the relatively small number of parameters and its weight,
+which doesn't exceed 400~KB. The inference time does not even
+approach one second, making it extremely fast in execution.
 
 \begin{figure}[H]
 	\centering
@@ -213,16 +229,5 @@ a maximum of 100 epochs was set, and the patience was set to 20.
 	\end{algorithmic}
 \end{algorithm}
 
-From the graphs shown in Figure~\ref{fig:grruntraining},
-we can see that the training phase was successful,
-and after an initial descent, the loss values remained relatively
-constant without displaying any abnormal trends.
-The statistics presented in Figure~\ref{fig:grrunsysusage} reveal
-that the machine at our disposal was not fully utilized,
-suggesting that this architecture can be trained and used on
-less powerful computers than the one we have.
-Additionally, the model appears to be very lightweight, both in terms
-of the relatively small number of parameters and its weight,
-which doesn't exceed 400~KB. The inference time does not even
-approach one second, making it extremely fast in execution.
+
 

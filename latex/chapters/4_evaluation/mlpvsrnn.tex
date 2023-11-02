@@ -10,52 +10,53 @@ In this final section, we will compare the three models discussed in this thesis
 \begin{table}[H]
 	\centering
 	\begin{tabular}{l|c|c|c|c}
-		             &
-		\makecell{\textbf{Model Size}                                   \\\textbf{(KB)}}
-		             & \makecell{\textbf{Train Time}                    \\\textbf{(s)}}&
-		\makecell{\textbf{GPU Usage}                                    \\\textbf{(\%)}} &
-		\makecell{\textbf{CPU Usage}                                    \\\textbf{(\%)}}\\
+		                     &
+		\makecell{\textbf{Model Size}                                           \\\textbf{(KB)}}
+		                     & \makecell{\textbf{Train Time}                    \\\textbf{(s)}}&
+		\makecell{\textbf{GPU Usage}                                            \\\textbf{(\%)}} &
+		\makecell{\textbf{CPU Usage}                                            \\\textbf{(\%)}}\\
 		\hline
-		\textbf{MLP} & 101.30                        & 24.00  & 20 & 10 \\
-		\textbf{RNN} & 366.60                        & 49.00  & 20 & 27 \\
-		\textbf{TRN} & 2400.0                        & 900.00 & 96 & 56
+		\textbf{MLP}         & 101.30                        & 24.00  & 20 & 10 \\
+		\textbf{RNN}         & 366.60                        & 49.00  & 20 & 27 \\
+		\textbf{Transformer} & 2400.0                        & 900.00 & 96 & 56
 	\end{tabular}
 	\caption{The table presents some data obtained during the training phase of each model.}
 	%Nella tabella sono riportiati alcuni dati ottenuti durante la fase di addestramento di ogni modello.}
 	\label{tab:cmptrainphase}
 \end{table}
 
-Analyzing the data shown in Table~\ref{tab:cmptrainphase}, we can see that the fastest and lightest model to train is the MLP-based one, followed by the RNN-based architecture, and finally, the Transformer. As seen in the previous sections, the first two models can certainly be trained on less powerful hardware compared to the available one, while it might be challenging for the last model. However, it's important to note that the inference time for each model is less than a second.
+Analyzing the data shown in Table~\ref{tab:cmptrainphase}, we can see that the fastest and lightest model to train is the MLP-based one, followed by the RNN-based architecture, and finally, the Transformer. As seen in the previous sections, the first two models can certainly be trained on less powerful hardware compared to the one used for this thesis, while it might be challenging for the last model. However, it's important to note that the inference time for each model is less than a second.
 
-For all three models, the training phase was successfully completed without encountering significant issues. Comparing the graphs showing the training and validation loss curves, as shown in Figure~\ref{fig:ufcntraining}, \ref{fig:grruntraining}, and \ref{fig:gabtrainchart}, we can see that the best one is the Transformer-based model with a final validation loss value of 0.02, which is 0.01 lower than that of the RNN-based model.
+For the models based on RNN and Transformer, the training phase was successfully completed without encountering significant issues. For the one based on MLP, we encountered some problems, especially with the values of the validation loss, as discussed in Section~\ref{sec:mlpbaseline}. Comparing the plots showing the training and validation loss curves, as shown in Figure~\ref{fig:ufcntraining}, \ref{fig:grruntraining}, and \ref{fig:gabtrainchart}, we can see that the best one is the Transformer-based model with a final validation loss value of 0.02, which is 0.01 lower than that of the RNN-based model.
 %Analizzando i dati mostrati nella Tabella~\ref{tab:cmptrainphase} possiamo vedere che il modello più leggero e veloce ad addestrare risulta essere quello basato su MLP, segito poi dall'architettura che sfrutta le RNN ed infine il Transformer. Come anche visto nelle precedenti sezioni, i primi due modelli potrebbero essere sicuramente addestrati anche su architetture meno perfomanti di quella a nostra disposizione, mentre per l'ultimo probabilmente potrebbe essere molto difficile. Ricordiamo però che il tempo di inferenza per ognuno risulta essere inferiore al secondo di tempo.
 
 %Per tutti e tre i modelli la fase di training è conclusa con successo senza riscontrare particolari problematiche. Confrontando i grafici che mostrano le curve della training e validation loss, riportati in Figura~\ref{fig:ufcntraining}, \ref{fig:grruntraining} e \ref{fig:gabtrainchart}, possiamo vedere come la migliore risulta essere quella del modello basato su Transformer con un valore finale della validatin loss di 0.02, inferiore di 0.01 rispetto a quella del modello basato su RNN.
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{l|c|c|c|c|c}
+	\begin{tabular}{c|c|c|c|c|c}
 
-		                   & \textbf{MLP}    & \textbf{RNN}    & \textbf{TRN}   & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}         \\
+		               & \textbf{MLP}    & \textbf{RNN}    & \textbf{Transformer} & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}         \\
 		%\textbf{Model} & \textbf{MAE (kW)} & \textbf{MAPE (\%)} & \textbf{R$^2$} \\
 		\hline
-		                   &                 &                 &                & RNN                                          & TRN   \\
+		               &                 &                 &                      & RNN                                          & Tran. \\
 		\cline{5-6}
-		\textbf{MAE (kW)}  & 14.11$\pm$3.81  & 6.86$\pm$1.87   & 3.76$\pm 0.39$ & 51.38                                        & 45.18 \\
-		\textbf{MAPE (\%)} & 70.98$\pm$27.99 & 28.83$\pm$10.02 & 18.14$\pm$6.76 & 59.38                                        & 30.07 \\
-		\textbf{R$^2$}     & 0.69$\pm$0.17   & 0.92$\pm$0.06   & 0.98$\pm$0.02  & 25.00                                        & 6.12
+		\makecell{\textbf{MAE}                                                                                                           \\\textbf{(kW)}} & 14.11 $\pm$ 3.81&6.86 $\pm$ 1.87&3.76 $\pm$ 0.39 &51.38&45.18\\
+		\makecell{\textbf{MAPE}                                                                                                          \\\textbf{(\%)}} &70.98 $\pm$ 27.99&28.83 $\pm$ 10.02&18.14 $\pm$ 6.76&59.38&30.07\\
+		\makecell{\textbf{MAPE@20}                                                                                                       \\\textbf{(\%)}} &53.01 $\pm$ 20.1&21.02 $\pm$ 8.67&11.18 $\pm$ 3.33&60.34&46.81\\
+		\textbf{R$^2$} & 0.69 $\pm$ 0.17 & 0.92 $\pm$ 0.06 & 0.98 $\pm$ 0.02      & 25.00                                        & 6.12
 
 		%MAE (kW) & 14.11$\pm$3.81 & 70.98$\pm$27.99 & 0.69$\pm$0.17\\
 		%MAPE (\%) &6.86$\pm$1.87 &28.83$\pm$10.02 &0.92$\pm$0.06\\
 		%R$^2$ & 3.76$\pm 0.39$ &18.14$\pm$6.76 & 0.98$\pm$0.02
 	\end{tabular}
-	\caption{In the table, you can find the average values of MAE, MAPE, and the $R^2$ index for the three models, along with their respective standard deviations. Additionally, the Incremental Gain is provided, showing the percentage increase of the RNN model compared to MLP and the Transformer compared to RNN.}
+	\caption{In the table, you can find the average values of MAE, MAPE, MAPE@20, and the $R^2$ index for the three models, along with their respective standard deviations. Additionally, the Incremental Gain is provided, showing the percentage increase of the RNN model compared to MLP and the Transformer compared to RNN.}
 	%Nella tabella sono riportati i valori medi del MAE, MAPE e indice $R^2$ dei tre modelli con la relativa deviazione standard. Viene inoltre mostrato l'Incremental Gain che riporta l'incremento in percentuale del modello RNN confronto al MLP e del Transformer confronto l'RNN.}
 	\label{tab:comglobalmetrics3modelli}
 \end{table}
 
 
-\begin{figure}[H]
+\begin{figure}[]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
@@ -83,9 +84,9 @@ For all three models, the training phase was successfully completed without enco
 	\label{fig:cmperrs}
 \end{figure}
 
-Examining Table~\ref{tab:comglobalmetrics3modelli}, which shows the average values of MAE, MAPE, and the $R^2$ index for the various models, we can observe that the one based on the Transformer is significantly better. The RNN-based model is undoubtedly better than the MLP-based one, with the MAE value being 51\% lower and the MAPE showing an improvement of almost 60\%. The $R^2$ index has also improved by 25\%, indicating that the output of this model much better approximates the instantaneous energy values produced by the plant during 2-day gap periods.
+Examining Table~\ref{tab:comglobalmetrics3modelli}, which shows the average values of MAE, MAPE, MAPE@20, and the $R^2$ index for the three models, we can observe that the one based on the Transformer is significantly better. The RNN-based model is undoubtedly better than the MLP-based one, with the MAE value being 51\% lower, the MAPE showing an improvement of almost 60\% and the MAPE@20 is 60\% better. The $R^2$ index has also improved by 25\%, indicating that the output of this model much better approximates the instantaneous energy values produced by the plant during 2-day gap periods.
 
-However, the Transformer-based architecture excels in this task, with a 45\% improvement in MAE compared to the RNN-based model, a 30\% improvement in MAPE, and a 6\% improvement in the $R^2$ index. This model performs significantly better in predicting the plant's instantaneous energy compared to the RNN-based model, with the added capability of better detecting and understanding the presence of production peaks even over significantly variable time intervals.
+However, the Transformer-based architecture excels in this task, with a 45\% improvement in MAE compared to the RNN-based model, a 30\% improvement in MAPE, a 47\% better MAPE@20 and a 6\% improvement in the $R^2$ index. This model performs significantly better in predicting the plant's instantaneous energy compared to the RNN-based model, with the added capability of better detecting and understanding the presence of production peaks even over significantly variable time intervals.
 
 %Prendendo in esame la Tabella~\ref{tab:comglobalmetrics3modelli}, dove sono riportate i valori medi di MAE, MAPE e indice $R^2$ per i vari modelli, possiamo osservare come il migliore risulta essere decisamente quello basato su Transformer.
 %Il modello basato su RNN è indubbiamente migliore di quello basato su MLP, infatti il valore del MAE è inferiore del 51\%, similmente per il MAPE che abbiamo un miglioramento di quasi il 60\%. Anche l'indice $R^2$ è migliorato del 25 \% suggerendoci ce l'output di questo modello approssima nettamente meglio i valori dell'energia istantanea prodotta dall'impianto durante periodi di buchi di 2 giorni.
@@ -96,18 +97,18 @@ However, the Transformer-based architecture excels in this task, with a 45\% imp
 \begin{table}[H]
 	\centering
 	\begin{tabular}{l|c|c|c}
-		             & \textbf{AVG MAE (kW)} & \textbf{AVG Min Err (kW)} & \textbf{AVG Max Err (kW)} \\
+		                     & \makecell{\textbf{AVG MAE}                \\\textbf{(kW)}} & \makecell{\textbf{AVG Min Err}\\\textbf{(kW)}} & \makecell{\textbf{AVG Max Err}\\\textbf{(kW)}}\\
 		\hline
-		\textbf{MLP} & 13.91                 & 0.35                      & 96.81                     \\
-		\textbf{RNN} & 7.14                  & 0.20                      & 65.56                     \\
-		\textbf{TRN} & 3.76                  & 0.12                      & 26.39
+		\textbf{MLP}         & 13.91                      & 0.35 & 96.81 \\
+		\textbf{RNN}         & 7.14                       & 0.20 & 65.56 \\
+		\textbf{Transformer} & 3.76                       & 0.12 & 26.39
 	\end{tabular}
 	\caption{The table displays the average values of the metrics presented in Table~\ref{tab:cmperrtab}.}
 	% Nella tabella sono riportate i valori medi delle metriche presenti nella Tabella~\ref{tab:cmperrtab}.}
 	\label{tab:cmpavgdiffs}
 \end{table}
-
-These statements are supported by the graphs presented in Figure~\ref{fig:cmperrs} and the corresponding data in Tables~\ref{tab:cmperrtab} and \ref{tab:cmpavgdiffs}. The graphs illustrate the differences in point errors made by the various models. From these, we can see that the Transformer's errors (green line) are extremely compact and often close to the ideal value of 0, with an average value of 3.76 kW. The model based on RNN also has a similar curve (red line) but with values slightly farther from the ideal value and occasional error peaks, with an average value of 7.14 kW. The model based on MLP shows the worst error curve, often significantly deviating from the value of 0, featuring high error peaks, and having an average value of 13.91 kW.
+\newpage
+These statements are supported by the plots presented in Figure~\ref{fig:cmperrs} and the corresponding data in Tables~\ref{tab:cmperrtab} and \ref{tab:cmpavgdiffs}. The plots show the differences in point errors made by the models. From these, we can see that the Transformer's errors (green line) are extremely compact and often close to the ideal value of 0, with an average value of 3.76 kW. The model based on RNN also has a similar curve (red line) but with values slightly farther from the ideal value and occasional error peaks, with an average value of 7.14 kW. The model based on MLP shows the worst error curve, often significantly deviating from the value of 0, featuring high error peaks, and having an average value of 13.91 kW.
 
 We can also observe that the model based on the Transformer has a much lower average maximum point error, at 26.40 kW, compared to the RNN at 65.55 kW and the MLP at 98.81 kW. Similarly, for the average minimum point error, the Transformer-based architecture consistently performs the best, with an average value of 0.12 compared to 0.20 for RNN and 0.35 for MLP.
 %Queste affermazioni vengono supportante anche dai grafici presenti in Figura~\ref{fig:cmperrs} e dai relativi dati in Tabella~\ref{tab:cmperrtab} e \ref{tab:cmpavgdiffs}.
@@ -124,15 +125,16 @@ We can also observe that the model based on the Transformer has a much lower ave
 	\begin{subfigure}{\textwidth}
 		\centering
 		\begin{tabular}{l|l|l|l|l|l}
-			\multicolumn{1}{c|}{\textbf{Gap}} & \multicolumn{3}{c|}{\textbf{MAE (kW)}}
-			                                  & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}                                                             \\
-			\hline
-			                                  & \textbf{MLP}                                 & \textbf{RNN} & \textbf{TRN} & \textbf{RNN} & \textbf{TRN} \\
+			%\multicolumn{1}{c|}{\textbf{Gap}} 
+			                          & \multicolumn{3}{c|}{\textbf{MAE (kW)}}
+			                          & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}                                                                 \\
 			\cline{2-6}
-			03-04 to 04-04                    & 6.90                                         & 3.65         & 2.73         & 47.10        & 25.21        \\
-			04-04 to 05-04                    & 10.41                                        & 5.87         & 3.72         & 43.61        & 36.63        \\
-			05-04 to 06-04                    & 17.99                                        & 7.83         & 4.25         & 56.48        & 45.72        \\
-			10-04 to 11-04                    & 22.14                                        & 6.90         & 3.88         & 68.83        & 43.76
+			                          & \textbf{MLP}                                 & \textbf{RNN} & \textbf{Tran.} & \textbf{RNN} & \textbf{Tran.} \\
+			\hline
+			Fig. \ref{fig:cmperrs}(a) & 6.90                                         & 3.65         & 2.73           & 47.10        & 25.21          \\
+			%04-04 to 05-04&10.41&5.87&3.72&43.61&36.63\\
+			Fig. \ref{fig:cmperrs}(b) & 17.99                                        & 7.83         & 4.25           & 56.48        & 45.72          \\
+			Fig. \ref{fig:cmperrs}(c) & 22.14                                        & 6.90         & 3.88           & 68.83        & 43.76
 		\end{tabular}
 		\caption*{(a)}
 		%\vspace{1cm}
@@ -143,30 +145,32 @@ We can also observe that the model based on the Transformer has a much lower ave
 	\begin{subfigure}{\textwidth}
 		\centering
 		\begin{tabular}{l|l|l|l|l|l}
-			\multicolumn{1}{c|}{\textbf{Gap}} & \multicolumn{3}{c|}{\textbf{Min. Err. (kW)}}
-			                                  & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}                                                             \\
-			\hline
-			                                  & \textbf{MLP}                                 & \textbf{RNN} & \textbf{TRN} & \textbf{RNN} & \textbf{TRN} \\
+			%\multicolumn{1}{c|}{\textbf{Gap}} 
+			                          & \multicolumn{3}{c|}{\textbf{Min. Err. (kW)}}
+			                          & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}                                                                 \\
 			\cline{2-6}
-			03-04 to 04-04                    & 0.10                                         & 0.05         & 0.04         & 50.00        & 20.00        \\
-			04-04 to 05-04                    & 0.20                                         & 0.14         & 0.05         & 30.00        & 64.28        \\
-			05-04 to 06-04                    & 0.07                                         & 0.03         & 0.02         & 57.14        & 33.33        \\
-			10-04 to 11-04                    & 0.19                                         & 0.13         & 0.10         & 31.57        & 23.07
+			                          & \textbf{MLP}                                 & \textbf{RNN} & \textbf{Tran.} & \textbf{RNN} & \textbf{Tran.} \\
+			\hline
+			Fig. \ref{fig:cmperrs}(a) & 0.10                                         & 0.05         & 0.04           & 50.00        & 20.00          \\
+			%04-04 to 05-04 &0.20&0.14&0.05&30.00&64.28\\
+			Fig. \ref{fig:cmperrs}(b) & 0.07                                         & 0.03         & 0.02           & 57.14        & 33.33          \\
+			Fig. \ref{fig:cmperrs}(c) & 0.19                                         & 0.13         & 0.10           & 31.57        & 23.07
 		\end{tabular}
 		\caption*{(b)}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
 		\centering
 		\begin{tabular}{l|l|l|l|l|l}
-			\multicolumn{1}{c|}{\textbf{Gap}} & \multicolumn{3}{c|}{\textbf{Max. Err. (kW)}}
-			                                  & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}                                                             \\
-			\hline
-			                                  & \textbf{MLP}                                 & \textbf{RNN} & \textbf{TRN} & \textbf{RNN} & \textbf{TRN} \\
+			%\multicolumn{1}{c|}{\textbf{Gap}} 
+			                          & \multicolumn{3}{c|}{\textbf{Max. Err. (kW)}}
+			                          & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}                                                                 \\
 			\cline{2-6}
-			03-04 to 04-04                    & 96.28                                        & 26.38        & 19.22        & 72.60        & 27.14        \\
-			04-04 to 04-05                    & 89.01                                        & 60.44        & 20.69        & 32.10        & 65.77        \\
-			05-04 to 06-04                    & 105.01                                       & 63.29        & 35.10        & 39.73        & 44.54        \\
-			10-04 to 11-04                    & 105.20                                       & 63.05        & 28.85        & 40.06        & 54.24
+			                          & \textbf{MLP}                                 & \textbf{RNN} & \textbf{Tran.} & \textbf{RNN} & \textbf{Tran.} \\
+			\hline
+			Fig. \ref{fig:cmperrs}(a) & 96.28                                        & 26.38        & 19.22          & 72.60        & 27.14          \\
+			%04-04 to 04-05&89.01&60.44&20.69&32.10&65.77\\
+			Fig. \ref{fig:cmperrs}(b) & 105.01                                       & 63.29        & 35.10          & 39.73        & 44.54          \\
+			Fig. \ref{fig:cmperrs}(c) & 105.20                                       & 63.05        & 28.85          & 40.06        & 54.24
 		\end{tabular}
 		\caption*{(c)}
 	\end{subfigure}
@@ -175,7 +179,7 @@ We can also observe that the model based on the Transformer has a much lower ave
 	\label{tab:cmperrtab}
 \end{table}
 
-Finally, after the analysis presented in this chapter of the various models, we can conclude that the best model for solving the imputation problem with data from time series of photovoltaic plants, despite the somewhat resource-intensive training phase, is undoubtedly the one based on the Transformer. This is due to its low MAE and MAPE values, and its near-perfect $R^2$ index. Moreover, the RNN-based model performs reasonably well in this task and could be a good alternative if one is willing to accept a slightly higher overall error in exchange for a significantly faster and lighter training phase compared to the Transformer.
+Finally, after the analysis presented in this chapter, we can conclude that the best model for solving the imputation problem with data from time series of photovoltaic plants, despite the somewhat resource-intensive training phase, is undoubtedly the one based on the Transformer. This is due to its low MAE, MAPE and MAPE@20 values, and its near-perfect $R^2$ index. Moreover, the RNN-based model performs reasonably well in this task and could be a good alternative if one is willing to accept a slightly higher overall error in exchange for a significantly faster and lighter training phase compared to the Transformer.
 
 %Infine, dopo l'analisi riportata in questo capitolo dei vari modelli, possiamo concludere che il migliore per 
 %risolvere il problema dell'imputation su dati provenienti da serie temporali di impianti fotovoltaici, nonostante la fase di training sia

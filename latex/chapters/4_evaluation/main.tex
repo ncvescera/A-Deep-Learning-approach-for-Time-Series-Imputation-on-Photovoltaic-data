@@ -1,13 +1,13 @@
 \chapter{Experimental Results}
 In this final chapter, we will analyze the results of the
 models previously described by comparing their respective
-training phases, highlighting any issues and strengths of the model.
-We will test their performance using the Testing dataset,
+test phases, highlighting any issues and strengths of the model.
+We will test their performance using the Test Set,
 as described in Section~\ref{sec:datasetsplitting}, and
-evaluate them using various metrics.
-Among these metrics, we will employ the MAE (Mean Absolute Error)\cite{metrics}
+evaluate them using different metrics.
+Among these metrics, we will employ MAE (Mean Absolute Error) and MAPE (Mean Absolute Percentage Error) \cite{metrics}
 to highlight the difference between the model's predictions and
-the ground truth and the $R^2$ (R-squared)\cite{metrics} index to understand how well
+the ground truth and the $R^2$ (R-squared) \cite{metrics} index to understand how well
 the model-predicted curve approximates the real one.
 Here's a brief introduction to the indices we will use:
 
@@ -23,18 +23,34 @@ Here's a brief introduction to the indices we will use:
 \begin{itemize}
 	\item \textbf{Mean Absolute Error (MAE)}: This metric represents the average pointwise error that the model makes compared to the ground truth. It is expressed in kW.
 	      %MAE dell'intero buco, indica in meda l'errore puntuale che il modello commette rispetto alla ground truth. Viene espresso in kW.
-	\item \textbf{$R^2$ (R-squared)}: This index quantifies how well the prediction curve approximates the ground truth. It helps us understand how well the model approximates the trend of the reference instant prediction. {\bf (*VP* aggiungerei il range di variazione dell'indice, così è chiaro chi sono massimo e minimo raggiungibili.)}
+	\item \textbf{Mean Absolute Percentage Error (MAPE)} \cite{metrics}: It indicates the error of the model relative to the ground truth, measured in percentage. The calculation of this metric in our case can be quite problematic due to the presence of many values close to zero or exactly zero. Therefore, the calculation is performed by only considering non zero values. Specifically, in addition to the standard MAPE, we will employ a refined version named as MAPE@$k$. In this variant, the metric is calculated exclusively for values in the ground truth greater than $k$. This choice is driven by the distortion introduced in MAPE values when incorrect predictions are linked to the lowest values. Such predictions might exhibit low absolute errors, yet correspond to significantly high percentage errors.
+	      %MAPE, indica in percentuale quanto è l'errore del modello rispetto la groundh truth, misurato in percentuale
+	\item \textbf{$R^2$ (R-squared)}: This index quantifies how well the prediction curve approximates the ground truth. It helps us understand how well the model approximates the trend of the reference instant prediction. This varies between 0.0, the worst case, to an ideal value of 1.0 \cite{metrics}.
+	      %({\bf (*VP* aggiungerei il range di variazione dell'indice, così è chiaro chi sono massimo e minimo raggiungibili.)}
 	      %$R^2$, questo indice ci va a quantificare quanto bene la curva della predizione approssimi quella della ground truth. Ci permette di
 	      %capire quanto bene il modello riesce ad approssimare l'andamento della predizione istantanea di riferimento.
 	      %\item \textbf{Daily MAE} FORSE TOGLIERE: It is calculated only for individual days within the gap. This metric highlights the average daily error that the model makes, measured in kW.
 	      %MAE giornaliero, viene calcolato solo sui singoli giorni del buco. Mette in evidenza l'errore giornaliero medio che commette il modello misurato in kW.
 	      %\item \textbf{Global MAE}: This is the average of all daily errors, expressed in kW.
 	      %Global MAE , è la media di tutti i gli errori giornalieri espresso in kW.
-	\item \textbf{Mean Absolute Percentage Error (MAPE)}\cite{metrics}: It indicates the error of the model relative to the ground truth, measured in percentage. The calculation of this metric in our case can be quite problematic due to the presence of many values close to zero or exactly zero. Therefore, the calculation is performed by only considering positive values.
-	      %MAPE, indica in percentuale quanto è l'errore del modello rispetto la groundh truth, misurato in percentuale
+
 \end{itemize}
 
-\newpage
+\section{Testing Procedure}
+All models will be tested using the same test set  introduced in the previous Chapter~\ref{chap:datapreprocessing}. It's important to note that this dataset consists of 33 features, which have been carefully selected as described in Section~\ref{sec:featureselection}, and it contains all the data sampled at 15-minute intervals during the month of April (2880 records). Each model will be tested at least once on this set, according to its suitable input format and capabilities.
+
+%Furthermore, the RNN and Transformer models will undergo additional testing with this set, but the gap size will be fixed at 2 days. This choice was made to facilitate comparisons with the MLP model, which has a rigid input structure. If necessary, the latter two models may also undergo further testing with variations or fixed gap sizes.
+%{\bf (*VP* questo paragagrafo è scritto male... e mi pare abbastanza inutile visti i seguenti. )}
+
+The testing procedure applied to the MLP and RNN models for the purpose of comparison (with a fixed 2-day gap size) will be conducted as follows: a 4-day time window will be applied to the testing dataset, shifting forward by 1 day at each iteration. This approach will generate a 2-day gap to predict, along with the corresponding day before and after. For example, consider the time interval from April 2nd to April 5th (time window). In this case, the gap to predict includes all the data of April 3rd and April 4th, while April 2nd and April 5th are used, respectively as the data before and after the gap.
+
+For the Transformer model, the testing procedure will be similar, with the only difference being the size of the time window. In the case of the Transformer, a 1-week time window will be used, and it will shift forward by 1 day at each iteration due to the model's input format requirements. This approach will ensure that a 2-day gap with relevant data before and after is available for the Transformer model as well.
+
+%Tutti i modelli verranno testati con lo stesso testing set (Aprile 2023) introdotto nel precedente Capitolo~\ref{chap:datapreprocessing}. Ricordiamo come questo è composto da 33 features, che sono state accuratamente selezionate come descritto in sezione~\ref{sec:featureselection}, e contine dati campionati ad un itervallo di 15 minuti. Ogni modello verrà testato almeno una volta su questo set nelle modalità più consone e secondo l'input richiesto ed in base alle sue capacità. Poi i modelli RNN e Transformer verranno ulteriormente testati, sempre con questo set, andando però a fissare la lunghezza dei buchi creati a 2 giorni in moto tale da poter essere confrontati successivamente con MLP data la sua rigidità nell'input. Qual'ora fosse necessario, questi ultimi due, potrebbero essere testati ulteriormente andando a variare o fissare la gap size.
+%
+%La procedura di testing che verrà applicata ai modelli MLP e RNN per essere poi confrontati (gap size fissa a 2 giorni) si svolgerà nel seguente modo: avremo una finestra temporale di 4 giorni che verrà applicata al dataset di testing e scorrerà sempre di 1 giorno in avanti. In questo modo potremmo ottenere, per tutti i modelli, un buco di 2 giorni e il relativo giorno prima e dopo. Per esempio, prendiamo l'intervallo di tempo che va dal 2 Aprile fino al 5 Aprile (finestra temporale). In questo caso il buco da predirre sarà relativo ai giorni 3 e 4, mentre avremo il 2 e il 5 come prima e dopo.
+%Mentre per il transformer cambierà solo la dimensione della finestra temporale, che sarà di una settimana e si sposterà in avanti di 1 giorno, per via del formato dell'input che richiede il modello.
+%\newpage
 
 
 \input{chapters/4_evaluation/mlp}
@@ -42,4 +58,4 @@ Here's a brief introduction to the indices we will use:
 \input{chapters/4_evaluation/transformer}
 %\newpage
 \input{chapters/4_evaluation/mlpvsrnn}
-\input{chapters/4_evaluation/conclusions}
+%\input{chapters/4_evaluation/conclusions}

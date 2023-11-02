@@ -3,27 +3,17 @@ This thesis aims to address the problem of imputing time series data from
 photovoltaic systems. Specifically, it often happens that data acquisition
 instruments in a system temporarily fail, causing a period of time, more or
 less extended, where the curve of the total energy produced is missing.
-%{\bf (*VP* la frase seguente non va bene per una tesi, non è scientifica, cosa sarebbe una simple formula? Direi semplicemente quali sono le cose da considerare e la variabilità dettata anche dai diversi momenti della giornata e/o dell'anno )}
 Closing these gaps is a highly complex task because we must consider not only various factors such as solar irradiance, ambient temperature, cloud cover, rainfall, etc., but also the changing seasons, the passage of hours, and the day/night cycle.
 %To try to fill this \textquote{gap} a simple formula is not sufficient,
 %as various factors such as solar irradiance, ambient temperature,
 %presence of clouds, rainfall, etc., need to be taken into account.
 
-Formally, we can define the problem as follows. %\textbf{(*VP* nella def l'attenzione è puntata sui given invece che sull'oggetto della formula.)}
+Formally, we can define the problem as follows.
 
 \begin{definition}[\textbf{Imputation problem}]
-	%Sia T una serie temporale con n osservazioni, indicata come T = {(t_1, y_1), (t_2, y_2), ..., (t_n, y_n)}, dove t_i rappresenta il tempo e y_i è il valore osservato in quel momento.
-	%
-	%Il problema dell'imputazione dei dati provenienti da serie temporali può essere formulato come segue:
-	%
-	%Dato un sottoinsieme S di indici i = {i_1, i_2, ..., i_m}, dove 1 ≤ i_j ≤ n, il compito è stimare i valori mancanti y_i per i_j appartenenti a S, utilizzando le informazioni dai punti temporalmente adiacenti.
-
-	Given a set of time series data representing a photovoltaic system, $S = {S_1, S_2, \ldots, S_N}$, where $N$ represents the number of available time series;
-	a target time series $t \in S$ that represent the Total Generated Energy, where each time series $S_i$ is composed of ordered pairs $(t_i, v_i)$, where $t_i$ is
-	a timestamp representing the moment when the value $v_i$ was recorded.
-
-	The objective of the imputation problem is to estimate the missing values $v_j'$ for $t_j'$ belonging to $T'$, using information from temporally adjacent time points, where $T'$ is a subset of indices $\{t_1', t_2', ..., t_m'\} \in t$, where $1 \le t_j' \le n$.
-
+	Given a set of $N$ time series data representing a photovoltaic system, $S = \{S_1, S_2, \ldots, S_N\}$, where each time series $S_i = (t_i, v_i)$,
+	represents the moment $t_i$ when the value $v_i$ was recorded and $S^* \in S$ is a specific target series that represent the \textit{Total Generated Energy},
+	the objective of the \textbf{imputation problem} is to estimate eventual missing values $v_j', \ldots, v_{j+h}'$ belonging to $S^*$, using information from other time points temporally adjacent to $t_j'$ and  $t'_{j+h}$.
 \end{definition}
 %La seguente tesi si pone l'obbiettivo di risolvere il problema dell'imputazione
 %di serie temporali di dati provenienti da impianti fotovoltaici. Nello

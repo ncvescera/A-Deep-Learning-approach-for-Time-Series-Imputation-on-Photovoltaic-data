@@ -43,10 +43,10 @@ Let's now delve into the specific elements that characterize and make up this mo
 	\item \textbf{Input}: As described earlier,
 	      the input is a tensor containing one week of data with the
 	      target feature that includes a period of -1 (representing the gap).
-	\item \textbf{Convolution}: The input goes through two convolutional layers to extract and understand the most important and representative features of the time series. Each layer undergoes batch normalization, and the Gaussian Error Linear Units (GELU)\cite{gelu} function is used as the activation function.
-	\item \textbf{Positional Encoder}: To help the model understand the temporal sequence and the order of the different time series, a positional encoder called Time Absolute Position Encoding (tAPE)\cite{tape} is implemented. It incorporates the series length and input embedding dimension for absolute position encoding\cite{tape}.
-	\item \textbf{Transformer Encoder}: After performing positional encoding on the output of the convolutional layers, it is passed to the transformer. This transformer\cite{attention} consists of 2 transformer layers, each of which contains 8 heads for multi-head attention\cite{attention}, 64 layers for the feed-forward part, a dropout rate of 0.1, and GELU as the activation function.
-	\item \textbf{Output}: This is the final layer of the network, responsible for reshaping the transformer's output to the required dimension for use. It is a feed-forward layer with an output dimension of 1, and it applies the Softplus\cite{functions} function as the activation function.
+	\item \textbf{Convolution}: The input goes through two convolutional layers to extract and understand the most important and representative features of the time series. Each layer undergoes batch normalization, and the Gaussian Error Linear Units (GELU) \cite{gelu} function is used as the activation function.
+	\item \textbf{Positional Encoder}: To help the model understand the temporal sequence and the order of the different time series, a positional encoder called Time Absolute Position Encoding (tAPE)\cite{tape} is implemented. It incorporates the series length and input embedding dimension for absolute position encoding \cite{tape}.
+	\item \textbf{Transformer Encoder}: After performing positional encoding on the output of the convolutional layers, it is passed to the transformer. This transformer \cite{attention} consists of 2 transformer layers, each of which contains 8 heads for multi-head attention \cite{attention}, 64 layers for the feed-forward part, a dropout rate of 0.1, and GELU as the activation function.
+	\item \textbf{Output}: This is the final layer of the network, responsible for reshaping the transformer's output to the required dimension for use. It is a feed-forward layer with an output dimension of 1, and it applies the Softplus \cite{functions} function as the activation function.
 \end{itemize}
 
 %\begin{itemize}
@@ -75,7 +75,7 @@ Let's now delve into the specific elements that characterize and make up this mo
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[height=\textheight]{chapters/3_models/imgs/gab/transformerarchitecture.png}
+	\includegraphics[height=.94\textheight]{chapters/3_models/imgs/gab/transformerarchitecture.png}
 	\caption{Transformer Based Model architecture visualization.}\label{fig:gabarchitecture}
 \end{figure}
 
@@ -88,11 +88,11 @@ composed of two elements: 1 to indicate the gap timestamps and 0 for regular tim
 This allows obtaining only the predicted values within the gap,
 which are used for evaluating the loss function.
 
-In this case, a procedure for normalizing the area was applied to ensure that the
+In this case, a procedure for rescaling the area was applied to ensure that the
 model learns the gap curve's behavior.
-The L1Loss (Equation~\ref{eq:l1loss}) function was employed as the loss function, and AdamW\cite{adamw} was used as the
+The L1Loss (Equation~\ref{eq:l1loss}) function was employed as the loss function, and AdamW \cite{adamw} was used as the
 optimizer with a learning rate ($\lambda$) set to 0.00001.
-The learning rate is then adjusted during training using a cosine annealing scheduler\cite{scheduler1}\cite{scheduler2}
+The learning rate is then adjusted during training using a cosine annealing scheduler \cite{scheduler1} \cite{scheduler2}
 to provide optimal conditions for the model during this phase.
 
 Additionally, a validation dataset was used to assess the model's
@@ -100,7 +100,7 @@ performance during training and to enable the
 \textit{Early Stopping} and \textit{Save Best} procedures,
 which were also used in this case.
 
-	{\bf (*VP* valgono anche qui tutte le cose dette prima. Sarebbe opportuno giustificare la forma dei grafici reltaivi all'uso dlle risorse, visto che hanno una forma diversa (a trapezio) rispetto a quelle precedenti. Ovviamente se sai giustificarlo, altrimenti lascia stare.)}
+%{\bf (*VP* valgono anche qui tutte le cose dette prima. Sarebbe opportuno giustificare la forma dei grafici reltaivi all'uso dlle risorse, visto che hanno una forma diversa (a trapezio) rispetto a quelle precedenti. Ovviamente se sai giustificarlo, altrimenti lascia stare.)}
 
 %Il modello è stato allenato utilizzando il formato di input discusso in
 %precedenza andando a creare buchi in modo artificiale nel dataset
@@ -123,9 +123,9 @@ which were also used in this case.
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}[c]{l|l}
-			\textbf{Total Parameters (\#)}     & 594177 \\
-			\textbf{Trainable Parameters (\#)} & 594177 \\
-			\textbf{Training Duration (s)}     & 900.0  \\
+			\textbf{Total Parameters (\#)}     & 594,177 \\
+			\textbf{Trainable Parameters (\#)} & 594,177 \\
+			\textbf{Training Duration (s)}     & 900.0   \\
 			\textbf{Model Size (MB)}           & 2.4
 		\end{tabular}
 	\end{center}
@@ -144,14 +144,18 @@ which were also used in this case.
 	\label{fig:gelu}
 \end{figure}
 
-\begin{figure}[H]
+From the plot shown in Figure~\ref{fig:gabtrainchart}, we can observe that the training and validation loss curves, after an initial descent, remain relatively constant, and most importantly, they do not seem to diverge from each other. This indicates that the training phase has concluded successfully, with the validation loss value being lower by 0.01 compared to the RNN-based model.
+
+From the plots in Figure~\ref{fig:gabsysusage}, which show the machine's usage during the training phase, and from Table~\ref{tab:gabspecs}, it can be inferred that the model utilizes almost all of the available hardware resources, suggesting that it is computationally intensive and might be challenging to train on less powerful machines. However, it's essential to note that the inference time is extremely fast, not exceeding one second, and the model file size is very compact, with a dimension of approximately 2 MB.
+
+\begin{figure}[]
 	\centering
 	\includegraphics[width=.9\textwidth]{chapters/3_models/imgs/gab/gabtraining.png}
 	\caption{The chart displays the loss progression during the training phase.The blue line represents the Training Loss, while the orange line represents the Validation Loss.}
 	\label{fig:gabtrainchart}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[]
 	\centering
 	\begin{subfigure}{0.43\textwidth}
 		\centering
@@ -222,7 +226,5 @@ which were also used in this case.
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
-\newpage
-From the graph shown in Figure~\ref{fig:gabtrainchart}, we can observe that the training and validation loss curves, after an initial descent, remain relatively constant, and most importantly, they do not seem to diverge from each other. This indicates that the training phase has concluded successfully, with the validation loss value being lower by 0.01 compared to the RNN-based model.
+%\newpage
 
-From the graphs in Figure~\ref{fig:gabsysusage}, which show the machine's usage during the training phase, and from Table~\ref{tab:gabspecs}, it can be inferred that the model utilizes almost all of the available hardware resources, suggesting that it is computationally intensive and might be challenging to train on less powerful machines. However, it's essential to note that the inference time is extremely fast, not exceeding one second, and the model file size is very compact, with a dimension of approximately 2 MB.
