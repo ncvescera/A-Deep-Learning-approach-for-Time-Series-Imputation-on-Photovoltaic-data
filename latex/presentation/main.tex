@@ -1,9 +1,11 @@
-\documentclass{beamer}
+\documentclass[xcolor={table,x11names,usenames}]{beamer}
 
 \usepackage{fontawesome5}
 \usepackage[useregional]{datetime2}
 \usepackage{graphicx,wrapfig}
 \usepackage{makecell}
+%\usepackage{xcolor}
+%\usepackage[usenames,dvipsnames]{color}
 
 \usetheme{metropolis}           % Use metropolis theme
 \title{A Deep Learning approach for Time Series Imputation on Photovoltaic data}
@@ -11,24 +13,25 @@
 \DTMsavedate{mydate}{2023-11-09}
 
 %\newdate{date}{09}{11}{2023}
-\date{\DTMusedate{mydate}}
+%\date{\DTMusedate{mydate}}
+\date{November 9th, 2023}
 \author{Nicolò Vescera}
 \institute{Università degli Studi di Perugia}
 \begin{document}
-\maketitle
-
+  \maketitle
+  
 %\begin{frame}{Table of contents}
 %  \setbeamertemplate{section in toc}[sections numbered]
 %  \tableofcontents[hideallsubsections]
 %\end{frame}
+  
+    \input{sections/0_intro/main}
+    \input{sections/1_dataset/main}
+    \input{sections/2_preprocessing/main}
+    \input{sections/3_feature_selection/main}
+    \input{sections/4_models/main}
+    \input{sections/5_eval/main}
 
-\input{sections/0_intro/main}
-\input{sections/1_dataset/main}
-\input{sections/2_preprocessing/main}
-\input{sections/3_feature_selection/main}
-\input{sections/4_models/main}
-\input{sections/5_eval/main}
-
-\section{The end}
-
+    \section{The end}
+    
 \end{document}

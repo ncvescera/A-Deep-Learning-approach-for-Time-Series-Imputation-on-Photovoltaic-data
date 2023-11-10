@@ -1,5 +1,0 @@
-\section{Deep Learning Models}
-
-\input{sections/4_models/mlp}
-\input{sections/4_models/rnn}
-\input{sections/4_models/trans}
