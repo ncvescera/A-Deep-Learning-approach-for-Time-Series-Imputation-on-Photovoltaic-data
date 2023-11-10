@@ -1,0 +1,5 @@
+\section{Intro}
+
+\input{sections/0_intro/problem_intro}
+\input{sections/0_intro/problem_def}
+\input{sections/0_intro/photovoltaic_implant}

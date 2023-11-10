@@ -1,0 +1,6 @@
+\begin{frame}{Target feature}
+	\begin{figure}
+		\centering
+		\includegraphics[height=.87\textheight]{sections/2_preprocessing/imgs/targetfeature.png}
+	\end{figure}
+\end{frame}

@@ -1,8 +1,0 @@
-dirtytalk
-epigraph
-nextpage
-graphbox
-biblatex
-csquotes
-algorithms
-algorithmicx

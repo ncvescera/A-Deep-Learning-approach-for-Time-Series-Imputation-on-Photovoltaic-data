@@ -1,0 +1,54 @@
+\begin{frame}{MLP-based Model Architecture}
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\textwidth]{sections/4_models/imgs/mlp/mlparchitecture.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Training Phase}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{sections/4_models/imgs/mlp/ufnctraining.png}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Training Phase}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{sections/4_models/imgs/mlp/train_chart/ufcncpusage.png}
+	\end{figure}
+
+\end{frame}
+\begin{frame}{Training Phase}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{sections/4_models/imgs/mlp/train_chart/ufcnusagevera.png}
+	\end{figure}
+\end{frame}
+
+%  \begin{frame}{Training Phase}
+%              \centering
+%              \includegraphics[width=.6\textwidth]{sections/4_models/imgs/mlp/train_chart/ufcncpusage.png}
+%              
+%              \vspace{.1cm}
+%              
+%              \includegraphics[width=.6\textwidth]{sections/4_models/imgs/mlp/train_chart/ufcnusagevera.png}
+%  \end{frame}
+
+% \begin{frame}{Training Phase}
+% \begin{columns}
+%     \column[c]{.5\textwidth}
+%         \begin{figure}
+%             \centering
+%             \includegraphics[width=\textwidth]{sections/4_models/imgs/mlp/train_chart/ufcncpusage.png}
+%         \end{figure}
+%     \column[c]{.5\textwidth}
+%         \begin{figure}
+%             \centering
+%             \includegraphics[width=\textwidth]{sections/4_models/imgs/mlp/train_chart/ufcnusagevera.png}
+%         \end{figure}
+% \end{columns}
+% \end{frame}
+
+%UFFICIO ECONOMATO

@@ -1,0 +1,6 @@
+\section{Feature Selection}
+
+\input{sections/3_feature_selection/corrmatrix}
+\input{sections/3_feature_selection/pps}
+\input{sections/3_feature_selection/final_dataset}
+

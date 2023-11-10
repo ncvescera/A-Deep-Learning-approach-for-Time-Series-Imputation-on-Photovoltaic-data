@@ -1,0 +1,34 @@
+\documentclass{beamer}
+
+\usepackage{fontawesome5}
+\usepackage[useregional]{datetime2}
+\usepackage{graphicx,wrapfig}
+\usepackage{makecell}
+
+\usetheme{metropolis}           % Use metropolis theme
+\title{A Deep Learning approach for Time Series Imputation on Photovoltaic data}
+\titlegraphic{\vspace{4.2cm}\hfill\includegraphics[height=2.5cm]{sections/0_intro/imgs/logoUniPg.png}}
+\DTMsavedate{mydate}{2023-11-09}
+
+%\newdate{date}{09}{11}{2023}
+\date{\DTMusedate{mydate}}
+\author{Nicolò Vescera}
+\institute{Università degli Studi di Perugia}
+\begin{document}
+\maketitle
+
+%\begin{frame}{Table of contents}
+%  \setbeamertemplate{section in toc}[sections numbered]
+%  \tableofcontents[hideallsubsections]
+%\end{frame}
+
+\input{sections/0_intro/main}
+\input{sections/1_dataset/main}
+\input{sections/2_preprocessing/main}
+\input{sections/3_feature_selection/main}
+\input{sections/4_models/main}
+\input{sections/5_eval/main}
+
+\section{The end}
+
+\end{document}

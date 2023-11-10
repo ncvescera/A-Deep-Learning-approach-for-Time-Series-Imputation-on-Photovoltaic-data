@@ -1,0 +1,6 @@
+\section{Model Evaluations \& Comparisons}
+
+\input{sections/5_eval/mlp}
+\input{sections/5_eval/rnn}
+\input{sections/5_eval/trans}
+\input{sections/5_eval/comparisons}

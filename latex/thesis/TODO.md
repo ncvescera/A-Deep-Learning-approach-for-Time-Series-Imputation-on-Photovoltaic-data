@@ -1,0 +1,1 @@
+- [ ] C'è una label che è rimasta quella di default

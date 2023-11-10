@@ -1,0 +1,8 @@
+\section{Data Preprocessing}
+
+\input{sections/2_preprocessing/monolitic_table}
+\input{sections/2_preprocessing/timestamp_encoding}
+\input{sections/2_preprocessing/historical_weather}
+\input{sections/2_preprocessing/dealing_gaps}
+\input{sections/2_preprocessing/target_feature}
+\input{sections/2_preprocessing/resampling}

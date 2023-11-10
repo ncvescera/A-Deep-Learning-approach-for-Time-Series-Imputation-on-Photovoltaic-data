@@ -2,10 +2,13 @@ SHELL:=/bin/bash
 CONTAINER := latex_devcontainer-vscode-1
 LATEXCOMPILER := latexmk
 DOCUMENT := main.tex
-ZIPARCHIVE := A-Deep-Learning-approach-for-Time-Series-Imputation-on-Photovoltaic-data.zip
+ZIPARCHIVE_THESIS := A-Deep-Learning-approach-for-Time-Series-Imputation-on-Photovoltaic-data.zip
+ZIPARCHIVE_PRESENTATION := presentazione_tesi.zip
 FORMATTER := latexindent
 LINTER := chktex
 LINTER_IGNORE := -n 8 -n 1
+DIR_THESIS := thesis
+DIR_PRESENTATION := presentation
 
 # .PHONY: build
 all: extract start format build clean stop
@@ -19,16 +22,32 @@ stop:
 install:
 	docker exec -it $(CONTAINER) tlmgr install `cat requirements.txt` && texhash
 
-build: start
-	docker exec -it $(CONTAINER) $(LATEXCOMPILER) -pdf -shell-escape -synctex=1 --enable-write18 -interaction=nonstopmode $(DOCUMENT)
-	# $(MAKE) stop
+thesis: extract-thesis start format build-thesis clean stop
+
+presentation: extract-presentation start format build-presentation clean stop
+
+build-thesis: start
+	docker exec -it $(CONTAINER) cd $(DIR_THESIS) && $(LATEXCOMPILER) -pdf -shell-escape -synctex=1 --enable-write18 -interaction=nonstopmode $(DOCUMENT)
+
+build-presentation: start
+	docker exec -it $(CONTAINER) $(LATEXCOMPILER) -pdf -shell-escape -synctex=1 --enable-write18 -interaction=nonstopmode $(DIR_PRESENTATION)/$(DOCUMENT)
+
+extract-thesis: $(DIR_THESIS)/$(ZIPARCHIVE_THESIS)
+	unzip -o $^ -d $(DIR_THESIS)
+	rm $^
+
+extract-presentation: $(ZIPARCHIVE_PRESENTATION)
+	unzip -o $(ZIPARCHIVE_PRESENTATION)
+	rm $(ZIPARCHIVE_PRESENTATION)
+
+check-thesis: start
+	docker exec -it $(CONTAINER) $(LINTER) $(LINTER_IGNORE) $(DIR_THESIS)/$(DOCUMENT)
+
+check-presentation: start
+	docker exec -it $(CONTAINER) $(LINTER) $(LINTER_IGNORE) $(DIR_PRESENTATION)/$(DOCUMENT)
 
 format: start
 	docker exec -it $(CONTAINER) $(FORMATTER) -w $(shell find . -name "*.tex")
-
-extract: $(ZIPARCHIVE)
-	unzip -o $(ZIPARCHIVE)
-	rm $(ZIPARCHIVE)
 
 clean:
 	docker exec -it $(CONTAINER) latexmk -c
@@ -39,9 +58,6 @@ clean:
 	find . -name "*.gnuplot" | xargs rm
 	find . -name "*.xml" | xargs rm
 	find . -name "*.bak*" | xargs rm
-
-check: start
-	docker exec -it $(CONTAINER) $(LINTER) $(LINTER_IGNORE) $(DOCUMENT)
 
 
 help:

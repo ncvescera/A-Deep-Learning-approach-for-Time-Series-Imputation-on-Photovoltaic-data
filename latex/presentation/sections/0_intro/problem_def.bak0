@@ -1,0 +1,8 @@
+\begin{frame}{Problem Definition}
+	Given a set of $N$ time series $S = \{S_1, S_2, \ldots, S_N\}$,
+	where each $S_i = \left(t_i, v_i\right)$, represents the moment $t_i$ when $v_i$ was recorded,
+
+	$S^* \in S$, a specific target series that represent the \textit{Total generated energy},
+
+	The objective of the \textbf{imputation problem} is to \textbf{estimate eventual missing values} $v′_j, \ldots,v′_{j+h} \in S^*$, using other time points temporally adjacent to $t′_j$ and $t′_{j+h}$.
+\end{frame}

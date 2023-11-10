@@ -1,0 +1,57 @@
+\section{Problem Definition}
+This thesis aims to address the problem of imputing time series data from
+photovoltaic systems. Specifically, it often happens that data acquisition
+instruments in a system temporarily fail, causing a period of time, more or
+less extended, where the curve of the total energy produced is missing.
+Closing these gaps is a highly complex task because we must consider not only various factors such as solar irradiance, ambient temperature, cloud cover, rainfall, etc., but also the changing seasons, the passage of hours, and the day/night cycle.
+%To try to fill this \textquote{gap} a simple formula is not sufficient,
+%as various factors such as solar irradiance, ambient temperature,
+%presence of clouds, rainfall, etc., need to be taken into account.
+
+Formally, we can define the problem as follows.
+
+\begin{definition}[\textbf{Imputation problem}]
+	Given a set of $N$ time series data representing a photovoltaic system, $S = \{S_1, S_2, \ldots, S_N\}$, where each time series $S_i = (t_i, v_i)$,
+	represents the moment $t_i$ when the value $v_i$ was recorded and $S^* \in S$ is a specific target series that represent the \textit{Total Generated Energy},
+	the objective of the \textbf{imputation problem} is to estimate eventual missing values $v_j', \ldots, v_{j+h}'$ belonging to $S^*$, using information from other time points temporally adjacent to $t_j'$ and  $t'_{j+h}$.
+\end{definition}
+%La seguente tesi si pone l'obbiettivo di risolvere il problema dell'imputazione
+%di serie temporali di dati provenienti da impianti fotovoltaici. Nello
+%specifico, accade molto spesso che gli strumenti di acquisizione dati di un
+%impianto falliscano momentaneamente causando un periodo di tempo, più o meno
+%lungo, dove la curva dell'energia totale prodotta è assente. Per cercare di
+%colmare questo \textquote{buco} non basta un semplice calcolo dato che vanno tenuti in
+%considerazione vari fattori come l'irraggiamento solare, temperatura ambientale,
+%presenza di nuvole, pioggia, ecc.
+%Formalmente possiamo definire il problema come segue:
+
+%\begin{definition}
+%    Siano dati:
+%    \begin{enumerate}
+%        \item  Un insieme di serie temporali di dati rappresentanti un impianto
+%              fotovoltaico, $S = \{S_1, S_2, ..., S_N\}$, dove $N$ rappresenta
+%              il numero di serie temporali disponibili;
+%        \item Una serie temporale target $t \in S$ che rappresenta l'Energia
+%              Totale Prodotta;
+%        \item Ogni serie temporale $S_i$ è composta da coppie ordinate $(t_i, v_i)$,
+%              dove $t_i$ è un timestamp che rappresenta il momento in cui è stato
+%              registrato il valore $v_i$.
+%    \end{enumerate}
+%
+%    L'obiettivo del problema dell'imputazione è stimare i valori mancanti o
+%    danneggiati nella serie temporale $t$.
+%\end{definition}
+%
+% Data una serie temporale proveniente da un impianto fotovoltaico, definiamo come
+% \textit{buco} l'assenza di dati per un periodo limitato di tempo e la
+% \textit{target feature} come la feature che vogliamo predirre (nel caso
+% specifico l'Energia Totale Prodotta). L'obbiettivo è quindi quello di restituire
+% in output l'andamento della \textit{target feature} durante il periodo di
+% \textit{buco} facendo attenzione che la quantità dell'energia prodotta alla fine
+% del \textit{buco} sia esattamente uguale a quella nota immediatamente dopo.
+
+
+
+
+
+

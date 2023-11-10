@@ -1,0 +1,48 @@
+\begin{frame}{Comparisons}
+	\centering
+	\includegraphics[width=\textwidth]{sections/5_eval/imgs/cmps/cmp3.png}
+	\includegraphics[width=\textwidth]{sections/5_eval/imgs/cmps/cmp4.png}
+\end{frame}
+
+%\begin{frame}{Comparisons}
+%   \centering
+%    \begin{tabular}{c|c|c|c|c|c}
+%    
+%       & \textbf{MLP} & \textbf{RNN} & \textbf{TRN} & \multicolumn{2}{c}{\textbf{Incr. Gain (\%)}}\\
+%        %\textbf{Model} & \textbf{MAE (kW)} & \textbf{MAPE (\%)} & \textbf{R$^2$} \\
+%        \hline
+%        &&&&RNN&Tran.\\
+%        \cline{5-6}
+%        \makecell{\textbf{MAE}\\\textbf{(kW)}} & 14.11 &6.86 &3.76 &51.38&45.18\\
+%        \hline
+%        \makecell{\textbf{MAPE}\\\textbf{(\%)}} &70.98 &28.83 &18.14 &59.38&30.07\\
+%        \hline
+%        \makecell{\textbf{MAPE@20}\\\textbf{(\%)}} &53.01 &21.02 &11.18 &60.34&46.81\\
+%        \hline
+%        \textbf{R$^2$} &0.69 &0.92 &0.98 &25.00&6.12
+%    
+%         %MAE (kW) & 14.11$\pm$3.81 & 70.98$\pm$27.99 & 0.69$\pm$0.17\\
+%         %MAPE (\%) &6.86$\pm$1.87 &28.83$\pm$10.02 &0.92$\pm$0.06\\
+%         %R$^2$ & 3.76$\pm 0.39$ &18.14$\pm$6.76 & 0.98$\pm$0.02
+%         
+%    \end{tabular} 
+%\end{frame}
+
+\begin{frame}{Comparisons}
+	\centering
+	\begin{tabular}{cl|c|c}
+		                      & \multicolumn{1}{c}{} & \multicolumn{2}{c}{\textbf{Gain (\%)}}                                   \\
+		                      &                      & \textbf{\textit{ MLP vs RNN}}          & \textbf{\textit{RNN vs Trans.}} \\
+		\cline{2-4}
+		                      & \textbf{MAE}         & 51.38                                  & 45.18                           \\
+		\cline{2-4}
+		                      & \textbf{MAPE}        & 59.38                                  & 30.07                           \\
+		\cline{2-4}
+		                      & \textbf{MAPE@20}     & 60.34                                  & 46.81                           \\
+		\cline{2-4}
+		                      & \textbf{R$^2$}       & 25.00                                  & 6.12                            \\
+		\multicolumn{4}{c}{}                                                                                                    \\
+		\hline
+		\textbf{\textit{AVG}} &                      & \textit{49.03}                         & \textit{32.05}
+	\end{tabular}
+\end{frame}
